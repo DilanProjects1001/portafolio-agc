@@ -10,7 +10,7 @@ Cada carpeta es un proyecto independiente con su propio README, código y verifi
 
 | Proyecto | Descripción | Tecnología | Fecha |
 |----------|-------------|------------|-------|
-| _(el primero aparecerá pronto)_ | | | |
+| [calculadora-credito](calculadora-credito/) | Calculadora de crédito con amortización francesa | HTML/CSS/JS | 09/07/2026 |
 
 ---
 

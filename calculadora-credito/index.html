@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Calculadora de Crédito</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main class="tarjeta">
+    <header class="encabezado">
+      <h1>💳 Calculadora de Crédito</h1>
+      <p class="subtitulo">Calcula la cuota mensual de tu préstamo con amortización francesa.</p>
+    </header>
+
+    <!-- Formulario de datos del préstamo -->
+    <form id="formulario" class="formulario">
+      <div class="campo">
+        <label for="monto">Monto del préstamo</label>
+        <div class="entrada-con-simbolo">
+          <span class="simbolo">$</span>
+          <input type="number" id="monto" name="monto" min="1" step="any"
+                 placeholder="10000" value="10000" required>
+        </div>
+      </div>
+
+      <div class="campo">
+        <label for="tasa">Tasa de interés anual (%)</label>
+        <div class="entrada-con-simbolo">
+          <input type="number" id="tasa" name="tasa" min="0" step="any"
+                 placeholder="12" value="12" required>
+          <span class="simbolo simbolo-derecha">%</span>
+        </div>
+      </div>
+
+      <div class="campo">
+        <label for="meses">Plazo (meses)</label>
+        <input type="number" id="meses" name="meses" min="1" step="1"
+               placeholder="24" value="24" required>
+      </div>
+
+      <button type="submit" class="boton-calcular">Calcular</button>
+    </form>
+
+    <!-- Mensaje de error (si los datos no son válidos) -->
+    <p id="mensaje-error" class="mensaje-error" role="alert"></p>
+
+    <!-- Bloque de resultados -->
+    <section id="resultado" class="resultado visible" aria-live="polite">
+      <div class="resultado-principal">
+        <span class="resultado-etiqueta">Pago mensual</span>
+        <span id="pago-mensual" class="resultado-valor-grande">$470.73</span>
+      </div>
+      <div class="resultado-detalles">
+        <div class="resultado-item">
+          <span class="resultado-etiqueta">Total pagado</span>
+          <span id="total-pagado" class="resultado-valor">$11,297.63</span>
+        </div>
+        <div class="resultado-item">
+          <span class="resultado-etiqueta">Total intereses</span>
+          <span id="total-interes" class="resultado-valor">$1,297.63</span>
+        </div>
+      </div>
+    </section>
+
+    <footer class="pie">
+      <p>Los resultados son estimaciones. Consulta a tu entidad financiera para cifras exactas.</p>
+    </footer>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>

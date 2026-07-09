@@ -1,0 +1,242 @@
+/* =========================================================================
+   style.css — Estilos de la Calculadora de Crédito
+   -------------------------------------------------------------------------
+   Diseño limpio y responsivo, con colores de buen contraste, botones
+   grandes y textos legibles. Todo funciona sin conexión (sin CDNs).
+   ========================================================================= */
+
+/* Variables de color para mantener la coherencia visual. */
+:root {
+  --color-fondo: #0f172a;        /* Azul muy oscuro (fondo general). */
+  --color-tarjeta: #ffffff;      /* Blanco (tarjeta principal). */
+  --color-primario: #2563eb;     /* Azul intenso (botones, acentos). */
+  --color-primario-oscuro: #1d4ed8;
+  --color-exito: #059669;        /* Verde (valor destacado). */
+  --color-texto: #1e293b;        /* Gris azulado oscuro (texto). */
+  --color-texto-suave: #64748b;  /* Gris medio (subtítulos). */
+  --color-borde: #cbd5e1;        /* Gris claro (bordes). */
+  --color-error: #dc2626;        /* Rojo (mensajes de error). */
+  --color-fondo-resultado: #f1f5f9; /* Gris muy claro (bloque resultados). */
+}
+
+/* Reseteo básico y tipografía. */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  background: linear-gradient(135deg, #0f172a 0%, #1e3a8a 100%);
+  color: var(--color-texto);
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+/* Tarjeta principal que contiene toda la calculadora. */
+.tarjeta {
+  background: var(--color-tarjeta);
+  width: 100%;
+  max-width: 460px;
+  border-radius: 18px;
+  padding: 32px;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.35);
+}
+
+/* Encabezado. */
+.encabezado {
+  text-align: center;
+  margin-bottom: 24px;
+}
+
+.encabezado h1 {
+  font-size: 1.7rem;
+  color: var(--color-texto);
+}
+
+.subtitulo {
+  margin-top: 8px;
+  color: var(--color-texto-suave);
+  font-size: 0.95rem;
+}
+
+/* Formulario y campos. */
+.formulario {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.campo {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.campo label {
+  font-weight: 600;
+  font-size: 0.95rem;
+  color: var(--color-texto);
+}
+
+/* Entradas de texto/número. */
+input[type="number"] {
+  width: 100%;
+  padding: 14px 16px;
+  font-size: 1.05rem;
+  border: 2px solid var(--color-borde);
+  border-radius: 10px;
+  color: var(--color-texto);
+  transition: border-color 0.15s ease;
+}
+
+input[type="number"]:focus {
+  outline: none;
+  border-color: var(--color-primario);
+}
+
+/* Campos con un símbolo ($ o %) integrado. */
+.entrada-con-simbolo {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.entrada-con-simbolo .simbolo {
+  position: absolute;
+  left: 16px;
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: var(--color-texto-suave);
+  pointer-events: none;
+}
+
+.entrada-con-simbolo .simbolo + input {
+  padding-left: 34px; /* Deja espacio para el símbolo de la izquierda. */
+}
+
+.entrada-con-simbolo .simbolo-derecha {
+  left: auto;
+  right: 16px;
+}
+
+/* Botón grande de calcular. */
+.boton-calcular {
+  margin-top: 6px;
+  padding: 16px;
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: #ffffff;
+  background: var(--color-primario);
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: background 0.15s ease, transform 0.05s ease;
+}
+
+.boton-calcular:hover {
+  background: var(--color-primario-oscuro);
+}
+
+.boton-calcular:active {
+  transform: scale(0.99);
+}
+
+/* Mensaje de error. */
+.mensaje-error {
+  margin-top: 14px;
+  color: var(--color-error);
+  font-weight: 600;
+  font-size: 0.95rem;
+  text-align: center;
+  min-height: 1.2em;
+}
+
+/* Bloque de resultados. */
+.resultado {
+  margin-top: 22px;
+  background: var(--color-fondo-resultado);
+  border-radius: 14px;
+  padding: 22px;
+  display: none; /* Oculto hasta que se calcula (o se muestra el ejemplo). */
+}
+
+.resultado.visible {
+  display: block;
+}
+
+.resultado-principal {
+  text-align: center;
+  padding-bottom: 18px;
+  border-bottom: 1px solid var(--color-borde);
+}
+
+.resultado-etiqueta {
+  display: block;
+  font-size: 0.9rem;
+  color: var(--color-texto-suave);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.resultado-valor-grande {
+  display: block;
+  margin-top: 6px;
+  font-size: 2.4rem;
+  font-weight: 800;
+  color: var(--color-exito);
+}
+
+.resultado-detalles {
+  display: flex;
+  justify-content: space-around;
+  gap: 12px;
+  margin-top: 18px;
+}
+
+.resultado-item {
+  text-align: center;
+  flex: 1;
+}
+
+.resultado-valor {
+  display: block;
+  margin-top: 6px;
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--color-texto);
+}
+
+/* Pie de página. */
+.pie {
+  margin-top: 22px;
+  text-align: center;
+}
+
+.pie p {
+  font-size: 0.8rem;
+  color: var(--color-texto-suave);
+}
+
+/* Ajustes para pantallas pequeñas (móviles). */
+@media (max-width: 480px) {
+  .tarjeta {
+    padding: 22px;
+  }
+
+  .encabezado h1 {
+    font-size: 1.4rem;
+  }
+
+  .resultado-valor-grande {
+    font-size: 2rem;
+  }
+
+  .resultado-detalles {
+    flex-direction: column;
+  }
+}
