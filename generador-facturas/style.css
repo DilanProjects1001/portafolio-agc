@@ -1,0 +1,442 @@
+/* =========================================================================
+   style.css — Generador de Facturas y Presupuestos
+   -------------------------------------------------------------------------
+   Diseño limpio y profesional, buen contraste, responsivo. Sin CDNs.
+   Incluye una sección @media print para que la impresión/PDF salga limpia
+   (sin botones ni controles de edición).
+   ========================================================================= */
+
+:root {
+  --color-fondo: #eef2f7;
+  --color-doc: #ffffff;
+  --color-primario: #0f766e;      /* Verde azulado (acento principal). */
+  --color-primario-oscuro: #115e59;
+  --color-secundario: #334155;
+  --color-peligro: #dc2626;
+  --color-texto: #1e293b;
+  --color-texto-suave: #64748b;
+  --color-borde: #cbd5e1;
+  --color-borde-suave: #e2e8f0;
+  --color-cabecera-tabla: #0f766e;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  background: var(--color-fondo);
+  color: var(--color-texto);
+  padding: 24px 16px;
+}
+
+.pagina {
+  max-width: 860px;
+  margin: 0 auto;
+}
+
+/* -------------------------------------------------------------------------
+   Barra de acciones (botones). No se imprime.
+   ------------------------------------------------------------------------- */
+.barra-acciones {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 18px;
+}
+
+.btn {
+  padding: 12px 18px;
+  font-size: 0.98rem;
+  font-weight: 700;
+  color: #ffffff;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background 0.15s ease, transform 0.05s ease;
+}
+
+.btn:active {
+  transform: scale(0.98);
+}
+
+.btn-primario {
+  background: var(--color-primario);
+}
+
+.btn-primario:hover {
+  background: var(--color-primario-oscuro);
+}
+
+.btn-secundario {
+  background: var(--color-secundario);
+}
+
+.btn-secundario:hover {
+  background: #1e293b;
+}
+
+.btn-peligro {
+  background: var(--color-peligro);
+}
+
+.btn-peligro:hover {
+  background: #b91c1c;
+}
+
+.aviso-guardado {
+  margin-left: auto;
+  font-size: 0.85rem;
+  color: var(--color-primario);
+  font-weight: 600;
+}
+
+/* -------------------------------------------------------------------------
+   Documento (la "hoja" de la factura/presupuesto).
+   ------------------------------------------------------------------------- */
+.documento {
+  background: var(--color-doc);
+  border-radius: 12px;
+  padding: 40px;
+  box-shadow: 0 12px 40px rgba(15, 23, 42, 0.12);
+}
+
+.cabecera-doc {
+  display: flex;
+  justify-content: space-between;
+  gap: 24px;
+  flex-wrap: wrap;
+  border-bottom: 3px solid var(--color-primario);
+  padding-bottom: 20px;
+  margin-bottom: 24px;
+}
+
+.marca h1 {
+  font-size: 1.5rem;
+  color: var(--color-primario);
+  margin-bottom: 6px;
+}
+
+.marca .editable {
+  font-size: 0.9rem;
+  color: var(--color-texto-suave);
+  max-width: 340px;
+}
+
+/* Campos editables: se marcan sutilmente al pasar/enfocar. */
+[contenteditable="true"] {
+  outline: none;
+  border-radius: 4px;
+  transition: background 0.15s ease;
+}
+
+[contenteditable="true"]:hover,
+[contenteditable="true"]:focus {
+  background: #f1f5f9;
+}
+
+.tipo-doc {
+  text-align: right;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  align-items: flex-end;
+}
+
+.etiqueta-tipo {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: var(--color-texto-suave);
+}
+
+.tipo-doc select {
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: var(--color-primario);
+  border: 2px solid var(--color-borde);
+  border-radius: 8px;
+  padding: 6px 10px;
+  background: #ffffff;
+  cursor: pointer;
+}
+
+.campo-meta {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.9rem;
+}
+
+.campo-meta span {
+  color: var(--color-texto-suave);
+  font-weight: 600;
+}
+
+.campo-meta input {
+  width: 130px;
+  padding: 7px 10px;
+  font-size: 0.95rem;
+  border: 2px solid var(--color-borde);
+  border-radius: 8px;
+  color: var(--color-texto);
+}
+
+/* Cliente. */
+.cliente {
+  margin-bottom: 24px;
+}
+
+.cliente h2,
+.notas h2 {
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: var(--color-texto-suave);
+  margin-bottom: 8px;
+}
+
+.cliente input {
+  display: block;
+  width: 100%;
+  max-width: 480px;
+  padding: 9px 12px;
+  margin-bottom: 8px;
+  font-size: 0.98rem;
+  border: 2px solid var(--color-borde);
+  border-radius: 8px;
+  color: var(--color-texto);
+}
+
+input:focus,
+select:focus {
+  outline: none;
+  border-color: var(--color-primario);
+}
+
+/* -------------------------------------------------------------------------
+   Tabla de ítems.
+   ------------------------------------------------------------------------- */
+.tabla-items table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 22px;
+}
+
+.tabla-items thead th {
+  background: var(--color-cabecera-tabla);
+  color: #ffffff;
+  font-size: 0.85rem;
+  font-weight: 700;
+  text-align: left;
+  padding: 12px 10px;
+}
+
+.tabla-items thead th.col-cant,
+.tabla-items thead th.col-precio,
+.tabla-items thead th.col-importe {
+  text-align: right;
+}
+
+.tabla-items th.col-desc { width: 46%; }
+.tabla-items th.col-cant { width: 14%; }
+.tabla-items th.col-precio { width: 18%; }
+.tabla-items th.col-importe { width: 18%; }
+.tabla-items th.col-quitar { width: 4%; }
+
+.tabla-items tbody td {
+  padding: 6px 8px;
+  border-bottom: 1px solid var(--color-borde-suave);
+  vertical-align: middle;
+}
+
+.tabla-items tbody input {
+  width: 100%;
+  padding: 8px 8px;
+  font-size: 0.95rem;
+  border: 1px solid transparent;
+  border-radius: 6px;
+  color: var(--color-texto);
+  background: transparent;
+}
+
+.tabla-items tbody input:focus {
+  border-color: var(--color-primario);
+  background: #f8fafc;
+}
+
+.tabla-items input.cant,
+.tabla-items input.precio {
+  text-align: right;
+}
+
+.tabla-items td.importe {
+  text-align: right;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.btn-quitar {
+  width: 30px;
+  height: 30px;
+  border: none;
+  border-radius: 6px;
+  background: #fee2e2;
+  color: var(--color-peligro);
+  font-size: 1.1rem;
+  font-weight: 700;
+  cursor: pointer;
+  line-height: 1;
+}
+
+.btn-quitar:hover {
+  background: #fecaca;
+}
+
+/* -------------------------------------------------------------------------
+   Totales.
+   ------------------------------------------------------------------------- */
+.totales {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 12px;
+}
+
+.fila-config {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--color-texto-suave);
+}
+
+.fila-config input {
+  width: 90px;
+  padding: 7px 10px;
+  border: 2px solid var(--color-borde);
+  border-radius: 8px;
+  text-align: right;
+  color: var(--color-texto);
+}
+
+.cuadro-totales {
+  width: 100%;
+  max-width: 320px;
+}
+
+.linea-total {
+  display: flex;
+  justify-content: space-between;
+  padding: 8px 4px;
+  font-size: 1rem;
+  border-bottom: 1px solid var(--color-borde-suave);
+}
+
+.linea-total .valor {
+  font-variant-numeric: tabular-nums;
+  font-weight: 600;
+}
+
+.linea-total.gran-total {
+  margin-top: 4px;
+  padding: 14px 12px;
+  background: var(--color-primario);
+  color: #ffffff;
+  border-radius: 10px;
+  border-bottom: none;
+  font-size: 1.25rem;
+  font-weight: 800;
+}
+
+/* Notas. */
+.notas {
+  margin-top: 28px;
+  border-top: 1px solid var(--color-borde-suave);
+  padding-top: 16px;
+}
+
+.notas p {
+  font-size: 0.9rem;
+  color: var(--color-texto-suave);
+  line-height: 1.5;
+}
+
+.pie-app {
+  text-align: center;
+  margin-top: 18px;
+  font-size: 0.82rem;
+  color: var(--color-texto-suave);
+}
+
+/* -------------------------------------------------------------------------
+   Responsivo.
+   ------------------------------------------------------------------------- */
+@media (max-width: 640px) {
+  .documento {
+    padding: 22px;
+  }
+
+  .cabecera-doc {
+    flex-direction: column;
+  }
+
+  .tipo-doc {
+    align-items: flex-start;
+    text-align: left;
+  }
+
+  .tabla-items thead th {
+    font-size: 0.75rem;
+    padding: 8px 6px;
+  }
+}
+
+/* -------------------------------------------------------------------------
+   IMPRESIÓN / PDF: ocultamos controles y dejamos solo el documento limpio.
+   ------------------------------------------------------------------------- */
+@media print {
+  body {
+    background: #ffffff;
+    padding: 0;
+  }
+
+  .no-imprimir {
+    display: none !important;
+  }
+
+  .documento {
+    box-shadow: none;
+    border-radius: 0;
+    padding: 0;
+    max-width: 100%;
+  }
+
+  [contenteditable="true"]:hover,
+  [contenteditable="true"]:focus {
+    background: transparent;
+  }
+
+  input,
+  select {
+    border-color: transparent !important;
+    background: transparent !important;
+    -webkit-appearance: none;
+    appearance: none;
+  }
+
+  .gran-total {
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  .tabla-items thead th {
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+}

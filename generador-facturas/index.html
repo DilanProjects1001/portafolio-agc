@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Generador de Facturas y Presupuestos</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="pagina">
+    <!-- Barra de acciones (no se imprime) -->
+    <div class="barra-acciones no-imprimir">
+      <button type="button" id="btn-agregar" class="btn btn-primario">➕ Agregar fila</button>
+      <button type="button" id="btn-calcular" class="btn btn-secundario">🧮 Calcular total</button>
+      <button type="button" id="btn-imprimir" class="btn btn-secundario">🖨️ Imprimir / PDF</button>
+      <button type="button" id="btn-limpiar" class="btn btn-peligro">🗑️ Limpiar</button>
+      <span id="aviso-guardado" class="aviso-guardado"></span>
+    </div>
+
+    <!-- Documento (esto es lo que se imprime) -->
+    <main class="documento" id="documento">
+      <header class="cabecera-doc">
+        <div class="marca">
+          <h1 contenteditable="true" id="empresa-nombre" data-clave="empresaNombre">Tu Empresa S.A.</h1>
+          <p class="editable" contenteditable="true" id="empresa-datos" data-clave="empresaDatos">Dirección · Teléfono · correo@empresa.com · NIF/RUC</p>
+        </div>
+        <div class="tipo-doc">
+          <label class="etiqueta-tipo" for="tipo-documento">Documento</label>
+          <select id="tipo-documento" data-clave="tipoDocumento">
+            <option value="FACTURA">FACTURA</option>
+            <option value="PRESUPUESTO">PRESUPUESTO</option>
+          </select>
+          <div class="campo-meta">
+            <span>Nº</span>
+            <input type="text" id="numero-doc" data-clave="numeroDoc" placeholder="0001">
+          </div>
+          <div class="campo-meta">
+            <span>Fecha</span>
+            <input type="date" id="fecha-doc" data-clave="fechaDoc">
+          </div>
+        </div>
+      </header>
+
+      <section class="cliente">
+        <h2>Cliente</h2>
+        <input type="text" id="cliente-nombre" data-clave="clienteNombre" placeholder="Nombre del cliente">
+        <input type="text" id="cliente-datos" data-clave="clienteDatos" placeholder="Dirección · Identificación fiscal · contacto">
+      </section>
+
+      <section class="tabla-items">
+        <table>
+          <thead>
+            <tr>
+              <th class="col-desc">Descripción</th>
+              <th class="col-cant">Cantidad</th>
+              <th class="col-precio">Precio unitario</th>
+              <th class="col-importe">Importe</th>
+              <th class="col-quitar no-imprimir"></th>
+            </tr>
+          </thead>
+          <tbody id="cuerpo-items">
+            <!-- Las filas se generan con JavaScript -->
+          </tbody>
+        </table>
+      </section>
+
+      <section class="totales">
+        <div class="fila-config no-imprimir">
+          <label for="iva-porcentaje">Impuesto (IVA %)</label>
+          <input type="number" id="iva-porcentaje" data-clave="ivaPorcentaje" value="21" min="0" step="any">
+        </div>
+        <div class="cuadro-totales">
+          <div class="linea-total">
+            <span>Subtotal</span>
+            <span id="tot-subtotal" class="valor">0,00</span>
+          </div>
+          <div class="linea-total">
+            <span id="etiqueta-iva">IVA (21%)</span>
+            <span id="tot-iva" class="valor">0,00</span>
+          </div>
+          <div class="linea-total gran-total">
+            <span>TOTAL</span>
+            <span id="tot-total" class="valor">0,00</span>
+          </div>
+        </div>
+      </section>
+
+      <footer class="notas">
+        <h2>Notas</h2>
+        <p class="editable" contenteditable="true" id="notas" data-clave="notas">Condiciones de pago, validez del presupuesto, agradecimientos…</p>
+      </footer>
+    </main>
+
+    <p class="pie-app no-imprimir">
+      Todo se guarda en tu navegador (localStorage). Tus datos no salen de tu equipo.
+    </p>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
