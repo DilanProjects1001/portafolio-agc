@@ -1,5 +1,7 @@
 # Generador de Facturas y Presupuestos 🧾
 
+🌐 **Demo en vivo:** https://agc-generador-facturas.pages.dev
+
 Una **app web sencilla** para crear facturas y presupuestos con aspecto profesional,
 directamente en tu navegador. Escribes los datos de tu empresa y del cliente, agregas los
 ítems (descripción, cantidad y precio), y la app calcula sola el **subtotal**, el
