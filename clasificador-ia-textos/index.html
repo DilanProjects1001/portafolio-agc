@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Clasificador de Textos con IA</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main class="tarjeta">
+    <header class="encabezado">
+      <h1>🧠 Clasificador de Textos</h1>
+      <p class="subtitulo">
+        Pega un mensaje y descubre su categoría (spam, urgente, queja, consulta
+        o normal) con un nivel de confianza. Funciona en tu equipo, sin conexión.
+      </p>
+      <span id="modo-texto" class="modo">Modo: reglas (sin conexión)</span>
+    </header>
+
+    <!-- Entrada de texto -->
+    <section class="entrada-bloque">
+      <label for="entrada">Texto a clasificar</label>
+      <textarea id="entrada" spellcheck="false"
+        placeholder="Escribe o pega aquí el mensaje… por ejemplo: «¡Oferta especial! Gana dinero gratis, haz clic aquí»"></textarea>
+
+      <div class="ejemplos">
+        <span class="ejemplos-titulo">Prueba con un ejemplo:</span>
+        <button type="button" class="chip" data-ejemplo="¡Oferta especial! Gana dinero gratis, haz clic aquí y llévate tu premio.">Spam</button>
+        <button type="button" class="chip" data-ejemplo="Esto urge, es una emergencia. Necesito respuesta cuanto antes, ahora mismo.">Urgente</button>
+        <button type="button" class="chip" data-ejemplo="Quiero poner una queja: el producto llegó defectuoso y exijo un reembolso.">Queja</button>
+        <button type="button" class="chip" data-ejemplo="Tengo una duda, ¿cuánto cuesta el servicio y cuál es el horario de atención?">Consulta</button>
+      </div>
+
+      <div class="botones">
+        <button type="button" id="btn-clasificar" class="btn btn-primario">Clasificar</button>
+        <button type="button" id="btn-limpiar" class="btn btn-secundario">Limpiar</button>
+      </div>
+    </section>
+
+    <!-- Resultado -->
+    <section id="resultado" class="resultado" aria-live="polite">
+      <div class="resultado-cabecera">
+        <span class="resultado-titulo">Categoría detectada</span>
+        <span id="badge-categoria" class="badge">—</span>
+      </div>
+
+      <div class="barra-confianza">
+        <div id="barra-relleno" class="barra-relleno"></div>
+      </div>
+      <p id="confianza-texto" class="confianza-texto">Confianza: —</p>
+      <p id="detalle-coincidencias" class="detalle-coincidencias"></p>
+    </section>
+
+    <footer class="pie">
+      <p>
+        Clasificación por reglas de palabras clave. Se puede conectar a un modelo
+        de IA (LLM) configurando una clave de API en el archivo <code>.env</code>
+        (ver <code>.env.example</code>).
+      </p>
+    </footer>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
