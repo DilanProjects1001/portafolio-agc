@@ -6,3 +6,4 @@ _edge_profile/
 **/_edge_profile/
 node_modules/
 _agc3_state.json
+.wrangler/

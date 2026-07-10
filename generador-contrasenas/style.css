@@ -1,0 +1,244 @@
+/*
+ * style.css — Estilos del Generador de Contraseñas
+ * ------------------------------------------------
+ * Diseño limpio y cómodo: colores con buen contraste, botones grandes,
+ * textos legibles. Todo autocontenido (sin fuentes ni librerías externas).
+ */
+
+/* Variables de color para mantener una paleta coherente y fácil de ajustar */
+:root {
+  --fondo: #0f172a;          /* Azul muy oscuro de fondo */
+  --tarjeta: #1e293b;        /* Panel principal */
+  --texto: #f1f5f9;          /* Texto claro y legible */
+  --texto-suave: #94a3b8;    /* Texto secundario */
+  --acento: #38bdf8;         /* Celeste vivo para acentos */
+  --acento-fuerte: #0ea5e9;  /* Celeste más intenso (hover) */
+  --exito: #22c55e;          /* Verde para confirmaciones */
+  --error: #f87171;          /* Rojo suave para errores */
+  --borde: #334155;
+}
+
+/* Reinicio básico para un punto de partida consistente */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  background: linear-gradient(160deg, #0f172a 0%, #131c30 100%);
+  color: var(--texto);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  line-height: 1.5;
+}
+
+/* Tarjeta central que contiene toda la aplicación */
+.tarjeta {
+  background: var(--tarjeta);
+  border: 1px solid var(--borde);
+  border-radius: 16px;
+  padding: 32px;
+  width: 100%;
+  max-width: 460px;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.45);
+}
+
+h1 {
+  font-size: 1.6rem;
+  margin-bottom: 8px;
+  text-align: center;
+}
+
+.subtitulo {
+  color: var(--texto-suave);
+  font-size: 0.95rem;
+  text-align: center;
+  margin-bottom: 24px;
+}
+
+/* Cada campo del formulario con separación cómoda */
+.campo {
+  margin-bottom: 20px;
+}
+
+.campo label {
+  display: block;
+  margin-bottom: 10px;
+  font-size: 1rem;
+}
+
+.campo strong {
+  color: var(--acento);
+  font-size: 1.15rem;
+}
+
+/* Deslizador de longitud, grande y fácil de usar */
+input[type="range"] {
+  width: 100%;
+  height: 8px;
+  border-radius: 5px;
+  background: var(--borde);
+  appearance: none;
+  -webkit-appearance: none;
+  cursor: pointer;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: var(--acento);
+  border: 3px solid #ffffff;
+  cursor: pointer;
+}
+
+input[type="range"]::-moz-range-thumb {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: var(--acento);
+  border: 3px solid #ffffff;
+  cursor: pointer;
+}
+
+/* Grupo de casillas de opciones */
+.opciones {
+  border: 1px solid var(--borde);
+  border-radius: 12px;
+  padding: 16px;
+  margin-bottom: 24px;
+}
+
+.opciones legend {
+  padding: 0 8px;
+  color: var(--texto-suave);
+  font-size: 0.9rem;
+}
+
+.opcion {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 4px;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+/* Casillas más grandes para que sean cómodas de tocar */
+.opcion input[type="checkbox"] {
+  width: 20px;
+  height: 20px;
+  accent-color: var(--acento);
+  cursor: pointer;
+}
+
+/* Botón principal, grande y visible */
+.boton-principal {
+  width: 100%;
+  padding: 16px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #0b1120;
+  background: var(--acento);
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: background 0.2s ease, transform 0.1s ease;
+}
+
+.boton-principal:hover {
+  background: var(--acento-fuerte);
+}
+
+.boton-principal:active {
+  transform: scale(0.98);
+}
+
+/* Zona donde se muestra el resultado + botón copiar */
+.resultado-zona {
+  display: flex;
+  gap: 10px;
+  margin-top: 24px;
+}
+
+#resultado {
+  flex: 1;
+  padding: 14px;
+  font-size: 1.05rem;
+  font-family: "Consolas", "Courier New", monospace;
+  letter-spacing: 1px;
+  color: var(--texto);
+  background: #0b1120;
+  border: 1px solid var(--borde);
+  border-radius: 10px;
+}
+
+.boton-copiar {
+  padding: 0 20px;
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--texto);
+  background: var(--borde);
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.boton-copiar:hover {
+  background: #475569;
+}
+
+/* Barra de fuerza de la contraseña */
+.fuerza-contenedor {
+  margin-top: 16px;
+  height: 10px;
+  background: var(--borde);
+  border-radius: 5px;
+  overflow: hidden;
+}
+
+.barra-fuerza {
+  height: 100%;
+  width: 0%;
+  border-radius: 5px;
+  transition: width 0.3s ease, background 0.3s ease;
+}
+
+/* Colores de la barra según el nivel de seguridad */
+.fuerza-0 { background: #ef4444; }
+.fuerza-1 { background: #f97316; }
+.fuerza-2 { background: #eab308; }
+.fuerza-3 { background: #84cc16; }
+.fuerza-4 { background: var(--exito); }
+
+.texto-fuerza {
+  margin-top: 8px;
+  font-size: 0.9rem;
+  color: var(--texto-suave);
+  min-height: 1.2em;
+}
+
+/* Mensajes de estado (errores y confirmaciones) */
+.mensaje {
+  margin-top: 12px;
+  min-height: 1.2em;
+  font-size: 0.95rem;
+  text-align: center;
+  color: var(--acento);
+}
+
+.pie {
+  margin-top: 24px;
+  color: var(--texto-suave);
+  font-size: 0.85rem;
+  text-align: center;
+}

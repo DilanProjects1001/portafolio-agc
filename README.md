@@ -14,6 +14,7 @@ Cada carpeta es un proyecto independiente con su propio README, código y verifi
 | [conversor-csv-json](conversor-csv-json/) | Conversor CSV ↔ JSON con validación y interfaz gráfica | HTML/CSS/JS | 09/07/2026 |
 | [generador-facturas](generador-facturas/) | Generador de facturas y presupuestos web con auto-guardado e impresión limpia ([Demo en vivo](https://agc-generador-facturas.pages.dev)) | HTML/CSS/JS | 09/07/2026 |
 | [clasificador-ia-textos](clasificador-ia-textos/) | Clasificador de textos (spam, urgente, queja, consulta) por reglas con opción de IA (LLM) ([Demo en vivo](https://agc-clasificador-ia-textos.pages.dev)) | HTML/CSS/JS | 09/07/2026 |
+| [generador-contrasenas](generador-contrasenas/) | Generador de contraseñas seguras con medidor de fuerza, 100% offline en el navegador | HTML/CSS/JS | 09/07/2026 |
 
 ---
 

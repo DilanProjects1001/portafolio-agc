@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Generador de Contraseñas Seguras</title>
+  <!-- Estilos propios y autocontenidos (sin CDNs) -->
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <main class="tarjeta">
+    <header>
+      <h1>🔐 Generador de Contraseñas</h1>
+      <p class="subtitulo">
+        Crea contraseñas seguras al instante. Todo funciona en tu navegador:
+        nada se envía a internet.
+      </p>
+    </header>
+
+    <!-- Formulario con todas las opciones de generación -->
+    <form id="formulario">
+      <!-- Control de longitud mediante deslizador -->
+      <div class="campo">
+        <label for="longitud">
+          Longitud: <strong id="valor-longitud">12</strong> caracteres
+        </label>
+        <input
+          type="range"
+          id="longitud"
+          name="longitud"
+          min="4"
+          max="64"
+          value="12"
+        />
+      </div>
+
+      <!-- Casillas para elegir qué tipos de caracteres incluir -->
+      <fieldset class="opciones">
+        <legend>Incluir:</legend>
+
+        <label class="opcion">
+          <input type="checkbox" id="mayusculas" checked />
+          <span>Mayúsculas (A-Z)</span>
+        </label>
+
+        <label class="opcion">
+          <input type="checkbox" id="minusculas" checked />
+          <span>Minúsculas (a-z)</span>
+        </label>
+
+        <label class="opcion">
+          <input type="checkbox" id="numeros" checked />
+          <span>Números (0-9)</span>
+        </label>
+
+        <label class="opcion">
+          <input type="checkbox" id="simbolos" />
+          <span>Símbolos (!@#$…)</span>
+        </label>
+      </fieldset>
+
+      <!-- Botón principal para generar -->
+      <button type="submit" class="boton-principal">Generar contraseña</button>
+    </form>
+
+    <!-- Zona de resultado -->
+    <section class="resultado-zona">
+      <input
+        type="text"
+        id="resultado"
+        readonly
+        placeholder="Aquí aparecerá tu contraseña…"
+      />
+      <button type="button" id="boton-copiar" class="boton-copiar">
+        Copiar
+      </button>
+    </section>
+
+    <!-- Barra visual de fuerza de la contraseña -->
+    <div class="fuerza-contenedor">
+      <div id="barra-fuerza" class="barra-fuerza"></div>
+    </div>
+    <p id="texto-fuerza" class="texto-fuerza"></p>
+
+    <!-- Mensajes de error o confirmación -->
+    <p id="mensaje" class="mensaje" role="status"></p>
+  </main>
+
+  <footer class="pie">
+    <p>Proyecto de portafolio · Hecho con HTML, CSS y JavaScript puros.</p>
+  </footer>
+
+  <!-- Lógica de la aplicación -->
+  <script src="script.js"></script>
+</body>
+</html>
