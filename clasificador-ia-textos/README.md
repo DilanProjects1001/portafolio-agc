@@ -1,5 +1,7 @@
 # Clasificador de Textos con IA 🧠
 
+🌐 **Demo en vivo:** https://agc-clasificador-ia-textos.pages.dev
+
 Una **app web sencilla** que lee un mensaje y te dice a qué **categoría** pertenece:
 **spam**, **urgente**, **queja**, **consulta** o **normal**, junto con un **nivel de
 confianza** (0-100%). Ideal para ordenar correos, mensajes de clientes o formularios.
