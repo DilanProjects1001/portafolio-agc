@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Conversor CSV ↔ JSON</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main class="tarjeta">
+    <header class="encabezado">
+      <h1>🔄 Conversor CSV ↔ JSON</h1>
+      <p class="subtitulo">
+        Pega tus datos, elige la dirección y conviértelos al instante. Funciona
+        en tu equipo, sin conexión y sin instalar nada.
+      </p>
+    </header>
+
+    <!-- Opciones de conversión -->
+    <section class="opciones">
+      <div class="campo-opcion">
+        <label for="delimitador">Separador de columnas</label>
+        <select id="delimitador">
+          <option value=",">Coma ( , )</option>
+          <option value=";">Punto y coma ( ; )</option>
+          <option value="tab">Tabulación</option>
+        </select>
+      </div>
+      <label class="campo-check">
+        <input type="checkbox" id="encabezados" checked>
+        La primera fila son los nombres de columna
+      </label>
+    </section>
+
+    <!-- Áreas de entrada y salida -->
+    <section class="paneles">
+      <div class="panel">
+        <div class="panel-titulo">
+          <span>Entrada</span>
+          <div class="panel-acciones">
+            <button type="button" id="btn-ejemplo" class="mini">Ejemplo</button>
+            <button type="button" id="btn-limpiar" class="mini">Limpiar</button>
+          </div>
+        </div>
+        <textarea id="entrada" spellcheck="false"
+          placeholder="Pega aquí tu CSV o tu JSON..."></textarea>
+      </div>
+
+      <div class="botones-centro">
+        <button type="button" id="btn-csv-json" class="boton-accion">
+          CSV → JSON ▸
+        </button>
+        <button type="button" id="btn-json-csv" class="boton-accion">
+          ◂ JSON → CSV
+        </button>
+      </div>
+
+      <div class="panel">
+        <div class="panel-titulo">
+          <span>Resultado</span>
+          <div class="panel-acciones">
+            <button type="button" id="btn-copiar" class="mini">Copiar</button>
+            <button type="button" id="btn-descargar" class="mini">Descargar</button>
+          </div>
+        </div>
+        <textarea id="salida" spellcheck="false" readonly
+          placeholder="Aquí aparecerá el resultado convertido..."></textarea>
+      </div>
+    </section>
+
+    <!-- Mensajes y avisos de validación -->
+    <div id="mensajes" class="mensajes" role="status" aria-live="polite"></div>
+
+    <footer class="pie">
+      <p>
+        Todo se procesa en tu navegador: tus datos nunca salen de tu equipo.
+      </p>
+    </footer>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>

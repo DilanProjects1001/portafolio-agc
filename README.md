@@ -11,6 +11,7 @@ Cada carpeta es un proyecto independiente con su propio README, código y verifi
 | Proyecto | Descripción | Tecnología | Fecha |
 |----------|-------------|------------|-------|
 | [calculadora-credito](calculadora-credito/) | Calculadora de crédito con amortización francesa | HTML/CSS/JS | 09/07/2026 |
+| [conversor-csv-json](conversor-csv-json/) | Conversor CSV ↔ JSON con validación y interfaz gráfica | HTML/CSS/JS | 09/07/2026 |
 
 ---
 
