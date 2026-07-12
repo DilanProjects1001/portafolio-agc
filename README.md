@@ -16,6 +16,7 @@ Cada carpeta es un proyecto independiente con su propio README, código y verifi
 | [clasificador-ia-textos](clasificador-ia-textos/) | Clasificador de textos (spam, urgente, queja, consulta) por reglas con opción de IA (LLM) ([Demo en vivo](https://agc-clasificador-ia-textos.pages.dev)) | HTML/CSS/JS | 09/07/2026 |
 | [generador-contrasenas](generador-contrasenas/) | Generador de contraseñas seguras con medidor de fuerza, 100% offline en el navegador | HTML/CSS/JS | 09/07/2026 |
 | [gestor-tareas-local](gestor-tareas-local/) | Gestor de tareas (to-do) 100% en el navegador con guardado automático en localStorage, filtros y sin servidores | HTML+CSS+JS | 10/07/2026 |
+| [P2P Drop Radar](https://github.com/DilanProjects1001/p2p-drop-radar) | Radar en tiempo real de caídas de precio VES/USDT en Binance P2P: dashboard con modelo de probabilidad transparente, panel admin y modo demo ([Demo en vivo](https://agc-p2p-drop-radar.pages.dev)) | Cloudflare Pages + Workers + D1 | 11/07/2026 |
 
 ---
 
