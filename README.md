@@ -18,6 +18,7 @@ Cada carpeta es un proyecto independiente con su propio README, código y verifi
 | [gestor-tareas-local](gestor-tareas-local/) | Gestor de tareas (to-do) 100% en el navegador con guardado automático en localStorage, filtros y sin servidores | HTML+CSS+JS | 10/07/2026 |
 | [P2P Drop Radar](https://github.com/DilanProjects1001/p2p-drop-radar) | Radar en tiempo real de caídas de precio VES/USDT en Binance P2P: dashboard con modelo de probabilidad transparente, panel admin y modo demo ([Demo en vivo](https://agc-p2p-drop-radar.pages.dev)) | Cloudflare Pages + Workers + D1 | 11/07/2026 |
 | [generador-paleta-colores](generador-paleta-colores/) | Generador de paletas de colores aleatorios con copia al portapapeles ([Demo en vivo](https://agc-generador-paleta-colores.pages.dev)) | HTML/CSS/JS | 12/07/2026 |
+| [tradingview-ai-signals](https://github.com/DilanProjects1001/agc-tradingview-ai-signals) | Indicador + estrategia Pine Script (EMA/RSI/divergencias) y panel web con ticker en vivo (Binance), explicación de señales por IA y webhook de Telegram ([Demo en vivo](https://agc-tradingview-ai-signals.pages.dev)) | Pine Script + Cloudflare Pages | 12/07/2026 |
 
 ---
 
