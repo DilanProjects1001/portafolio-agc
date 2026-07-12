@@ -19,6 +19,7 @@ Cada carpeta es un proyecto independiente con su propio README, código y verifi
 | [P2P Drop Radar](https://github.com/DilanProjects1001/p2p-drop-radar) | Radar en tiempo real de caídas de precio VES/USDT en Binance P2P: dashboard con modelo de probabilidad transparente, panel admin y modo demo ([Demo en vivo](https://agc-p2p-drop-radar.pages.dev)) | Cloudflare Pages + Workers + D1 | 11/07/2026 |
 | [generador-paleta-colores](generador-paleta-colores/) | Generador de paletas de colores aleatorios con copia al portapapeles ([Demo en vivo](https://agc-generador-paleta-colores.pages.dev)) | HTML/CSS/JS | 12/07/2026 |
 | [tradingview-ai-signals](https://github.com/DilanProjects1001/agc-tradingview-ai-signals) | Indicador + estrategia Pine Script (EMA/RSI/divergencias) y panel web con ticker en vivo (Binance), explicación de señales por IA y webhook de Telegram ([Demo en vivo](https://agc-tradingview-ai-signals.pages.dev)) | Pine Script + Cloudflare Pages | 12/07/2026 |
+| [telegram-realtime-monitor](https://github.com/DilanProjects1001/telegram-realtime-monitor) | Monitor de resultados en vivo (Crazy Time): scrapea la web en tiempo real, calcula rachas por segmento y envía alertas por Telegram. Incluye disclaimer ético (cada tirada es independiente) y autotest offline | Python + Playwright | 12/07/2026 |
 
 ---
 
