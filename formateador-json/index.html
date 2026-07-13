@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Formateador JSON — herramienta para desarrolladores</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="app">
+    <header class="topbar">
+      <div class="brand">
+        <span class="logo">{ }</span>
+        <div>
+          <h1>Formateador JSON</h1>
+          <p class="subtitle">Pega tu JSON, formatéalo o minifícalo al instante.</p>
+        </div>
+      </div>
+      <span class="badge">100% local · sin conexión</span>
+    </header>
+
+    <main class="grid">
+      <!-- Entrada -->
+      <section class="panel">
+        <div class="panel-head">
+          <h2>Entrada</h2>
+          <div class="panel-actions">
+            <button id="btnPegar" class="mini" type="button" title="Pegar desde el portapapeles">Pegar</button>
+            <button id="btnEjemplo" class="mini" type="button" title="Cargar un JSON de ejemplo">Ejemplo</button>
+            <button id="btnLimpiar" class="mini" type="button" title="Borrar la entrada">Limpiar</button>
+          </div>
+        </div>
+        <textarea id="entrada" spellcheck="false"
+          placeholder='Pega aquí tu JSON, por ejemplo:&#10;{"nombre":"Ana","edad":30,"activo":true}'></textarea>
+        <div class="botones">
+          <button id="btnFormatear" class="btn primario" type="button">Formatear</button>
+          <button id="btnMinificar" class="btn secundario" type="button">Minificar</button>
+        </div>
+      </section>
+
+      <!-- Salida -->
+      <section class="panel">
+        <div class="panel-head">
+          <h2>Salida</h2>
+          <div class="panel-actions">
+            <label class="sangria" title="Espacios de sangría al formatear">
+              Sangría
+              <select id="sangria">
+                <option value="2" selected>2 espacios</option>
+                <option value="4">4 espacios</option>
+                <option value="tab">Tabulación</option>
+              </select>
+            </label>
+            <button id="btnCopiar" class="mini" type="button" title="Copiar el resultado">Copiar</button>
+          </div>
+        </div>
+        <pre id="salida" class="salida" aria-live="polite"><span class="placeholder">El resultado aparecerá aquí…</span></pre>
+      </section>
+    </main>
+
+    <div id="mensaje" class="mensaje" role="status"></div>
+
+    <footer class="pie">
+      <span>Hecho con HTML, CSS y JavaScript puro. Sin librerías externas.</span>
+    </footer>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
