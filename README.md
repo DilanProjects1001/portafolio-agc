@@ -45,7 +45,6 @@ Proyectos generados por 3 agentes en paralelo, cada uno partiendo de lo que **pi
 | [agc-resumen-reuniones](https://github.com/DilanProjects1001/agc-resumen-reuniones) | Resumen de reuniones IA (transcripción → puntos clave y acciones) | Cloudflare Pages + LLM | [vivo](https://agc-resumen-reuniones.pages.dev) |
 | [agc-invoice-extractor](https://github.com/DilanProjects1001/agc-invoice-extractor) | Extractor de facturas con IA (invoice → JSON estructurado) | Cloudflare Pages + LLM | [vivo](https://agc-invoice-extractor.pages.dev) |
 | [agc-informe-ia](https://github.com/DilanProjects1001/agc-informe-ia) | InformeIA: notas → informe estructurado (acta, propuesta...) con historial en D1 | Cloudflare Worker + Workers AI + D1 | [vivo](https://agc-informe-ia.pages.dev) |
-| [agc-flujoia](https://github.com/DilanProjects1001/agc-flujoia) | FlujoIA: constructor de automatizaciones con IA | Cloudflare Pages + LLM | [vivo](https://agc-flujoia.pages.dev) |
 
 ---
 
