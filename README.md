@@ -23,6 +23,7 @@ Cada carpeta es un proyecto independiente con su propio README, código y verifi
 | [content-intelligence-db](https://github.com/DilanProjects1001/content-intelligence-db) | Content Intelligence Database: dashboard AGC que analiza métricas de posts (mejores horas/días, duración óptima, eficiencia por 1k, score compuesto, outliers IQR, correlaciones/regresión) con gráficos propios en Canvas, y clasifica cada post con IA (Gemini/OpenAI, con modo mock) + preguntas cruzadas ([Demo en vivo](https://agc-content-intelligence.pages.dev)) | HTML/CSS/JS + Cloudflare Pages | 12/07/2026 |
 | [OpenPOS Demo](https://github.com/DilanProjects1001/open-pos-demo) | POS web genérico offline-first: login con roles (PIN), catálogo/inventario CRUD, venta con pago mixto y ticket, caja con corte e historial, y dashboard de reportes con gráficas. i18n es-MX/en, tema claro/oscuro, tests con Vitest ([Demo en vivo](https://agc-openpos.pages.dev)) | React/TypeScript/MUI + IndexedDB | 12/07/2026 |
 | [formateador-json](formateador-json/) | Herramienta web para formatear, minificar y resaltar JSON | HTML, CSS, JavaScript | 03/04/2025 |
+| [DatosClaros IA](https://github.com/DilanProjects1001/agc-datosclaros) | Extractor de datos de texto libre a una tabla, con esquema configurable: motor local (regex) + motor IA (Workers AI) con salida JSON estructurada, export CSV/JSON y guardado en D1 ([Demo en vivo](https://agc-datosclaros.pages.dev)) | Cloudflare Pages + Workers AI + D1 | 13/07/2026 |
 
 ---
 
