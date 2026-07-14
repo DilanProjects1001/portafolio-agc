@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Generador de Firmas de Email</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <main id="app">
+    <header class="cabecera">
+      <h1>✉️ Generador de Firmas de Email</h1>
+      <p class="subtitulo">
+        Crea una firma de correo profesional en segundos. Rellena tus datos,
+        genera la firma y cópiala o descárgala para pegarla en Gmail, Outlook y más.
+      </p>
+    </header>
+
+    <div class="contenido">
+      <!-- Columna del formulario -->
+      <section class="panel" aria-label="Formulario de datos">
+        <h2>Tus datos</h2>
+        <form id="formulario-firma" autocomplete="off">
+          <label for="nombre">Nombre completo <span class="obligatorio">*</span></label>
+          <input type="text" id="nombre" name="nombre" placeholder="Ej: Ana García" />
+
+          <label for="cargo">Cargo <span class="obligatorio">*</span></label>
+          <input type="text" id="cargo" name="cargo" placeholder="Ej: Directora de Marketing" />
+
+          <label for="empresa">Empresa <span class="obligatorio">*</span></label>
+          <input type="text" id="empresa" name="empresa" placeholder="Ej: Estudio Creativo S.A." />
+
+          <label for="correo">Correo electrónico <span class="obligatorio">*</span></label>
+          <input type="email" id="correo" name="correo" placeholder="Ej: ana@empresa.com" />
+
+          <label for="telefono">Teléfono <span class="opcional">(opcional)</span></label>
+          <input type="text" id="telefono" name="telefono" placeholder="Ej: +34 600 123 456" />
+
+          <label for="web">Sitio web <span class="opcional">(opcional)</span></label>
+          <input type="text" id="web" name="web" placeholder="Ej: www.empresa.com" />
+
+          <label for="linkedin">LinkedIn <span class="opcional">(opcional)</span></label>
+          <input type="text" id="linkedin" name="linkedin" placeholder="Ej: linkedin.com/in/anagarcia" />
+
+          <label for="twitter">Twitter / X <span class="opcional">(opcional)</span></label>
+          <input type="text" id="twitter" name="twitter" placeholder="Ej: x.com/anagarcia" />
+
+          <label for="color">Color de acento</label>
+          <input type="color" id="color" name="color" value="#2563eb" />
+
+          <div class="acciones">
+            <button type="submit" id="btn-generar" class="btn btn-principal">Generar Firma</button>
+          </div>
+          <p id="mensaje-error" class="mensaje-error" role="alert"></p>
+        </form>
+      </section>
+
+      <!-- Columna de la vista previa -->
+      <section class="panel" aria-label="Vista previa de la firma">
+        <h2>Vista previa</h2>
+        <p class="ayuda">Así se verá tu firma dentro de un correo:</p>
+        <div id="vista-previa" class="vista-previa">
+          <p class="vacio">Aún no has generado ninguna firma. Rellena el formulario y pulsa
+            <strong>“Generar Firma”</strong>.</p>
+        </div>
+
+        <div class="acciones acciones-preview">
+          <button type="button" id="btn-copiar" class="btn btn-secundario" disabled>Copiar Firma</button>
+          <button type="button" id="btn-descargar" class="btn btn-secundario" disabled>Descargar HTML</button>
+        </div>
+        <p id="mensaje-copia" class="mensaje-ok" role="status"></p>
+      </section>
+    </div>
+
+    <footer class="pie">
+      100% offline · No se envían tus datos a ningún servidor · Hecho con HTML, CSS y JS
+    </footer>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>
