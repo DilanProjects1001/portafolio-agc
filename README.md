@@ -27,6 +27,34 @@ Cada carpeta es un proyecto independiente con su propio README, código y verifi
 | [AgcDocQA](https://github.com/DilanProjects1001/agc-docqa) | Preguntas y respuestas sobre documentos con IA: pega un texto y hazle preguntas; la IA responde usando solo ese contexto (OpenAI gpt-4o-mini con respaldo a Workers AI) ([Demo en vivo](https://agc-docqa.pages.dev)) | Cloudflare Pages + Workers AI | 13/07/2026 |
 | [agc-agente-flujo](https://github.com/DilanProjects1001/agc-agente-flujo) | Orquestador visual de flujos de agente (n8n/Make en código): nodos Entrada/Clasificar/Agente/Salida con memoria/contexto entre pasos, nodo Agente (ReAct + tool-use), editor de nodos, guardado automático y export/import del flujo como JSON ([Demo en vivo](https://agc-agente-flujo.pages.dev)) | HTML/CSS/JS + Cloudflare Pages | 13/07/2026 |
 
+### Lote guiado por empleos reales de IA (13/07/2026)
+
+Proyectos generados por 3 agentes en paralelo, cada uno partiendo de lo que **piden los empleos reales de IA/automatización** (agentes con tool-use, RAG sobre documentos, apps con LLM, herramientas full-stack). Cada proyecto es un repo público propio; casi todos con demo en vivo.
+
+| Proyecto | Descripción | Tecnología | Demo |
+|----------|-------------|------------|------|
+| [agc-agente-soporte](https://github.com/DilanProjects1001/agc-agente-soporte) | Agente de soporte al cliente con RAG + tool-use, responde desde una base privada | Cloudflare Pages + LLM | [vivo](https://agc-agente-soporte.pages.dev) |
+| [agc-agente-flujo](https://github.com/DilanProjects1001/agc-agente-flujo) | Orquestador visual de flujos de agente (nodos encadenados, estilo n8n) | Cloudflare Pages + LLM | [vivo](https://agc-agente-flujo.pages.dev) |
+| [agc-simulador-agente](https://github.com/DilanProjects1001/agc-simulador-agente) | Simulador de agente de IA con tool-use: muestra el razonamiento paso a paso | Cloudflare Pages + LLM | [vivo](https://agc-simulador-agente.pages.dev) |
+| [agc-support-hub](https://github.com/DilanProjects1001/agc-support-hub) | Hub de automatización de soporte: recibe webhooks de canales y responde con IA | Cloudflare Pages + LLM | [vivo](https://agc-support-hub.pages.dev) |
+| [agc-triage-correos](https://github.com/DilanProjects1001/agc-triage-correos) | Clasificador y triage de correos con IA (prioridad, intención, ruteo) | Cloudflare Pages + LLM | [vivo](https://agc-triage-correos.pages.dev) |
+| [agc-bandeja-ia](https://github.com/DilanProjects1001/agc-bandeja-ia) | Agente de bandeja de entrada: clasifica un lote de mensajes por tipo/urgencia | Cloudflare Pages + LLM | — |
+| [agc-consultor-docs-ia](https://github.com/DilanProjects1001/agc-consultor-docs-ia) | Consultor de documentos: preguntas en lenguaje natural sobre docs de negocio (RAG) | Cloudflare Pages + LLM | [vivo](https://agc-consultor-docs-ia.pages.dev) |
+| [agc-documente-ia](https://github.com/DilanProjects1001/agc-documente-ia) | Asistente RAG de documentos: búsqueda semántica en JS puro + Workers | Cloudflare Pages + Workers | [vivo](https://agc-documente-ia.pages.dev) |
+| [agc-docqa](https://github.com/DilanProjects1001/agc-docqa) | AgcDocQA: pregunta a tu documento con IA (Q&A sobre archivos) | Cloudflare Pages + LLM | [vivo](https://agc-docqa.pages.dev) |
+| [agc-rag-document-qa](https://github.com/DilanProjects1001/agc-rag-document-qa) | RAG · Preguntas sobre documentos: subes/pegas un doc y preguntas | Cloudflare Pages + LLM | — |
+| [agc-chatbot-faq](https://github.com/DilanProjects1001/agc-chatbot-faq) | Chatbot de soporte con base de conocimiento (FAQ) | Cloudflare Pages + LLM | [vivo](https://agc-chatbot-faq.pages.dev) |
+| [agc-analizador-opiniones](https://github.com/DilanProjects1001/agc-analizador-opiniones) | Analizador de opiniones de clientes con IA (sentimiento, temas) | Cloudflare Pages + LLM | [vivo](https://agc-analizador-opiniones.pages.dev) |
+| [agc-radar-opiniones](https://github.com/DilanProjects1001/agc-radar-opiniones) | Radar de opiniones IA: panel de sentimiento y temas | Cloudflare Pages + LLM | [vivo](https://agc-radar-opiniones.pages.dev) |
+| [agc-analista-datos](https://github.com/DilanProjects1001/agc-analista-datos) | Analista de datos IA: preguntas en lenguaje natural → SQL (texto a SQL) | Cloudflare Pages + LLM | [vivo](https://agc-analista-datos.pages.dev) |
+| [agc-limpiador-datos](https://github.com/DilanProjects1001/agc-limpiador-datos) | Limpiador de datos IA (ETL): normaliza y depura datasets | Cloudflare Pages + LLM | [vivo](https://agc-limpiador-datos.pages.dev) |
+| [agc-datosclaros](https://github.com/DilanProjects1001/agc-datosclaros) | DatosClaros IA: limpieza y clarificación de datos | Cloudflare Pages + LLM | [vivo](https://agc-datosclaros.pages.dev) |
+| [agc-resumen-reuniones](https://github.com/DilanProjects1001/agc-resumen-reuniones) | Resumen de reuniones IA (transcripción → puntos clave y acciones) | Cloudflare Pages + LLM | [vivo](https://agc-resumen-reuniones.pages.dev) |
+| [agc-extractor-docs](https://github.com/DilanProjects1001/agc-extractor-docs) | Extractor de facturas con IA: del texto de una factura a datos estructurados | Cloudflare Pages + LLM | [vivo](https://agc-extractor-docs.pages.dev) |
+| [agc-invoice-extractor](https://github.com/DilanProjects1001/agc-invoice-extractor) | Extractor de facturas (invoice → JSON estructurado) | Cloudflare Pages + LLM | [vivo](https://agc-invoice-extractor.pages.dev) |
+| [agc-informe-ia](https://github.com/DilanProjects1001/agc-informe-ia) | InformeIA: generador de informes profesionales con IA | Cloudflare Pages + LLM | [vivo](https://agc-informe-ia.pages.dev) |
+| [agc-flujoia](https://github.com/DilanProjects1001/agc-flujoia) | FlujoIA: constructor de automatizaciones con IA | Cloudflare Pages + LLM | [vivo](https://agc-flujoia.pages.dev) |
+
 ---
 
 ## English
