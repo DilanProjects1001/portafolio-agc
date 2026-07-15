@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Verificador de Enlaces Rotos</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="cabecera">
+    <h1>🔗 Verificador de Enlaces Rotos</h1>
+    <p class="subtitulo">Comprueba los enlaces de una página web en segundos.</p>
+  </header>
+
+  <main class="contenedor">
+    <section class="panel" aria-label="Formulario de verificación">
+      <label class="etiqueta" for="urlInput">Dirección web (URL) a revisar</label>
+      <div class="fila-formulario">
+        <input
+          type="url"
+          id="urlInput"
+          class="campo-url"
+          placeholder="https://www.ejemplo.com"
+          autocomplete="off"
+          spellcheck="false"
+        >
+        <button type="button" id="btnVerificar" class="btn btn-principal">Verificar</button>
+      </div>
+      <p class="ayuda">Escribe una dirección completa (incluye <code>https://</code>) y pulsa <strong>Verificar</strong>. El servidor descargará la página y comprobará el estado real de cada enlace.</p>
+    </section>
+
+    <section class="resultados" aria-live="polite">
+      <h2 class="titulo-resultados">Resultados</h2>
+      <div id="resultados" class="lista-resultados">
+        <p class="vacio">Aún no has verificado ninguna página. Introduce una URL y pulsa <strong>Verificar</strong>.</p>
+      </div>
+    </section>
+  </main>
+
+  <footer class="pie">
+    <p>Herramienta de demostración — Portafolio AGC</p>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
