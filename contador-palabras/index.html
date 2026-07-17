@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Contador de Palabras</title>
+  <meta name="description" content="Cuenta palabras, caracteres, frases, párrafos y las palabras más frecuentes de tu texto. Sin instalar nada." />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header class="cabecera">
+    <h1>📝 Contador de Palabras</h1>
+    <p class="subtitulo">Pega o escribe tu texto y obtén las estadísticas al instante.</p>
+  </header>
+
+  <main class="contenedor">
+    <section class="panel-entrada">
+      <label for="texto" class="etiqueta">Tu texto</label>
+      <textarea
+        id="texto"
+        class="area-texto"
+        placeholder="Escribe o pega aquí tu texto…"
+        spellcheck="false"
+        autofocus></textarea>
+
+      <div class="botonera">
+        <button id="btn-contar" class="boton boton-principal" type="button">Contar</button>
+        <button id="btn-ejemplo" class="boton boton-secundario" type="button">Cargar ejemplo</button>
+        <button id="btn-limpiar" class="boton boton-secundario" type="button">Limpiar</button>
+      </div>
+      <p class="ayuda">Consejo: los resultados también se actualizan solos mientras escribes.</p>
+    </section>
+
+    <section class="panel-resultados" aria-live="polite">
+      <div class="tarjetas">
+        <div class="tarjeta">
+          <span class="tarjeta-numero" id="res-palabras">0</span>
+          <span class="tarjeta-etiqueta">Palabras</span>
+        </div>
+        <div class="tarjeta">
+          <span class="tarjeta-numero" id="res-caracteres">0</span>
+          <span class="tarjeta-etiqueta">Caracteres</span>
+        </div>
+        <div class="tarjeta">
+          <span class="tarjeta-numero" id="res-caracteres-sin">0</span>
+          <span class="tarjeta-etiqueta">Sin espacios</span>
+        </div>
+        <div class="tarjeta">
+          <span class="tarjeta-numero" id="res-frases">0</span>
+          <span class="tarjeta-etiqueta">Frases</span>
+        </div>
+        <div class="tarjeta">
+          <span class="tarjeta-numero" id="res-parrafos">0</span>
+          <span class="tarjeta-etiqueta">Párrafos</span>
+        </div>
+      </div>
+
+      <div class="bloque-frecuentes">
+        <h2 class="titulo-seccion">🔝 Las 10 palabras más frecuentes</h2>
+        <ol id="lista-frecuentes" class="lista-frecuentes">
+          <li class="vacio">Aún no hay texto para analizar.</li>
+        </ol>
+      </div>
+    </section>
+  </main>
+
+  <footer class="pie">
+    <p>Funciona 100% en tu navegador. Nada se envía a internet.</p>
+  </footer>
+
+  <!-- Lógica de conteo (funciones puras) y lógica de interfaz -->
+  <script src="counter.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>

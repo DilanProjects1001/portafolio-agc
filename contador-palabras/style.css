@@ -1,0 +1,261 @@
+/* style.css — Estilos del Contador de Palabras.
+   Diseño con colores contrastantes, botones grandes y legible en móvil y escritorio. */
+
+:root {
+  --fondo: #0f172a;          /* azul muy oscuro */
+  --fondo-panel: #1e293b;    /* azul pizarra */
+  --tarjeta: #334155;
+  --acento: #22d3ee;         /* cian brillante */
+  --acento-fuerte: #06b6d4;
+  --exito: #34d399;
+  --texto: #f1f5f9;
+  --texto-suave: #94a3b8;
+  --borde: #475569;
+  --sombra: 0 10px 30px rgba(0, 0, 0, 0.35);
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  background: linear-gradient(160deg, #0f172a 0%, #111827 100%);
+  color: var(--texto);
+  min-height: 100vh;
+  line-height: 1.5;
+  padding: 24px 16px 48px;
+}
+
+/* --- Cabecera --- */
+.cabecera {
+  text-align: center;
+  margin-bottom: 28px;
+}
+
+.cabecera h1 {
+  font-size: 2.4rem;
+  letter-spacing: -0.5px;
+}
+
+.subtitulo {
+  color: var(--texto-suave);
+  font-size: 1.1rem;
+  margin-top: 6px;
+}
+
+/* --- Layout principal --- */
+.contenedor {
+  max-width: 1000px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+}
+
+@media (max-width: 820px) {
+  .contenedor {
+    grid-template-columns: 1fr;
+  }
+}
+
+.panel-entrada,
+.panel-resultados {
+  background: var(--fondo-panel);
+  border: 1px solid var(--borde);
+  border-radius: 16px;
+  padding: 22px;
+  box-shadow: var(--sombra);
+}
+
+/* --- Entrada de texto --- */
+.etiqueta {
+  display: block;
+  font-weight: 700;
+  font-size: 1.05rem;
+  margin-bottom: 10px;
+}
+
+.area-texto {
+  width: 100%;
+  min-height: 300px;
+  resize: vertical;
+  padding: 16px;
+  font-size: 1.05rem;
+  font-family: inherit;
+  color: var(--texto);
+  background: #0b1220;
+  border: 2px solid var(--borde);
+  border-radius: 12px;
+  transition: border-color 0.15s ease;
+}
+
+.area-texto:focus {
+  outline: none;
+  border-color: var(--acento);
+}
+
+.area-texto::placeholder {
+  color: #64748b;
+}
+
+/* --- Botones --- */
+.botonera {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 16px;
+}
+
+.boton {
+  flex: 1 1 auto;
+  min-width: 130px;
+  padding: 16px 20px;
+  font-size: 1.1rem;
+  font-weight: 700;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: transform 0.08s ease, filter 0.15s ease;
+}
+
+.boton:active {
+  transform: translateY(2px);
+}
+
+.boton-principal {
+  background: var(--acento-fuerte);
+  color: #052027;
+}
+
+.boton-principal:hover {
+  filter: brightness(1.12);
+}
+
+.boton-secundario {
+  background: var(--tarjeta);
+  color: var(--texto);
+  border: 1px solid var(--borde);
+}
+
+.boton-secundario:hover {
+  filter: brightness(1.2);
+}
+
+.ayuda {
+  color: var(--texto-suave);
+  font-size: 0.9rem;
+  margin-top: 12px;
+}
+
+/* --- Tarjetas de resultados --- */
+.tarjetas {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: 12px;
+  margin-bottom: 26px;
+}
+
+.tarjeta {
+  background: var(--tarjeta);
+  border-radius: 12px;
+  padding: 18px 12px;
+  text-align: center;
+  border: 1px solid var(--borde);
+}
+
+.tarjeta-numero {
+  display: block;
+  font-size: 2rem;
+  font-weight: 800;
+  color: var(--acento);
+  line-height: 1.1;
+}
+
+.tarjeta-etiqueta {
+  display: block;
+  margin-top: 6px;
+  font-size: 0.9rem;
+  color: var(--texto-suave);
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+}
+
+/* --- Lista de palabras frecuentes --- */
+.titulo-seccion {
+  font-size: 1.2rem;
+  margin-bottom: 14px;
+}
+
+.lista-frecuentes {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.lista-frecuentes li {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: #0b1220;
+  border: 1px solid var(--borde);
+  border-radius: 10px;
+  padding: 10px 14px;
+}
+
+.lista-frecuentes .vacio {
+  color: var(--texto-suave);
+  justify-content: center;
+}
+
+.puesto {
+  min-width: 28px;
+  height: 28px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--acento-fuerte);
+  color: #052027;
+  font-weight: 800;
+  border-radius: 50%;
+  font-size: 0.85rem;
+}
+
+.palabra-texto {
+  font-weight: 700;
+  flex: 0 0 auto;
+}
+
+/* Barra proporcional a la frecuencia */
+.barra-contenedor {
+  flex: 1 1 auto;
+  height: 12px;
+  background: #1e293b;
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+.barra {
+  height: 100%;
+  background: linear-gradient(90deg, var(--acento), var(--exito));
+  border-radius: 6px;
+}
+
+.palabra-cantidad {
+  flex: 0 0 auto;
+  font-weight: 800;
+  color: var(--acento);
+  min-width: 32px;
+  text-align: right;
+}
+
+/* --- Pie --- */
+.pie {
+  text-align: center;
+  color: var(--texto-suave);
+  margin-top: 32px;
+  font-size: 0.9rem;
+}
