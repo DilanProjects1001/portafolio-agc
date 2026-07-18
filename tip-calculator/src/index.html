@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Calculadora de Propinas</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <main class="tarjeta">
+    <header>
+      <h1>💵 Calculadora de Propinas</h1>
+      <p class="subtitulo">Calcula la propina y divide la cuenta en segundos.</p>
+    </header>
+
+    <!-- Monto de la cuenta -->
+    <section class="campo">
+      <label for="monto">Monto de la cuenta</label>
+      <div class="entrada-moneda">
+        <span class="simbolo">$</span>
+        <input
+          id="monto"
+          type="number"
+          inputmode="decimal"
+          min="0"
+          step="0.01"
+          placeholder="0.00"
+          aria-label="Monto de la cuenta"
+        />
+      </div>
+    </section>
+
+    <!-- Porcentaje de propina -->
+    <section class="campo">
+      <label>Porcentaje de propina</label>
+      <div class="botones-porcentaje">
+        <button type="button" class="btn-porcentaje" data-valor="10">10%</button>
+        <button type="button" class="btn-porcentaje" data-valor="15">15%</button>
+        <button type="button" class="btn-porcentaje" data-valor="18">18%</button>
+        <button type="button" class="btn-porcentaje" data-valor="20">20%</button>
+        <button type="button" class="btn-porcentaje" data-valor="25">25%</button>
+      </div>
+      <div class="entrada-personal">
+        <label for="porcentaje-personal" class="etiqueta-personal">O escribe otro %</label>
+        <input
+          id="porcentaje-personal"
+          type="number"
+          inputmode="decimal"
+          min="0"
+          step="1"
+          placeholder="Ej: 12"
+          aria-label="Porcentaje personalizado"
+        />
+      </div>
+    </section>
+
+    <!-- Número de personas -->
+    <section class="campo">
+      <label for="personas">¿Entre cuántas personas?</label>
+      <input
+        id="personas"
+        type="number"
+        inputmode="numeric"
+        min="1"
+        step="1"
+        value="1"
+        aria-label="Número de personas"
+      />
+    </section>
+
+    <p id="mensaje-error" class="error" role="alert"></p>
+
+    <!-- Resultados -->
+    <section class="resultados" aria-live="polite">
+      <div class="fila-resultado">
+        <span class="etiqueta-resultado">Propina</span>
+        <span class="valor-resultado">$<span id="res-propina">0.00</span></span>
+      </div>
+      <div class="fila-resultado destacado">
+        <span class="etiqueta-resultado">Total a pagar</span>
+        <span class="valor-resultado">$<span id="res-total">0.00</span></span>
+      </div>
+      <div class="fila-resultado">
+        <span class="etiqueta-resultado">Por persona</span>
+        <span class="valor-resultado">$<span id="res-por-persona">0.00</span></span>
+      </div>
+    </section>
+  </main>
+
+  <footer class="pie">Hecho con ❤ — 100% offline, sin conexión ni servidores.</footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

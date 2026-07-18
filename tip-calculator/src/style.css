@@ -1,0 +1,198 @@
+/* style.css — Estilos de la calculadora de propinas.
+   Diseño: tarjeta centrada, botones grandes, alto contraste y textos legibles. */
+
+:root {
+  --color-fondo: #0f172a;        /* azul muy oscuro de fondo */
+  --color-tarjeta: #1e293b;      /* tarjeta */
+  --color-acento: #22c55e;       /* verde propina */
+  --color-acento-oscuro: #16a34a;
+  --color-texto: #f1f5f9;        /* texto principal claro */
+  --color-texto-suave: #94a3b8;  /* texto secundario */
+  --color-input: #0f172a;
+  --color-borde: #334155;
+  --color-error: #f87171;
+  --radio: 14px;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  padding: 24px;
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  background: linear-gradient(160deg, #0f172a 0%, #1e293b 100%);
+  color: var(--color-texto);
+}
+
+.tarjeta {
+  width: 100%;
+  max-width: 480px;
+  background: var(--color-tarjeta);
+  border-radius: 20px;
+  padding: 24px 26px;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.45);
+}
+
+header { text-align: center; margin-bottom: 18px; }
+
+h1 {
+  font-size: 1.6rem;
+  margin: 0 0 6px;
+}
+
+.subtitulo {
+  margin: 0;
+  color: var(--color-texto-suave);
+  font-size: 1rem;
+}
+
+.campo { margin-bottom: 16px; }
+
+.campo > label {
+  display: block;
+  font-size: 1.05rem;
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+/* Entrada de monto con símbolo de moneda */
+.entrada-moneda {
+  display: flex;
+  align-items: center;
+  background: var(--color-input);
+  border: 2px solid var(--color-borde);
+  border-radius: var(--radio);
+  padding: 0 16px;
+}
+
+.entrada-moneda:focus-within,
+input:focus {
+  outline: none;
+  border-color: var(--color-acento);
+}
+
+.simbolo {
+  font-size: 1.5rem;
+  color: var(--color-acento);
+  font-weight: 700;
+  margin-right: 8px;
+}
+
+input[type="number"] {
+  width: 100%;
+  background: var(--color-input);
+  color: var(--color-texto);
+  border: 2px solid var(--color-borde);
+  border-radius: var(--radio);
+  padding: 14px 16px;
+  font-size: 1.3rem;
+  font-weight: 600;
+}
+
+.entrada-moneda input[type="number"] {
+  border: none;
+  padding: 14px 0;
+  background: transparent;
+}
+
+/* Botones grandes de porcentaje */
+.botones-porcentaje {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 10px;
+}
+
+.btn-porcentaje {
+  padding: 16px 0;
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--color-texto);
+  background: var(--color-input);
+  border: 2px solid var(--color-borde);
+  border-radius: var(--radio);
+  cursor: pointer;
+  transition: transform 0.08s ease, background 0.15s ease, border-color 0.15s ease;
+}
+
+.btn-porcentaje:hover { border-color: var(--color-acento); }
+.btn-porcentaje:active { transform: scale(0.96); }
+
+.btn-porcentaje.activo {
+  background: var(--color-acento);
+  border-color: var(--color-acento);
+  color: #052e16;
+}
+
+.entrada-personal { margin-top: 12px; }
+
+.etiqueta-personal {
+  display: block;
+  font-size: 0.95rem;
+  color: var(--color-texto-suave);
+  margin-bottom: 6px;
+}
+
+.error {
+  color: var(--color-error);
+  font-size: 0.95rem;
+  min-height: 1.2em;
+  margin: 0 0 8px;
+  text-align: center;
+}
+
+/* Panel de resultados */
+.resultados {
+  background: var(--color-input);
+  border-radius: var(--radio);
+  padding: 18px 20px;
+  margin-top: 4px;
+}
+
+.fila-resultado {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 0;
+  border-bottom: 1px solid var(--color-borde);
+}
+
+.fila-resultado:last-child { border-bottom: none; }
+
+.etiqueta-resultado {
+  font-size: 1.05rem;
+  color: var(--color-texto-suave);
+}
+
+.valor-resultado {
+  font-size: 1.35rem;
+  font-weight: 700;
+}
+
+.fila-resultado.destacado .etiqueta-resultado,
+.fila-resultado.destacado .valor-resultado {
+  color: var(--color-acento);
+}
+
+.fila-resultado.destacado .valor-resultado {
+  font-size: 1.7rem;
+}
+
+.pie {
+  color: var(--color-texto-suave);
+  font-size: 0.9rem;
+  text-align: center;
+}
+
+/* Ocultar las flechas de los inputs numéricos para una UI más limpia */
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+input[type="number"] { -moz-appearance: textfield; }

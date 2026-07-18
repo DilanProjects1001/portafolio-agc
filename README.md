@@ -26,6 +26,7 @@ Cada carpeta es un proyecto independiente con su propio README, código y verifi
 | [generador-firmas-email](generador-firmas-email/) | Herramienta web para generar firmas de correo profesionales en español ([Demo en vivo](https://agc-firmas-email.pages.dev)) | HTML/CSS/JS | 14/07/2026 |
 | [verificador-enlaces](./verificador-enlaces) | Herramienta web para comprobar enlaces rotos en una página | HTML, CSS, JS, Node.js | 15/07/2026 |
 | [contador-palabras](contador-palabras/) | Contador de palabras, caracteres, frases, párrafos y ranking de palabras más frecuentes, 100% offline en el navegador ([Demo en vivo](https://agc-contador-palabras.pages.dev)) | HTML/CSS/JS | 16/07/2026 |
+| [tip-calculator](tip-calculator/) | Calculadora de propinas: calcula propina, total y pago por persona, 100% offline en el navegador | HTML/CSS/JS | 17/07/2026 |
 
 ### Lote guiado por empleos reales de IA (13/07/2026)
 
