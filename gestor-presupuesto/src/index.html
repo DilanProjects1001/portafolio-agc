@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gestor de Presupuesto Mensual</title>
+  <style>
+    :root {
+      --azul: #1e40af;
+      --azul-oscuro: #172554;
+      --verde: #15803d;
+      --verde-claro: #dcfce7;
+      --rojo: #b91c1c;
+      --rojo-claro: #fee2e2;
+      --gris-fondo: #f1f5f9;
+      --gris-borde: #cbd5e1;
+      --texto: #0f172a;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      background: var(--gris-fondo);
+      color: var(--texto);
+      line-height: 1.4;
+      padding: 12px 16px;
+    }
+
+    .contenedor {
+      max-width: 620px;
+      margin: 0 auto;
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 14px;
+    }
+
+    header h1 {
+      font-size: 1.6rem;
+      color: var(--azul-oscuro);
+    }
+
+    header p {
+      color: #475569;
+      margin-top: 4px;
+      font-size: 1rem;
+    }
+
+    .tarjeta {
+      background: #ffffff;
+      border-radius: 14px;
+      padding: 14px 18px;
+      margin-bottom: 12px;
+      box-shadow: 0 4px 14px rgba(15, 23, 42, 0.08);
+    }
+
+    label {
+      display: block;
+      font-weight: 600;
+      margin-bottom: 4px;
+      font-size: 0.95rem;
+    }
+
+    input {
+      width: 100%;
+      padding: 11px;
+      font-size: 1.05rem;
+      border: 2px solid var(--gris-borde);
+      border-radius: 10px;
+      margin-bottom: 12px;
+    }
+
+    input:focus {
+      outline: none;
+      border-color: var(--azul);
+    }
+
+    .fila {
+      display: flex;
+      gap: 12px;
+    }
+
+    .fila > div { flex: 1; }
+
+    button {
+      cursor: pointer;
+      font-size: 1.1rem;
+      font-weight: 700;
+      border: none;
+      border-radius: 10px;
+      padding: 13px 20px;
+      transition: transform 0.05s ease, filter 0.15s ease;
+    }
+
+    button:active { transform: scale(0.98); }
+
+    .btn-agregar {
+      width: 100%;
+      background: var(--azul);
+      color: #ffffff;
+    }
+
+    .btn-agregar:hover { filter: brightness(1.1); }
+
+    h2 {
+      font-size: 1.2rem;
+      color: var(--azul-oscuro);
+      margin-bottom: 10px;
+    }
+
+    ul { list-style: none; }
+
+    li.gasto {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 14px 16px;
+      background: var(--gris-fondo);
+      border-radius: 10px;
+      margin-bottom: 10px;
+      font-size: 1.05rem;
+    }
+
+    li.gasto .nombre { font-weight: 600; }
+    li.gasto .monto { color: var(--rojo); font-weight: 700; margin-left: auto; margin-right: 12px; }
+
+    .btn-eliminar {
+      background: var(--rojo-claro);
+      color: var(--rojo);
+      padding: 8px 14px;
+      font-size: 0.95rem;
+    }
+
+    .btn-eliminar:hover { background: #fecaca; }
+
+    .vacio {
+      text-align: center;
+      color: #64748b;
+      padding: 10px;
+      font-style: italic;
+    }
+
+    .resumen {
+      display: flex;
+      gap: 12px;
+    }
+
+    .resumen .caja {
+      flex: 1;
+      text-align: center;
+      border-radius: 12px;
+      padding: 14px 10px;
+    }
+
+    .caja .etiqueta {
+      font-size: 0.95rem;
+      font-weight: 600;
+      opacity: 0.85;
+    }
+
+    .caja .valor {
+      font-size: 1.7rem;
+      font-weight: 800;
+      margin-top: 4px;
+    }
+
+    .caja-gastos { background: var(--rojo-claro); color: var(--rojo); }
+    .caja-restante { background: var(--verde-claro); color: var(--verde); }
+    .caja-restante.negativo { background: var(--rojo-claro); color: var(--rojo); }
+
+    footer {
+      text-align: center;
+      color: #94a3b8;
+      font-size: 0.9rem;
+      margin-top: 8px;
+    }
+  </style>
+</head>
+<body>
+  <div class="contenedor">
+    <header>
+      <h1>💰 Gestor de Presupuesto Mensual</h1>
+      <p>Agrega tus gastos y ve cuánto te queda en tiempo real.</p>
+    </header>
+
+    <!-- Presupuesto -->
+    <section class="tarjeta">
+      <label for="presupuesto">Presupuesto mensual</label>
+      <input type="number" id="presupuesto" min="0" step="0.01" placeholder="Ej: 1000" value="1000">
+    </section>
+
+    <!-- Agregar gasto -->
+    <section class="tarjeta">
+      <h2>Agregar gasto</h2>
+      <div class="fila">
+        <div>
+          <label for="nombre">Nombre del gasto</label>
+          <input type="text" id="nombre" placeholder="Ej: Supermercado">
+        </div>
+        <div>
+          <label for="monto">Monto</label>
+          <input type="number" id="monto" min="0" step="0.01" placeholder="Ej: 200">
+        </div>
+      </div>
+      <button class="btn-agregar" id="btnAgregar">➕ Agregar gasto</button>
+    </section>
+
+    <!-- Lista de gastos -->
+    <section class="tarjeta">
+      <h2>Gastos</h2>
+      <ul id="listaGastos"></ul>
+    </section>
+
+    <!-- Resumen -->
+    <section class="tarjeta">
+      <div class="resumen">
+        <div class="caja caja-gastos">
+          <div class="etiqueta">Total de gastos</div>
+          <div class="valor" id="totalGastos">$0.00</div>
+        </div>
+        <div class="caja caja-restante" id="cajaRestante">
+          <div class="etiqueta">Restante</div>
+          <div class="valor" id="restante">$0.00</div>
+        </div>
+      </div>
+    </section>
+
+    <footer>Portafolio AGC · App autocontenida, sin conexión ni dependencias externas.</footer>
+  </div>
+
+  <script src="app.js"></script>
+  <script>
+    // Puente entre la lógica (app.js) y la interfaz.
+    const $ = (id) => document.getElementById(id);
+
+    function formatearDinero(valor) {
+      return '$' + Number(valor).toLocaleString('es-MX', {
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2
+      });
+    }
+
+    function renderizar() {
+      const lista = $('listaGastos');
+      const gastos = getExpenses();
+      lista.innerHTML = '';
+
+      if (gastos.length === 0) {
+        lista.innerHTML = '<li class="vacio">Aún no has agregado gastos.</li>';
+      } else {
+        gastos.forEach((gasto, indice) => {
+          const li = document.createElement('li');
+          li.className = 'gasto';
+          li.innerHTML =
+            '<span class="nombre"></span>' +
+            '<span class="monto"></span>' +
+            '<button class="btn-eliminar">🗑 Eliminar</button>';
+          li.querySelector('.nombre').textContent = gasto.name;
+          li.querySelector('.monto').textContent = formatearDinero(gasto.amount);
+          li.querySelector('.btn-eliminar').addEventListener('click', () => {
+            removeExpense(indice);
+            renderizar();
+          });
+          lista.appendChild(li);
+        });
+      }
+
+      const presupuesto = parseFloat($('presupuesto').value) || 0;
+      const total = getTotalExpenses();
+      const restante = getRemaining(presupuesto);
+
+      $('totalGastos').textContent = formatearDinero(total);
+      $('restante').textContent = formatearDinero(restante);
+
+      const caja = $('cajaRestante');
+      caja.classList.toggle('negativo', restante < 0);
+    }
+
+    $('btnAgregar').addEventListener('click', () => {
+      const nombre = $('nombre').value.trim();
+      const monto = parseFloat($('monto').value);
+
+      if (!nombre) {
+        alert('Escribe un nombre para el gasto.');
+        return;
+      }
+      if (isNaN(monto) || monto <= 0) {
+        alert('Escribe un monto válido mayor que cero.');
+        return;
+      }
+
+      addExpense(nombre, monto);
+      $('nombre').value = '';
+      $('monto').value = '';
+      $('nombre').focus();
+      renderizar();
+    });
+
+    $('monto').addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') $('btnAgregar').click();
+    });
+
+    $('presupuesto').addEventListener('input', renderizar);
+
+    renderizar();
+  </script>
+</body>
+</html>

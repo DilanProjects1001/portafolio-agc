@@ -27,6 +27,7 @@ Cada carpeta es un proyecto independiente con su propio README, código y verifi
 | [verificador-enlaces](./verificador-enlaces) | Herramienta web para comprobar enlaces rotos en una página | HTML, CSS, JS, Node.js | 15/07/2026 |
 | [contador-palabras](contador-palabras/) | Contador de palabras, caracteres, frases, párrafos y ranking de palabras más frecuentes, 100% offline en el navegador ([Demo en vivo](https://agc-contador-palabras.pages.dev)) | HTML/CSS/JS | 16/07/2026 |
 | [tip-calculator](tip-calculator/) | Calculadora de propinas: calcula propina, total y pago por persona, 100% offline en el navegador | HTML/CSS/JS | 17/07/2026 |
+| [gestor-presupuesto](gestor-presupuesto/) | Gestor de presupuesto mensual: agrega gastos y ve el total y el restante en tiempo real, 100% offline en el navegador | HTML/CSS/JS | 18/07/2026 |
 
 ### Lote guiado por empleos reales de IA (13/07/2026)
 
