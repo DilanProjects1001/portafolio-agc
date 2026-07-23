@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Generador de Ideas para Escritura Creativa</title>
+  <!-- Estilos propios, sin CDNs ni dependencias externas -->
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main class="contenedor">
+    <header class="cabecera">
+      <h1>✍️ Generador de Ideas para Escritura</h1>
+      <p class="subtitulo">
+        ¿Bloqueo creativo? Pulsa el botón y recibe una idea lista para escribir.
+      </p>
+    </header>
+
+    <!-- Selector de tipo de idea -->
+    <section class="controles">
+      <label for="tipo" class="etiqueta">Tipo de idea:</label>
+      <select id="tipo" class="selector">
+        <option value="completa">Idea completa (personaje + lugar + conflicto)</option>
+        <option value="personaje">Solo personaje</option>
+        <option value="lugar">Solo lugar</option>
+        <option value="conflicto">Solo conflicto</option>
+        <option value="primeraLinea">Primera línea</option>
+        <option value="genero">Reto por género</option>
+      </select>
+    </section>
+
+    <!-- Tarjeta donde aparece la idea generada -->
+    <section class="tarjeta-idea" id="tarjeta" aria-live="polite">
+      <p id="idea" class="texto-idea">
+        Tu idea aparecerá aquí. Pulsa «Generar idea» para empezar.
+      </p>
+    </section>
+
+    <!-- Botones de acción grandes y accesibles -->
+    <section class="acciones">
+      <button id="btnGenerar" class="boton boton-primario">🎲 Generar idea</button>
+      <button id="btnCopiar" class="boton boton-secundario">📋 Copiar</button>
+    </section>
+
+    <!-- Mensaje de confirmación al copiar -->
+    <p id="aviso" class="aviso" role="status"></p>
+
+    <footer class="pie">
+      <p>Hecho para escritores. Todo funciona sin conexión.</p>
+    </footer>
+  </main>
+
+  <!-- Lógica de la aplicación -->
+  <script src="script.js"></script>
+</body>
+</html>

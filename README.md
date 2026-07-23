@@ -28,6 +28,7 @@ Cada carpeta es un proyecto independiente con su propio README, código y verifi
 | [contador-palabras](contador-palabras/) | Contador de palabras, caracteres, frases, párrafos y ranking de palabras más frecuentes, 100% offline en el navegador ([Demo en vivo](https://agc-contador-palabras.pages.dev)) | HTML/CSS/JS | 16/07/2026 |
 | [tip-calculator](tip-calculator/) | Calculadora de propinas: calcula propina, total y pago por persona, 100% offline en el navegador | HTML/CSS/JS | 17/07/2026 |
 | [gestor-presupuesto](gestor-presupuesto/) | Gestor de presupuesto mensual: agrega gastos y ve el total y el restante en tiempo real, 100% offline en el navegador | HTML/CSS/JS | 18/07/2026 |
+| [generador-ideas-escritura](generador-ideas-escritura/) | Generador de ideas creativas para escritores con 6 tipos y copia al portapapeles ([Demo en vivo](https://agc-generador-ideas-escritura.pages.dev)) | HTML, CSS, JavaScript | 2026-07-23 |
 
 ### Lote guiado por empleos reales de IA (13/07/2026)
 

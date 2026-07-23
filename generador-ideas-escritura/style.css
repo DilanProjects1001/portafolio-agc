@@ -1,0 +1,166 @@
+/* =========================================================
+   Estilos del Generador de Ideas para Escritura Creativa
+   Diseño: botones grandes, textos legibles, alto contraste.
+   Sin dependencias externas (todo local).
+   ========================================================= */
+
+:root {
+  /* Paleta con buen contraste sobre fondo oscuro */
+  --fondo: #1a1a2e;
+  --fondo-tarjeta: #16213e;
+  --acento: #e94560;
+  --acento-oscuro: #c1304a;
+  --secundario: #0f3460;
+  --borde: #2e4a7d; /* borde más claro para dar definición a tarjetas y selector */
+  --texto: #f5f5f5;
+  --texto-suave: #c7d0f5;
+  --exito: #4ade80;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  background: var(--fondo);
+  color: var(--texto);
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  line-height: 1.6;
+}
+
+/* Contenedor central con ancho cómodo para lectura */
+.contenedor {
+  width: 100%;
+  max-width: 640px;
+  text-align: center;
+}
+
+.cabecera h1 {
+  font-size: 2rem;
+  margin-bottom: 10px;
+}
+
+.subtitulo {
+  color: var(--texto-suave);
+  font-size: 1.1rem;
+  margin-bottom: 28px;
+}
+
+/* Controles: selector de tipo de idea */
+.controles {
+  margin-bottom: 20px;
+  text-align: left;
+}
+
+.etiqueta {
+  display: block;
+  font-size: 1rem;
+  margin-bottom: 8px;
+  color: var(--texto-suave);
+}
+
+.selector {
+  width: 100%;
+  padding: 14px 16px;
+  font-size: 1.05rem;
+  border: 2px solid var(--borde);
+  border-radius: 12px;
+  background: var(--fondo-tarjeta);
+  color: var(--texto);
+  cursor: pointer;
+}
+
+.selector:focus {
+  outline: 3px solid var(--acento);
+}
+
+/* Tarjeta donde se muestra la idea generada */
+.tarjeta-idea {
+  background: var(--fondo-tarjeta);
+  border: 2px solid var(--borde);
+  border-radius: 16px;
+  padding: 32px 24px;
+  margin-bottom: 24px;
+  min-height: 140px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.texto-idea {
+  font-size: 1.35rem;
+  color: var(--texto);
+}
+
+/* Botones grandes y fáciles de pulsar */
+.acciones {
+  display: flex;
+  gap: 14px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.boton {
+  flex: 1 1 200px;
+  padding: 18px 24px;
+  font-size: 1.15rem;
+  font-weight: 600;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: transform 0.1s ease, background 0.2s ease;
+}
+
+.boton:active {
+  transform: scale(0.97);
+}
+
+.boton-primario {
+  background: var(--acento);
+  color: #ffffff;
+}
+
+.boton-primario:hover {
+  background: var(--acento-oscuro);
+}
+
+.boton-secundario {
+  background: var(--secundario);
+  color: var(--texto);
+}
+
+.boton-secundario:hover {
+  background: #0d2a4d;
+}
+
+.boton:focus {
+  outline: 3px solid var(--texto);
+  outline-offset: 2px;
+}
+
+/* Aviso de "copiado" */
+.aviso {
+  margin-top: 16px;
+  min-height: 24px;
+  color: var(--exito);
+  font-weight: 600;
+}
+
+.pie {
+  margin-top: 32px;
+  color: var(--texto-suave);
+  font-size: 0.9rem;
+}
+
+/* Ajustes para pantallas pequeñas */
+@media (max-width: 480px) {
+  .cabecera h1 { font-size: 1.6rem; }
+  .texto-idea { font-size: 1.15rem; }
+}

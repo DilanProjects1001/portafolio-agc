@@ -1,0 +1,3 @@
+# Archivos que NO deben subirse al despliegue web (Cloudflare Pages)
+_edge_profile
+.wrangler
