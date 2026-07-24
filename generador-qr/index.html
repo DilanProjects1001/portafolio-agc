@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Generador de QR</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main class="tarjeta">
+    <h1>Generador de QR</h1>
+    <p class="subtitulo">Escribe un texto o una URL y crea tu codigo QR al instante.</p>
+
+    <label for="texto">Texto o enlace</label>
+    <input type="text" id="texto" placeholder="Ej: https://mi-sitio.com" autocomplete="off">
+
+    <button id="generar" type="button">Generar QR</button>
+
+    <div id="qrcode"></div>
+    <p id="aviso" class="aviso"></p>
+  </main>
+
+  <script src="qrcode.min.js"></script>
+  <script>
+    const campo = document.getElementById('texto');
+    const boton = document.getElementById('generar');
+    const contenedor = document.getElementById('qrcode');
+    const aviso = document.getElementById('aviso');
+
+    function generarQR() {
+      const texto = campo.value.trim();
+      contenedor.innerHTML = '';
+      if (!texto) {
+        aviso.textContent = 'Escribe un texto o una URL para generar el codigo QR.';
+        return;
+      }
+      aviso.textContent = '';
+      new QRCode(contenedor, texto);
+    }
+
+    boton.addEventListener('click', generarQR);
+    campo.addEventListener('keydown', function (e) {
+      if (e.key === 'Enter') generarQR();
+    });
+  </script>
+</body>
+</html>
