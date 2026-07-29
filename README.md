@@ -31,6 +31,7 @@ Cada carpeta es un proyecto independiente con su propio README, código y verifi
 | [generador-ideas-escritura](generador-ideas-escritura/) | Generador de ideas creativas para escritores con 6 tipos y copia al portapapeles ([Demo en vivo](https://agc-generador-ideas-escritura.pages.dev)) | HTML, CSS, JavaScript | 2026-07-23 |
 | [generador-qr](./generador-qr) | Generador de códigos QR desde texto/URL | HTML+CSS+JS | 24/07/2026 |
 | [conversor-unidades](conversor-unidades/) | Conversor de unidades (longitud, peso, temperatura, volumen) con interfaz web sencilla ([Demo en vivo](https://agc-conversor-unidades.pages.dev)) | HTML/CSS/JS | 2026-07-28 |
+| [conversor-imagen-base64](./conversor-imagen-base64) | Conversor de imágenes a Base64 con interfaz web interactiva ([Demo en vivo](https://agc-conversor-imagen-base64.pages.dev)) | HTML / JS | 2026-07-29 |
 
 ### Lote guiado por empleos reales de IA (13/07/2026)
 

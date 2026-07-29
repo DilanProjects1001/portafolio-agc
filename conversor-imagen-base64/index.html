@@ -1,0 +1,630 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Conversor de Imagen a Base64</title>
+<style>
+  /* ---------- Variables de color (buen contraste, sin librerías) ---------- */
+  :root{
+    --fondo:#eef2f8;
+    --tarjeta:#ffffff;
+    --borde:#d6dee9;
+    --texto:#0f172a;
+    --texto-suave:#516079;
+    --acento:#1d4ed8;
+    --acento-oscuro:#1533a8;
+    --exito:#0f7b3f;
+    --aviso:#a4560a;
+    --sombra:0 2px 4px rgba(15,23,42,.06), 0 10px 26px rgba(15,23,42,.09);
+  }
+
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    background:var(--fondo);
+    color:var(--texto);
+    font-family:"Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    font-size:16px;
+    line-height:1.5;
+    -webkit-font-smoothing:antialiased;
+  }
+
+  .envoltura{max-width:1120px;margin:0 auto;padding:18px 16px 34px;}
+
+  /* ---------- Encabezado ---------- */
+  header.principal{
+    background:linear-gradient(135deg,#1d4ed8,#3b82f6);
+    color:#fff;
+    border-radius:16px;
+    padding:16px 22px;
+    box-shadow:var(--sombra);
+  }
+  header.principal h1{
+    margin:0;
+    font-size:26px;
+    line-height:1.2;
+    letter-spacing:-.4px;
+  }
+  header.principal p{
+    margin:7px 0 0;
+    font-size:15.5px;
+    color:#e2ebff;
+    max-width:70ch;
+  }
+  .privacidad{
+    display:inline-block;
+    margin-top:12px;
+    background:rgba(255,255,255,.18);
+    border:1px solid rgba(255,255,255,.35);
+    border-radius:999px;
+    padding:5px 14px;
+    font-size:14px;
+    font-weight:600;
+  }
+
+  /* ---------- Rejilla de dos columnas ---------- */
+  .rejilla{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:18px;
+    margin-top:18px;
+    align-items:start;
+  }
+  @media (max-width:840px){ .rejilla{grid-template-columns:1fr;} }
+
+  .panel{
+    background:var(--tarjeta);
+    border:1px solid var(--borde);
+    border-radius:16px;
+    padding:20px;
+    box-shadow:var(--sombra);
+  }
+  .panel h2{
+    margin:0 0 14px;
+    font-size:19px;
+    display:flex;
+    align-items:center;
+    gap:9px;
+  }
+  .paso{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    width:28px;height:28px;
+    border-radius:50%;
+    background:var(--acento);
+    color:#fff;
+    font-size:15px;
+    font-weight:700;
+    flex:none;
+  }
+
+  /* ---------- Zona de carga (clic o arrastrar) ---------- */
+  .zona-carga{
+    border:2px dashed #9db4d8;
+    border-radius:14px;
+    background:#f7faff;
+    padding:16px 14px;
+    text-align:center;
+    cursor:pointer;
+    transition:background .15s ease, border-color .15s ease;
+  }
+  .zona-carga:hover,
+  .zona-carga:focus-visible{background:#eaf1ff;border-color:var(--acento);outline:none;}
+  .zona-carga.encima{background:#dde8ff;border-color:var(--acento);}
+  .zona-carga .icono{font-size:30px;line-height:1;}
+  .zona-carga .titulo{font-size:16.5px;font-weight:700;margin:6px 0 3px;}
+  .zona-carga .ayuda{font-size:14px;color:var(--texto-suave);margin:0;}
+  input[type=file]{position:absolute;width:1px;height:1px;opacity:0;pointer-events:none;}
+
+  /* ---------- Botones ---------- */
+  .fila-botones{display:flex;flex-wrap:wrap;gap:10px;margin-top:14px;}
+  button{
+    font-family:inherit;
+    font-size:16px;
+    font-weight:700;
+    min-height:50px;
+    padding:12px 20px;
+    border-radius:11px;
+    border:1px solid transparent;
+    cursor:pointer;
+    transition:background .15s ease, transform .05s ease;
+  }
+  button:active{transform:translateY(1px);}
+  button:focus-visible{outline:3px solid #93b4ff;outline-offset:2px;}
+  /* El botón principal ocupa toda la fila; los secundarios se reparten la siguiente. */
+  .btn-principal{background:var(--acento);color:#fff;flex:1 1 100%;}
+  .btn-principal:hover{background:var(--acento-oscuro);}
+  .btn-secundario{background:#eef3fc;color:#17335f;border-color:#c6d6ef;flex:1 1 0;font-size:15px;padding:12px 12px;white-space:nowrap;}
+  .btn-secundario:hover{background:#e0e9f9;}
+  button[disabled]{opacity:.5;cursor:not-allowed;}
+
+  /* ---------- Previsualización ---------- */
+  .previsualizacion{
+    margin-top:16px;
+    border:1px solid var(--borde);
+    border-radius:13px;
+    background:
+      linear-gradient(45deg,#eceff4 25%,transparent 25%,transparent 75%,#eceff4 75%),
+      linear-gradient(45deg,#eceff4 25%,#fff 25%,#fff 75%,#eceff4 75%);
+    background-size:18px 18px;
+    background-position:0 0,9px 9px;
+    min-height:158px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:14px;
+    overflow:hidden;
+  }
+  .previsualizacion img{max-width:100%;max-height:190px;display:block;border-radius:6px;}
+  .vacio{color:var(--texto-suave);font-size:15px;text-align:center;}
+
+  .datos{
+    list-style:none;
+    margin:14px 0 0;
+    padding:0;
+    display:grid;
+    grid-template-columns:repeat(2,minmax(0,1fr));
+    gap:9px;
+  }
+  .datos li{
+    background:#f5f8fd;
+    border:1px solid #e2e9f4;
+    border-radius:10px;
+    padding:9px 12px;
+  }
+  .datos .clave{display:block;font-size:12.5px;text-transform:uppercase;letter-spacing:.5px;color:var(--texto-suave);font-weight:700;}
+  .datos .valor{font-size:16px;font-weight:600;word-break:break-word;}
+
+  /* ---------- Opciones ---------- */
+  .opciones{display:flex;flex-wrap:wrap;gap:8px 18px;margin-bottom:12px;}
+  .opciones label{display:flex;align-items:center;gap:8px;font-size:15px;font-weight:600;cursor:pointer;}
+  .opciones input{width:19px;height:19px;accent-color:var(--acento);cursor:pointer;}
+
+  /* ---------- Resultado ---------- */
+  textarea{
+    width:100%;
+    min-height:212px;
+    resize:vertical;
+    font-family:"Consolas","Courier New",monospace;
+    font-size:13.5px;
+    line-height:1.45;
+    color:#12203a;
+    background:#fbfcfe;
+    border:1px solid var(--borde);
+    border-radius:12px;
+    padding:12px 14px;
+    word-break:break-all;
+  }
+  textarea:focus{outline:3px solid #93b4ff;outline-offset:1px;border-color:var(--acento);}
+
+  .aviso{
+    margin-top:12px;
+    border-radius:11px;
+    padding:11px 14px;
+    font-size:15px;
+    font-weight:600;
+    display:none;
+  }
+  .aviso.ok{display:block;background:#e6f6ec;color:var(--exito);border:1px solid #b7e3c7;}
+  .aviso.alerta{display:block;background:#fdf1e0;color:var(--aviso);border:1px solid #f2d5a8;}
+  .aviso.error{display:block;background:#fdeaea;color:#a52020;border:1px solid #f2bdbd;}
+
+  .etiqueta-demo{
+    display:inline-block;
+    background:#fff4d6;
+    color:#7a5300;
+    border:1px solid #f0dca4;
+    border-radius:999px;
+    padding:3px 11px;
+    font-size:13px;
+    font-weight:700;
+    margin-bottom:12px;
+  }
+
+  /* ---------- Pie ---------- */
+  .pasos{
+    margin-top:18px;
+    display:grid;
+    grid-template-columns:repeat(3,minmax(0,1fr));
+    gap:14px;
+  }
+  @media (max-width:760px){ .pasos{grid-template-columns:1fr;} }
+  .pasos article{
+    background:var(--tarjeta);
+    border:1px solid var(--borde);
+    border-radius:14px;
+    padding:15px 17px;
+    box-shadow:var(--sombra);
+  }
+  .pasos h3{margin:0 0 5px;font-size:16px;}
+  .pasos p{margin:0;font-size:14.5px;color:var(--texto-suave);}
+
+  footer.pie{
+    margin-top:22px;
+    text-align:center;
+    font-size:14px;
+    color:var(--texto-suave);
+  }
+</style>
+</head>
+<body>
+<div class="envoltura">
+
+  <header class="principal">
+    <h1>Conversor de Imagen a Base64</h1>
+    <p>Convierte cualquier imagen (PNG, JPG, GIF, WebP, SVG, BMP, ICO) en texto Base64 listo
+       para pegar en tu HTML, CSS, JSON o correo. Sin instalar nada y sin subir archivos.</p>
+    <span class="privacidad">🔒 Todo ocurre en tu navegador: la imagen nunca sale de tu equipo</span>
+  </header>
+
+  <div class="rejilla">
+
+    <!-- ===================== PANEL IZQUIERDO: entrada ===================== -->
+    <section class="panel" aria-labelledby="titulo-imagen">
+      <h2 id="titulo-imagen"><span class="paso">1</span> Elige tu imagen</h2>
+
+      <div class="zona-carga" id="zonaCarga" role="button" tabindex="0"
+           aria-label="Elegir una imagen o arrastrarla aquí">
+        <div class="icono" aria-hidden="true">🖼️</div>
+        <p class="titulo">Haz clic para elegir una imagen</p>
+        <p class="ayuda">…o arrástrala y suéltala aquí · PNG, JPG, GIF, WebP, SVG, BMP, ICO</p>
+        <input type="file" id="archivo" accept="image/*">
+      </div>
+
+      <div class="fila-botones">
+        <button type="button" class="btn-principal" id="btnConvertir">Convertir a Base64</button>
+        <button type="button" class="btn-secundario" id="btnEjemplo">Cargar ejemplo</button>
+        <button type="button" class="btn-secundario" id="btnLimpiar">Limpiar</button>
+      </div>
+
+      <div class="previsualizacion" id="previsualizacion">
+        <p class="vacio" id="textoVacio">Aquí verás la vista previa de tu imagen</p>
+      </div>
+
+      <ul class="datos" id="datos">
+        <li><span class="clave">Archivo</span><span class="valor" id="datoNombre">—</span></li>
+        <li><span class="clave">Formato</span><span class="valor" id="datoFormato">—</span></li>
+        <li><span class="clave">Tamaño original</span><span class="valor" id="datoTamano">—</span></li>
+        <li><span class="clave">Dimensiones</span><span class="valor" id="datoDimensiones">—</span></li>
+      </ul>
+    </section>
+
+    <!-- ===================== PANEL DERECHO: resultado ===================== -->
+    <section class="panel" aria-labelledby="titulo-resultado">
+      <h2 id="titulo-resultado"><span class="paso">2</span> Copia el resultado</h2>
+
+      <div class="opciones">
+        <label><input type="checkbox" id="optDataUri" checked> Incluir prefijo <code>data:</code></label>
+        <label><input type="checkbox" id="optLineas"> Partir en líneas de 76</label>
+      </div>
+
+      <textarea id="salida" spellcheck="false" readonly
+        placeholder="El texto Base64 aparecerá aquí. Podrás copiarlo con un clic y pegarlo directamente en el atributo src de una etiqueta <img> o en tu hoja de estilos."></textarea>
+
+      <div class="fila-botones">
+        <button type="button" class="btn-principal" id="btnCopiar">Copiar texto</button>
+        <button type="button" class="btn-secundario" id="btnEtiqueta">Copiar etiqueta</button>
+        <button type="button" class="btn-secundario" id="btnDescargar">Descargar .txt</button>
+      </div>
+
+      <div class="aviso" id="aviso" role="status" aria-live="polite"></div>
+
+      <ul class="datos" style="margin-top:16px;">
+        <li><span class="clave">Caracteres Base64</span><span class="valor" id="datoCaracteres">—</span></li>
+        <li><span class="clave">Peso del texto</span><span class="valor" id="datoPesoTexto">—</span></li>
+      </ul>
+    </section>
+  </div>
+
+  <div class="pasos">
+    <article>
+      <h3>¿Para qué sirve?</h3>
+      <p>Incrustar un logo o un icono dentro del propio HTML o CSS evita una petición extra al
+         servidor y hace que la página cargue más rápido.</p>
+    </article>
+    <article>
+      <h3>Correos y APIs</h3>
+      <p>Muchas plantillas de correo y APIs (JSON) sólo aceptan imágenes como texto: Base64 es
+         justo ese formato.</p>
+    </article>
+    <article>
+      <h3>Ojo con el tamaño</h3>
+      <p>Base64 ocupa un 33 % más que el archivo original. Ideal para imágenes pequeñas
+         (menos de 100 KB), no para fotos grandes.</p>
+    </article>
+  </div>
+
+  <footer class="pie">
+    Funciona sin conexión · Sin dependencias externas · Portafolio AGC
+  </footer>
+</div>
+
+<!-- Motor de conversión compartido con el autotest (node check.js) -->
+<script src="base64.js"></script>
+<script>
+'use strict';
+
+/* ---------------- Referencias a los elementos de la página ---------------- */
+var zonaCarga      = document.getElementById('zonaCarga');
+var entradaArchivo = document.getElementById('archivo');
+var btnConvertir   = document.getElementById('btnConvertir');
+var btnEjemplo     = document.getElementById('btnEjemplo');
+var btnLimpiar     = document.getElementById('btnLimpiar');
+var btnCopiar      = document.getElementById('btnCopiar');
+var btnEtiqueta    = document.getElementById('btnEtiqueta');
+var btnDescargar   = document.getElementById('btnDescargar');
+var optDataUri     = document.getElementById('optDataUri');
+var optLineas      = document.getElementById('optLineas');
+var salida         = document.getElementById('salida');
+var aviso          = document.getElementById('aviso');
+var previsualizacion = document.getElementById('previsualizacion');
+
+/* Estado actual de la conversión. */
+var estado = {
+  nombre: '',
+  bytes: null,     // Uint8Array con el contenido del archivo
+  base64: '',      // resultado puro, sin prefijo
+  mime: '',
+  esDemo: false
+};
+
+/* ---------------- Utilidades de interfaz ---------------- */
+
+function mostrarAviso(texto, tipo) {
+  aviso.textContent = texto;
+  aviso.className = 'aviso ' + (tipo || 'ok');
+}
+
+function limpiarAviso() {
+  aviso.textContent = '';
+  aviso.className = 'aviso';
+}
+
+function ponerDato(id, valor) {
+  document.getElementById(id).textContent = valor;
+}
+
+/* Devuelve el texto tal y como debe verse según las casillas de opciones. */
+function textoSegunOpciones() {
+  if (!estado.base64) return '';
+  var texto = optDataUri.checked ? construirDataUri(estado.mime, estado.base64) : estado.base64;
+  return optLineas.checked ? partirEnLineas(texto, 76) : texto;
+}
+
+function pintarSalida() {
+  salida.value = textoSegunOpciones();
+}
+
+/* ---------------- Carga de la imagen ---------------- */
+
+/**
+ * Lee el archivo como bytes crudos y prepara la vista previa.
+ * No convierte todavía: eso lo hace el botón "Convertir a Base64".
+ */
+function cargarArchivo(archivo, esDemo, alTerminar) {
+  if (!archivo) return;
+
+  if (archivo.type && archivo.type.indexOf('image/') !== 0 && !/\.(png|jpe?g|gif|webp|svg|bmp|ico)$/i.test(archivo.name)) {
+    mostrarAviso('Ese archivo no parece una imagen. Elige un PNG, JPG, GIF, WebP, SVG, BMP o ICO.', 'error');
+    return;
+  }
+
+  var lector = new FileReader();
+  lector.onerror = function () {
+    mostrarAviso('No se pudo leer el archivo. Inténtalo de nuevo.', 'error');
+  };
+  lector.onload = function () {
+    var bytes = new Uint8Array(lector.result);
+    var tipo  = detectarTipo(bytes, archivo.name);
+
+    estado.nombre = archivo.name;
+    estado.bytes  = bytes;
+    estado.mime   = tipo.mime;
+    estado.base64 = '';
+    estado.esDemo = !!esDemo;
+
+    ponerDato('datoNombre', archivo.name);
+    ponerDato('datoFormato', tipo.etiqueta + (tipo.seguro ? '' : ' (según extensión)'));
+    ponerDato('datoTamano', formatearTamano(bytes.length));
+    ponerDato('datoDimensiones', 'calculando…');
+    ponerDato('datoCaracteres', '—');
+    ponerDato('datoPesoTexto', '—');
+    salida.value = '';
+
+    mostrarVistaPrevia(bytes, tipo.mime);
+    mostrarAviso('Imagen lista (' + formatearTamano(bytes.length) + '). Pulsa «Convertir a Base64».', 'ok');
+
+    // La lectura del archivo es asíncrona: quien necesite el resultado ya cargado
+    // se engancha aquí, no con un temporizador (que podría dispararse antes).
+    if (typeof alTerminar === 'function') alTerminar();
+  };
+  lector.readAsArrayBuffer(archivo);
+}
+
+/** Dibuja la miniatura usando un data URI generado con nuestro propio motor. */
+function mostrarVistaPrevia(bytes, mime) {
+  var uri = construirDataUri(mime, bytesABase64(bytes));
+  var img = new Image();
+  img.alt = 'Vista previa de la imagen elegida';
+  img.onload = function () {
+    ponerDato('datoDimensiones', img.naturalWidth + ' × ' + img.naturalHeight + ' px');
+  };
+  img.onerror = function () {
+    ponerDato('datoDimensiones', 'no disponible');
+  };
+  img.src = uri;
+
+  previsualizacion.innerHTML = '';
+  if (estado.esDemo) {
+    var etiqueta = document.createElement('span');
+    etiqueta.className = 'etiqueta-demo';
+    etiqueta.textContent = 'Ejemplo de demostración';
+    previsualizacion.style.flexDirection = 'column';
+    previsualizacion.appendChild(etiqueta);
+  } else {
+    previsualizacion.style.flexDirection = 'row';
+  }
+  previsualizacion.appendChild(img);
+}
+
+/* ---------------- Conversión ---------------- */
+
+function convertir() {
+  if (!estado.bytes) {
+    mostrarAviso('Primero elige una imagen (o pulsa «Cargar ejemplo»).', 'alerta');
+    return;
+  }
+  estado.base64 = bytesABase64(estado.bytes);
+  pintarSalida();
+
+  var largo = salida.value.length;
+  ponerDato('datoCaracteres', largo.toLocaleString('es-ES'));
+  ponerDato('datoPesoTexto', formatearTamano(largo));
+
+  var crecimiento = Math.round((estado.base64.length / estado.bytes.length - 1) * 100);
+  if (estado.bytes.length > 100 * 1024) {
+    mostrarAviso('Convertido. Aviso: la imagen pesa más de 100 KB; el texto es un ' +
+                 crecimiento + ' % más grande y puede ralentizar tu página.', 'alerta');
+  } else {
+    mostrarAviso('¡Convertido! Ya puedes copiar el texto (' + crecimiento + ' % más grande que el original).', 'ok');
+  }
+}
+
+/* ---------------- Copiar / descargar ---------------- */
+
+/** Copia al portapapeles; si el navegador lo bloquea, usa el método clásico. */
+function copiarTexto(texto, mensajeOk) {
+  if (!texto) {
+    mostrarAviso('No hay nada que copiar todavía: convierte una imagen primero.', 'alerta');
+    return;
+  }
+  function respaldo() {
+    var area = document.createElement('textarea');
+    area.value = texto;
+    document.body.appendChild(area);
+    area.select();
+    try { document.execCommand('copy'); mostrarAviso(mensajeOk, 'ok'); }
+    catch (e) { mostrarAviso('Tu navegador no permite copiar automáticamente: selecciona el texto y pulsa Ctrl+C.', 'alerta'); }
+    document.body.removeChild(area);
+  }
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(texto).then(function () { mostrarAviso(mensajeOk, 'ok'); }, respaldo);
+  } else {
+    respaldo();
+  }
+}
+
+function descargarTxt() {
+  var texto = salida.value;
+  if (!texto) {
+    mostrarAviso('Convierte una imagen antes de descargar el texto.', 'alerta');
+    return;
+  }
+  var blob = new Blob([texto], { type: 'text/plain;charset=utf-8' });
+  var url  = URL.createObjectURL(blob);
+  var enlace = document.createElement('a');
+  enlace.href = url;
+  enlace.download = (estado.nombre || 'imagen').replace(/\.[^.]+$/, '') + '-base64.txt';
+  document.body.appendChild(enlace);
+  enlace.click();
+  document.body.removeChild(enlace);
+  setTimeout(function () { URL.revokeObjectURL(url); }, 1000);
+  mostrarAviso('Archivo .txt descargado.', 'ok');
+}
+
+/* ---------------- Imagen de ejemplo (generada aquí mismo, sin descargas) ---------------- */
+
+function imagenDeEjemplo() {
+  var svg =
+    '<svg xmlns="http://www.w3.org/2000/svg" width="240" height="150" viewBox="0 0 240 150">' +
+    '<defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1">' +
+    '<stop offset="0" stop-color="#1d4ed8"/><stop offset="1" stop-color="#38bdf8"/>' +
+    '</linearGradient></defs>' +
+    '<rect width="240" height="150" rx="16" fill="url(#g)"/>' +
+    '<circle cx="58" cy="52" r="20" fill="#fde68a"/>' +
+    '<path d="M0 150 L78 78 L134 122 L176 92 L240 150 Z" fill="#0f3fa3" opacity=".85"/>' +
+    '<text x="120" y="132" font-family="Segoe UI, Arial" font-size="17" font-weight="700" ' +
+    'fill="#ffffff" text-anchor="middle">Imagen de ejemplo</text>' +
+    '</svg>';
+  var bytes = new Uint8Array(svg.length);
+  for (var i = 0; i < svg.length; i++) bytes[i] = svg.charCodeAt(i) & 0xff;
+  return new Blob([bytes], { type: 'image/svg+xml' });
+}
+
+function cargarEjemplo(silencioso) {
+  var blob = imagenDeEjemplo();
+  blob.name = 'ejemplo.svg';
+  var archivo = new File([blob], 'ejemplo.svg', { type: 'image/svg+xml' });
+  // Convertimos en cuanto el archivo está leído, para que se vea el flujo completo.
+  cargarArchivo(archivo, true, function () {
+    convertir();
+    if (silencioso) {
+      mostrarAviso('Esto es un ejemplo de demostración. Elige tu propia imagen para empezar.', 'ok');
+    }
+  });
+}
+
+/* ---------------- Eventos ---------------- */
+
+zonaCarga.addEventListener('click', function () { entradaArchivo.click(); });
+zonaCarga.addEventListener('keydown', function (e) {
+  if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); entradaArchivo.click(); }
+});
+zonaCarga.addEventListener('dragover', function (e) { e.preventDefault(); zonaCarga.classList.add('encima'); });
+zonaCarga.addEventListener('dragleave', function () { zonaCarga.classList.remove('encima'); });
+zonaCarga.addEventListener('drop', function (e) {
+  e.preventDefault();
+  zonaCarga.classList.remove('encima');
+  if (e.dataTransfer.files && e.dataTransfer.files[0]) cargarArchivo(e.dataTransfer.files[0], false);
+});
+
+entradaArchivo.addEventListener('change', function () {
+  if (entradaArchivo.files && entradaArchivo.files[0]) cargarArchivo(entradaArchivo.files[0], false);
+});
+
+btnConvertir.addEventListener('click', convertir);
+btnEjemplo.addEventListener('click', function () { cargarEjemplo(false); });
+
+btnLimpiar.addEventListener('click', function () {
+  estado = { nombre: '', bytes: null, base64: '', mime: '', esDemo: false };
+  entradaArchivo.value = '';
+  salida.value = '';
+  previsualizacion.style.flexDirection = 'row';
+  previsualizacion.innerHTML = '<p class="vacio" id="textoVacio">Aquí verás la vista previa de tu imagen</p>';
+  ['datoNombre','datoFormato','datoTamano','datoDimensiones','datoCaracteres','datoPesoTexto']
+    .forEach(function (id) { ponerDato(id, '—'); });
+  limpiarAviso();
+});
+
+btnCopiar.addEventListener('click', function () {
+  copiarTexto(salida.value, 'Texto copiado al portapapeles.');
+});
+
+btnEtiqueta.addEventListener('click', function () {
+  if (!estado.base64) {
+    mostrarAviso('Convierte una imagen antes de copiar la etiqueta.', 'alerta');
+    return;
+  }
+  var etiqueta = '<img src="' + construirDataUri(estado.mime, estado.base64) + '" alt="">';
+  copiarTexto(etiqueta, 'Etiqueta <img> copiada: pégala en tu HTML.');
+});
+
+btnDescargar.addEventListener('click', descargarTxt);
+
+optDataUri.addEventListener('change', function () { pintarSalida(); actualizarContadores(); });
+optLineas.addEventListener('change', function () { pintarSalida(); actualizarContadores(); });
+
+function actualizarContadores() {
+  if (!salida.value) return;
+  ponerDato('datoCaracteres', salida.value.length.toLocaleString('es-ES'));
+  ponerDato('datoPesoTexto', formatearTamano(salida.value.length));
+}
+
+/* Al abrir la página mostramos un ejemplo ya convertido: así se entiende
+   el resultado de un vistazo, sin tener que buscar una imagen primero. */
+cargarEjemplo(true);
+</script>
+</body>
+</html>
