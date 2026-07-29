@@ -30,6 +30,7 @@ Cada carpeta es un proyecto independiente con su propio README, código y verifi
 | [gestor-presupuesto](gestor-presupuesto/) | Gestor de presupuesto mensual: agrega gastos y ve el total y el restante en tiempo real, 100% offline en el navegador | HTML/CSS/JS | 18/07/2026 |
 | [generador-ideas-escritura](generador-ideas-escritura/) | Generador de ideas creativas para escritores con 6 tipos y copia al portapapeles ([Demo en vivo](https://agc-generador-ideas-escritura.pages.dev)) | HTML, CSS, JavaScript | 2026-07-23 |
 | [generador-qr](./generador-qr) | Generador de códigos QR desde texto/URL | HTML+CSS+JS | 24/07/2026 |
+| [conversor-unidades](conversor-unidades/) | Conversor de unidades (longitud, peso, temperatura, volumen) con interfaz web sencilla ([Demo en vivo](https://agc-conversor-unidades.pages.dev)) | HTML/CSS/JS | 2026-07-28 |
 
 ### Lote guiado por empleos reales de IA (13/07/2026)
 

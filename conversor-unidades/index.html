@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Conversor de Unidades — longitud, peso, temperatura y volumen</title>
+<style>
+  :root {
+    --fondo:        #0f172a;
+    --fondo-suave:  #1e293b;
+    --tarjeta:      #ffffff;
+    --texto:        #0f172a;
+    --texto-suave:  #475569;
+    --borde:        #cbd5e1;
+    --acento:       #1d4ed8;
+    --acento-vivo:  #2563eb;
+    --acento-claro: #eff6ff;
+    --exito:        #047857;
+    --exito-claro:  #ecfdf5;
+    --error:        #b91c1c;
+    --error-claro:  #fef2f2;
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    padding: 20px 16px 40px;
+    font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    background: linear-gradient(160deg, var(--fondo) 0%, #1e3a8a 100%);
+    color: var(--texto);
+    min-height: 100vh;
+  }
+
+  .contenedor { max-width: 780px; margin: 0 auto; }
+
+  header { text-align: center; color: #fff; margin-bottom: 18px; }
+  header h1 {
+    margin: 0 0 6px;
+    font-size: 1.95rem;
+    font-weight: 800;
+    letter-spacing: -0.5px;
+  }
+  header p {
+    margin: 0;
+    font-size: 1.05rem;
+    color: #dbeafe;
+  }
+
+  .tarjeta {
+    background: var(--tarjeta);
+    border-radius: 18px;
+    padding: 24px;
+    box-shadow: 0 18px 40px rgba(0, 0, 0, .28);
+  }
+
+  /* --- Pestañas de categoría --- */
+  .categorias {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+    margin-bottom: 20px;
+  }
+  .categoria {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 3px;
+    padding: 11px 6px;
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--texto-suave);
+    background: #f1f5f9;
+    border: 2px solid transparent;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all .15s ease;
+  }
+  .categoria .icono { font-size: 1.5rem; line-height: 1; }
+  .categoria:hover { background: var(--acento-claro); color: var(--acento); }
+  .categoria[aria-selected="true"] {
+    background: var(--acento);
+    border-color: var(--acento);
+    color: #fff;
+  }
+  .categoria:focus-visible { outline: 3px solid #f59e0b; outline-offset: 2px; }
+
+  /* --- Formulario --- */
+  label {
+    display: block;
+    font-size: .95rem;
+    font-weight: 700;
+    color: var(--texto-suave);
+    margin-bottom: 6px;
+    text-transform: uppercase;
+    letter-spacing: .4px;
+  }
+
+  .campo { margin-bottom: 16px; }
+
+  input[type="text"], select {
+    width: 100%;
+    padding: 14px 14px;
+    font-size: 1.15rem;
+    font-family: inherit;
+    color: var(--texto);
+    background: #fff;
+    border: 2px solid var(--borde);
+    border-radius: 12px;
+  }
+  input[type="text"] { font-weight: 700; }
+  input:focus, select:focus {
+    outline: none;
+    border-color: var(--acento-vivo);
+    box-shadow: 0 0 0 4px rgba(37, 99, 235, .18);
+  }
+
+  .fila-unidades {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    gap: 12px;
+    align-items: end;
+  }
+
+  .btn-intercambiar {
+    height: 54px;
+    width: 54px;
+    font-size: 1.4rem;
+    color: var(--acento);
+    background: var(--acento-claro);
+    border: 2px solid var(--acento);
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all .15s ease;
+  }
+  .btn-intercambiar:hover { background: var(--acento); color: #fff; }
+
+  .btn-convertir {
+    width: 100%;
+    margin-top: 6px;
+    padding: 18px;
+    font-size: 1.25rem;
+    font-family: inherit;
+    font-weight: 800;
+    color: #fff;
+    background: var(--acento);
+    border: none;
+    border-radius: 14px;
+    cursor: pointer;
+    letter-spacing: .3px;
+    transition: background .15s ease, transform .1s ease;
+  }
+  .btn-convertir:hover { background: var(--acento-vivo); }
+  .btn-convertir:active { transform: translateY(1px); }
+
+  /* --- Resultado --- */
+  .resultado {
+    margin-top: 18px;
+    padding: 18px;
+    text-align: center;
+    background: var(--exito-claro);
+    border: 2px solid var(--exito);
+    border-radius: 14px;
+  }
+  .resultado .entrada {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--texto-suave);
+    margin-bottom: 6px;
+  }
+  .resultado .salida {
+    font-size: 2.1rem;
+    font-weight: 800;
+    color: var(--exito);
+    word-break: break-word;
+    line-height: 1.2;
+  }
+  .resultado .detalle {
+    margin-top: 6px;
+    font-size: .95rem;
+    font-weight: 600;
+    color: var(--texto-suave);
+  }
+  .resultado.error .detalle { display: none; }
+  .resultado.error {
+    background: var(--error-claro);
+    border-color: var(--error);
+  }
+  .resultado.error .salida { font-size: 1.2rem; color: var(--error); }
+
+  /* --- Tabla de equivalencias rápidas --- */
+  .equivalencias { margin-top: 22px; }
+  .equivalencias h2 {
+    font-size: 1rem;
+    text-transform: uppercase;
+    letter-spacing: .6px;
+    color: var(--texto-suave);
+    margin: 0 0 10px;
+  }
+  .equivalencias ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+    gap: 8px;
+  }
+  .equivalencias li {
+    padding: 10px 12px;
+    font-size: .98rem;
+    font-weight: 600;
+    color: var(--texto);
+    background: #f8fafc;
+    border-left: 4px solid var(--acento);
+    border-radius: 8px;
+  }
+
+  footer {
+    margin-top: 24px;
+    text-align: center;
+    font-size: .9rem;
+    color: #cbd5e1;
+  }
+
+  @media (max-width: 560px) {
+    header h1 { font-size: 1.6rem; }
+    .categorias { grid-template-columns: repeat(2, 1fr); }
+    .fila-unidades { grid-template-columns: 1fr; }
+    .btn-intercambiar { width: 100%; }
+  }
+</style>
+</head>
+<body>
+<div class="contenedor">
+
+  <header>
+    <h1>🔄 Conversor de Unidades</h1>
+    <p>Longitud, peso, temperatura y volumen — sin instalar nada</p>
+  </header>
+
+  <main class="tarjeta">
+
+    <div class="categorias" role="tablist" aria-label="Categorías de conversión">
+      <button type="button" class="categoria" role="tab" data-categoria="longitud" aria-selected="true">
+        <span class="icono" aria-hidden="true">📏</span> Longitud
+      </button>
+      <button type="button" class="categoria" role="tab" data-categoria="peso" aria-selected="false">
+        <span class="icono" aria-hidden="true">⚖️</span> Peso
+      </button>
+      <button type="button" class="categoria" role="tab" data-categoria="temperatura" aria-selected="false">
+        <span class="icono" aria-hidden="true">🌡️</span> Temperatura
+      </button>
+      <button type="button" class="categoria" role="tab" data-categoria="volumen" aria-selected="false">
+        <span class="icono" aria-hidden="true">🧪</span> Volumen
+      </button>
+    </div>
+
+    <form id="formulario" autocomplete="off">
+      <div class="campo">
+        <label for="valor">Valor a convertir</label>
+        <input type="text" id="valor" value="1" inputmode="decimal" placeholder="Escribe un número, por ejemplo 12.5">
+      </div>
+
+      <div class="fila-unidades">
+        <div class="campo" style="margin-bottom:0">
+          <label for="desde">Unidad de origen</label>
+          <select id="desde"></select>
+        </div>
+        <button type="button" class="btn-intercambiar" id="intercambiar"
+                title="Intercambiar unidades" aria-label="Intercambiar unidades">⇄</button>
+        <div class="campo" style="margin-bottom:0">
+          <label for="hacia">Unidad de destino</label>
+          <select id="hacia"></select>
+        </div>
+      </div>
+
+      <button type="submit" class="btn-convertir">Convertir</button>
+    </form>
+
+    <div class="resultado" id="resultado" role="status" aria-live="polite">
+      <div class="entrada" id="resultado-entrada">Listo para convertir</div>
+      <div class="salida" id="resultado-salida">—</div>
+      <div class="detalle" id="resultado-detalle"></div>
+    </div>
+
+    <section class="equivalencias">
+      <h2>Equivalencias rápidas</h2>
+      <ul id="equivalencias"></ul>
+    </section>
+
+  </main>
+
+  <footer>Funciona 100 % en tu navegador · Sin internet · Sin enviar datos a ningún servidor</footer>
+</div>
+
+<script src="conversiones.js"></script>
+<script>
+(function () {
+  'use strict';
+
+  var CATEGORIAS = Conversor.CATEGORIAS;
+
+  // Pares sugeridos y equivalencias de referencia por categoría.
+  var PRESETS = {
+    longitud:    { desde: 'm',  hacia: 'ft',
+      equivalencias: [['1 m', 'ft'], ['1 km', 'mi'], ['1 in', 'cm'], ['1 yd', 'm']] },
+    peso:        { desde: 'kg', hacia: 'lb',
+      equivalencias: [['1 kg', 'lb'], ['1 lb', 'g'], ['1 oz', 'g'], ['1 g', 'oz']] },
+    temperatura: { desde: 'C',  hacia: 'F',
+      equivalencias: [['0 C', 'F'], ['100 C', 'F'], ['32 F', 'C'], ['0 C', 'K']] },
+    volumen:     { desde: 'L',  hacia: 'gal',
+      equivalencias: [['1 L', 'gal'], ['1 gal', 'L'], ['1 cup', 'mL'], ['1 qt', 'L']] }
+  };
+
+  var $ = function (id) { return document.getElementById(id); };
+  var elValor = $('valor');
+  var elDesde = $('desde');
+  var elHacia = $('hacia');
+  var elResultado = $('resultado');
+  var elEntrada = $('resultado-entrada');
+  var elSalida = $('resultado-salida');
+  var elDetalle = $('resultado-detalle');
+  var elEquivalencias = $('equivalencias');
+  var categoriaActual = 'longitud';
+
+  function etiqueta(clave) {
+    return CATEGORIAS[categoriaActual].unidades[clave].etiqueta;
+  }
+
+  function llenarSelect(select, seleccionada) {
+    var unidades = CATEGORIAS[categoriaActual].unidades;
+    select.innerHTML = '';
+    Object.keys(unidades).forEach(function (clave) {
+      var opcion = document.createElement('option');
+      opcion.value = clave;
+      opcion.textContent = unidades[clave].etiqueta;
+      if (clave === seleccionada) opcion.selected = true;
+      select.appendChild(opcion);
+    });
+  }
+
+  function pintarEquivalencias() {
+    var lista = PRESETS[categoriaActual].equivalencias;
+    elEquivalencias.innerHTML = '';
+    lista.forEach(function (par) {
+      var partes = par[0].split(' ');
+      var cantidad = parseFloat(partes[0]);
+      var origen = partes[1];
+      var destino = par[1];
+      var valor = Conversor.convertir(cantidad, origen, destino, categoriaActual);
+      var li = document.createElement('li');
+      li.textContent = par[0] + ' = ' + Conversor.formatear(valor, 4) + ' ' + destino;
+      elEquivalencias.appendChild(li);
+    });
+  }
+
+  function mostrarError(mensaje) {
+    elResultado.classList.add('error');
+    elEntrada.textContent = 'No se pudo convertir';
+    elSalida.textContent = mensaje;
+  }
+
+  function convertir() {
+    var texto = elValor.value.trim().replace(',', '.');
+    if (texto === '') {
+      mostrarError('Escribe un número en el campo "Valor a convertir".');
+      return;
+    }
+    var numero = Number(texto);
+    if (!isFinite(numero)) {
+      mostrarError('"' + elValor.value + '" no es un número válido.');
+      return;
+    }
+    var desde = elDesde.value;
+    var hacia = elHacia.value;
+    var resultado = Conversor.convertir(numero, desde, hacia, categoriaActual);
+
+    elResultado.classList.remove('error');
+    elEntrada.textContent = Conversor.formatear(numero, 6) + ' ' + desde + ' equivale a';
+    elSalida.textContent = Conversor.formatear(resultado, 6) + ' ' + hacia;
+    elDetalle.textContent = etiqueta(desde) + '  →  ' + etiqueta(hacia);
+  }
+
+  function cambiarCategoria(nombre) {
+    categoriaActual = nombre;
+    document.querySelectorAll('.categoria').forEach(function (boton) {
+      boton.setAttribute('aria-selected', String(boton.dataset.categoria === nombre));
+    });
+    llenarSelect(elDesde, PRESETS[nombre].desde);
+    llenarSelect(elHacia, PRESETS[nombre].hacia);
+    pintarEquivalencias();
+    convertir();
+  }
+
+  document.querySelectorAll('.categoria').forEach(function (boton) {
+    boton.addEventListener('click', function () {
+      cambiarCategoria(boton.dataset.categoria);
+    });
+  });
+
+  $('formulario').addEventListener('submit', function (evento) {
+    evento.preventDefault();
+    convertir();
+  });
+
+  $('intercambiar').addEventListener('click', function () {
+    var temporal = elDesde.value;
+    elDesde.value = elHacia.value;
+    elHacia.value = temporal;
+    convertir();
+  });
+
+  // Conversión en vivo mientras se escribe o se cambia de unidad.
+  elValor.addEventListener('input', convertir);
+  elDesde.addEventListener('change', convertir);
+  elHacia.addEventListener('change', convertir);
+
+  cambiarCategoria('longitud');
+})();
+</script>
+</body>
+</html>
