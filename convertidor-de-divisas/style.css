@@ -1,0 +1,278 @@
+/* --------------------------------------------------------------------------
+   style.css — Convertidor de Divisas
+   Paleta monocromática (sólo grises y negro) con alto contraste.
+   Sin fuentes ni recursos externos: todo se dibuja con CSS puro.
+   -------------------------------------------------------------------------- */
+
+:root{
+  --fondo:#ececed;
+  --tarjeta:#ffffff;
+  --borde:#c9c9cc;
+  --borde-suave:#e2e2e5;
+  --texto:#111113;
+  --texto-suave:#56565c;
+  --tinta:#161618;        /* el "acento" monocromo: negro */
+  --tinta-clara:#2e2e33;
+  --gris-campo:#f6f6f7;
+  --sombra:0 1px 2px rgba(0,0,0,.06), 0 10px 28px rgba(0,0,0,.10);
+}
+
+*{box-sizing:border-box;}
+html,body{margin:0;padding:0;}
+body{
+  background:var(--fondo);
+  color:var(--texto);
+  font-family:"Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  font-size:16px;
+  line-height:1.5;
+  -webkit-font-smoothing:antialiased;
+}
+
+.envoltura{max-width:760px;margin:0 auto;padding:16px 16px 32px;}
+
+/* ---------- Encabezado ---------- */
+header.principal{
+  background:var(--tinta);
+  color:#ffffff;
+  border-radius:14px;
+  padding:16px 22px;
+  box-shadow:var(--sombra);
+}
+header.principal h1{
+  margin:0;
+  font-size:26px;
+  line-height:1.15;
+  letter-spacing:-.5px;
+}
+header.principal p{
+  margin:6px 0 0;
+  font-size:15px;
+  color:#d3d3d6;
+  max-width:64ch;
+}
+
+/* ---------- Tarjetas ---------- */
+.panel{
+  background:var(--tarjeta);
+  border:1px solid var(--borde);
+  border-radius:14px;
+  padding:20px;
+  margin-top:14px;
+  box-shadow:var(--sombra);
+}
+.panel h2{
+  margin:0 0 10px;
+  font-size:18px;
+  letter-spacing:-.2px;
+}
+
+/* ---------- Campos del formulario ---------- */
+.campo{margin-bottom:14px;}
+
+label{
+  display:block;
+  font-size:13.5px;
+  font-weight:700;
+  color:var(--texto-suave);
+  text-transform:uppercase;
+  letter-spacing:.6px;
+  margin-bottom:6px;
+}
+
+input[type=number], select{
+  width:100%;
+  font-family:inherit;
+  font-size:18px;
+  font-weight:600;
+  color:var(--texto);
+  background:var(--gris-campo);
+  border:2px solid var(--borde);
+  border-radius:10px;
+  padding:11px 14px;
+  min-height:52px;
+  appearance:none;
+  -webkit-appearance:none;
+}
+input[type=number]:focus, select:focus{
+  outline:none;
+  border-color:var(--tinta);
+  background:#ffffff;
+}
+input[type=number]:focus-visible, select:focus-visible{
+  outline:3px solid #9a9aa0;
+  outline-offset:2px;
+}
+
+/* Flecha del desplegable dibujada con bordes CSS (sin imágenes ni iconos). */
+.campo-select{position:relative;}
+.campo-select::after{
+  content:"";
+  position:absolute;
+  right:18px;
+  bottom:22px;
+  width:9px;height:9px;
+  border-right:2.5px solid var(--texto-suave);
+  border-bottom:2.5px solid var(--texto-suave);
+  transform:rotate(45deg);
+  pointer-events:none;
+}
+
+/* Origen y destino lado a lado, con el botón de invertir en medio. */
+.par-monedas{
+  display:grid;
+  grid-template-columns:1fr 56px 1fr;
+  gap:12px;
+  align-items:end;
+}
+
+/* ---------- Botones ---------- */
+button{
+  font-family:inherit;
+  font-size:17px;
+  font-weight:700;
+  min-height:54px;
+  padding:12px 20px;
+  border-radius:11px;
+  border:2px solid transparent;
+  cursor:pointer;
+  transition:background .15s ease, transform .05s ease, border-color .15s ease;
+}
+button:active{transform:translateY(1px);}
+button:focus-visible{outline:3px solid #9a9aa0;outline-offset:2px;}
+
+#btnInvertir{
+  min-height:52px;
+  width:56px;
+  padding:0;
+  font-size:20px;
+  background:#ffffff;
+  color:var(--tinta);
+  border-color:var(--borde);
+  margin-bottom:14px;
+}
+#btnInvertir:hover{background:var(--gris-campo);border-color:var(--tinta);}
+
+.fila-botones{display:flex;gap:10px;margin-top:2px;}
+
+#btnConvertir{
+  flex:2 1 0;
+  background:var(--tinta);
+  color:#ffffff;
+  letter-spacing:.3px;
+}
+#btnConvertir:hover{background:var(--tinta-clara);}
+
+#btnLimpiar{
+  flex:1 1 0;
+  background:#ffffff;
+  color:var(--texto);
+  border-color:var(--borde);
+  font-size:16px;
+}
+#btnLimpiar:hover{background:var(--gris-campo);border-color:var(--texto-suave);}
+
+/* ---------- Caja de resultado ---------- */
+#resultado{
+  margin-top:14px;
+  background:var(--tinta);
+  color:#ffffff;
+  border-radius:12px;
+  padding:18px;
+  text-align:center;
+}
+#resultado .rotulo{
+  font-size:13px;
+  font-weight:700;
+  text-transform:uppercase;
+  letter-spacing:1px;
+  color:#b9b9be;
+  margin:0 0 6px;
+}
+#montoConvertido{
+  display:block;
+  font-size:36px;
+  font-weight:800;
+  line-height:1.1;
+  letter-spacing:-1px;
+  word-break:break-word;
+}
+#detalleOperacion{
+  display:block;
+  margin-top:8px;
+  font-size:15px;
+  color:#cfcfd3;
+}
+
+/* En reposo: caja clara con la instrucción, sin gritar. */
+#resultado.vacio{
+  background:var(--gris-campo);
+  color:var(--texto-suave);
+  border:2px dashed var(--borde);
+}
+#resultado.vacio .rotulo{color:var(--texto-suave);}
+#resultado.vacio #montoConvertido{font-size:18px;font-weight:600;letter-spacing:0;}
+
+/* En error: marco grueso, para que se note sin depender del color. */
+#resultado.error{
+  background:#ffffff;
+  color:var(--texto);
+  border:3px solid var(--tinta);
+}
+#resultado.error .rotulo{color:var(--texto);}
+#resultado.error #montoConvertido{font-size:18px;font-weight:700;letter-spacing:0;}
+
+#tasaTexto{
+  margin:12px 0 0;
+  font-size:14.5px;
+  color:var(--texto-suave);
+  text-align:center;
+}
+
+/* ---------- Tabla de tasas ---------- */
+table{
+  width:100%;
+  border-collapse:collapse;
+  font-size:15px;
+}
+th, td{
+  text-align:left;
+  padding:9px 8px;
+  border-bottom:1px solid var(--borde-suave);
+}
+th{
+  font-size:12.5px;
+  text-transform:uppercase;
+  letter-spacing:.6px;
+  color:var(--texto-suave);
+  border-bottom:2px solid var(--borde);
+}
+td.numero{text-align:right;font-variant-numeric:tabular-nums;font-weight:700;}
+
+.nota{
+  margin:12px 0 0;
+  font-size:14px;
+  color:var(--texto-suave);
+  background:var(--gris-campo);
+  border-left:4px solid var(--borde);
+  border-radius:0 8px 8px 0;
+  padding:10px 14px;
+}
+
+footer.pie{
+  margin-top:18px;
+  text-align:center;
+  font-size:13.5px;
+  color:var(--texto-suave);
+}
+
+/* ---------- Pantallas chicas ---------- */
+@media (max-width:600px){
+  header.principal{padding:16px;}
+  header.principal h1{font-size:22px;}
+  .panel{padding:16px;}
+  .par-monedas{grid-template-columns:1fr;gap:0;}
+  #btnInvertir{width:100%;margin:0 0 14px;}
+  .fila-botones{flex-wrap:wrap;}
+  #btnConvertir,#btnLimpiar{flex:1 1 100%;}
+  #montoConvertido{font-size:29px;}
+}

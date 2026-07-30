@@ -32,6 +32,7 @@ Cada carpeta es un proyecto independiente con su propio README, código y verifi
 | [generador-qr](./generador-qr) | Generador de códigos QR desde texto/URL | HTML+CSS+JS | 24/07/2026 |
 | [conversor-unidades](conversor-unidades/) | Conversor de unidades (longitud, peso, temperatura, volumen) con interfaz web sencilla ([Demo en vivo](https://agc-conversor-unidades.pages.dev)) | HTML/CSS/JS | 2026-07-28 |
 | [conversor-imagen-base64](./conversor-imagen-base64) | Conversor de imágenes a Base64 con interfaz web interactiva ([Demo en vivo](https://agc-conversor-imagen-base64.pages.dev)) | HTML / JS | 2026-07-29 |
+| [convertidor-de-divisas](./convertidor-de-divisas) | Conversor de divisas con tasas fijas para USD, EUR, GBP, JPY, MXN ([Demo en vivo](https://agc-convertidor-de-divisas.pages.dev)) | HTML, CSS, JavaScript | 2026-07-30 |
 
 ### Lote guiado por empleos reales de IA (13/07/2026)
 
