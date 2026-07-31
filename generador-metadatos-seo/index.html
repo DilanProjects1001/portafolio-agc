@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Generador de Metadatos SEO — vista previa en Google y redes</title>
+<meta name="description" content="Genera las etiquetas meta, Open Graph y JSON-LD de tu página y mira cómo se verá en Google, Facebook y X antes de publicarla. Gratis y sin registro.">
+<link rel="stylesheet" href="src/styles.css">
+</head>
+<body>
+
+<header class="cabecera">
+  <div class="contenedor cabecera__interior">
+    <div class="cabecera__marca">
+      <span class="cabecera__logo" aria-hidden="true">SEO</span>
+      <div>
+        <h1>Generador de Metadatos SEO</h1>
+        <p class="cabecera__lema">Escribe una vez y mira cómo se verá tu página en Google, Facebook y X.</p>
+      </div>
+    </div>
+    <div class="cabecera__acciones">
+      <button type="button" id="btn-ejemplo" class="boton boton--claro">Cargar ejemplo</button>
+      <button type="button" id="btn-limpiar" class="boton boton--fantasma">Limpiar todo</button>
+    </div>
+  </div>
+</header>
+
+<main class="contenedor principal">
+
+  <!-- ============ COLUMNA IZQUIERDA: FORMULARIO ============ -->
+  <section class="tarjeta panel-datos" aria-labelledby="titulo-datos">
+    <h2 id="titulo-datos" class="tarjeta__titulo">1. Datos de tu página</h2>
+
+    <div class="campo">
+      <div class="campo__cabecera">
+        <label for="titulo">Título (etiqueta <code>&lt;title&gt;</code>)</label>
+        <span class="contador" id="contador-titulo">0 / 60</span>
+      </div>
+      <input type="text" id="titulo" maxlength="120" autocomplete="off"
+             placeholder="Ej.: Zapatillas de running para principiantes | RunFácil">
+      <div class="barra"><div class="barra__relleno" id="barra-titulo"></div></div>
+      <p class="ayuda" id="ayuda-titulo">Entre 30 y 60 caracteres.</p>
+    </div>
+
+    <div class="campo">
+      <div class="campo__cabecera">
+        <label for="descripcion">Descripción (meta description)</label>
+        <span class="contador" id="contador-descripcion">0 / 160</span>
+      </div>
+      <textarea id="descripcion" rows="3" maxlength="320"
+                placeholder="Resume la página en una frase que invite a hacer clic."></textarea>
+      <div class="barra"><div class="barra__relleno" id="barra-descripcion"></div></div>
+      <p class="ayuda" id="ayuda-descripcion">Entre 70 y 160 caracteres.</p>
+    </div>
+
+    <div class="campo">
+      <label for="url">URL de la página</label>
+      <input type="text" id="url" autocomplete="off" placeholder="ejemplo.com/blog/mi-articulo">
+      <p class="ayuda">Si no pones <code>https://</code>, se añade solo.</p>
+    </div>
+
+    <div class="rejilla-2">
+      <div class="campo">
+        <label for="sitio">Nombre del sitio</label>
+        <input type="text" id="sitio" autocomplete="off" placeholder="RunFácil">
+      </div>
+      <div class="campo">
+        <label for="autor">Autor</label>
+        <input type="text" id="autor" autocomplete="off" placeholder="Ana Torres">
+      </div>
+    </div>
+
+    <div class="campo">
+      <label for="imagen">Imagen para compartir (URL)</label>
+      <input type="text" id="imagen" autocomplete="off" placeholder="ejemplo.com/img/portada.jpg">
+      <p class="ayuda">Tamaño recomendado: <strong>1200 × 630 px</strong>.</p>
+    </div>
+
+    <div class="campo">
+      <label for="textoImagen">Texto alternativo de la imagen</label>
+      <input type="text" id="textoImagen" autocomplete="off" placeholder="Qué se ve en la imagen">
+    </div>
+
+    <div class="campo">
+      <label for="palabrasClave">Palabras clave (separadas por comas)</label>
+      <input type="text" id="palabrasClave" autocomplete="off" placeholder="zapatillas de running, guía de compra">
+      <p class="ayuda">La primera se considera la principal y debería salir en el título.</p>
+    </div>
+
+    <div class="rejilla-2">
+      <div class="campo">
+        <label for="tipo">Tipo de contenido</label>
+        <select id="tipo">
+          <option value="website">Sitio web</option>
+          <option value="article">Artículo / blog</option>
+          <option value="product">Producto</option>
+          <option value="organization">Empresa / negocio</option>
+        </select>
+      </div>
+      <div class="campo">
+        <label for="idioma">Idioma</label>
+        <select id="idioma">
+          <option value="es-ES">Español (España)</option>
+          <option value="es-MX">Español (México)</option>
+          <option value="es-AR">Español (Argentina)</option>
+          <option value="en-US">Inglés (EE. UU.)</option>
+          <option value="pt-BR">Portugués (Brasil)</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="rejilla-2">
+      <div class="campo">
+        <label for="tarjeta">Tarjeta de X (Twitter)</label>
+        <select id="tarjeta">
+          <option value="summary_large_image">Imagen grande</option>
+          <option value="summary">Imagen pequeña</option>
+        </select>
+      </div>
+      <div class="campo">
+        <label for="usuarioTwitter">Usuario de X</label>
+        <input type="text" id="usuarioTwitter" autocomplete="off" placeholder="@runfacil">
+      </div>
+    </div>
+
+    <label class="interruptor">
+      <input type="checkbox" id="indexar" checked>
+      <span>Permitir que Google indexe esta página</span>
+    </label>
+  </section>
+
+  <!-- ============ COLUMNA DERECHA: RESULTADOS ============ -->
+  <div class="columna-resultados">
+
+    <!-- Puntuación -->
+    <section class="tarjeta" aria-labelledby="titulo-puntuacion">
+      <h2 id="titulo-puntuacion" class="tarjeta__titulo">2. Revisión automática</h2>
+      <div class="puntuacion">
+        <div class="medidor" id="medidor">
+          <div class="medidor__centro">
+            <span class="medidor__numero" id="puntuacion-numero">0</span>
+            <span class="medidor__total">/ 100</span>
+          </div>
+        </div>
+        <div class="puntuacion__resumen">
+          <p class="puntuacion__etiqueta" id="puntuacion-etiqueta">Sin datos todavía</p>
+          <p class="puntuacion__detalle" id="puntuacion-detalle">Rellena el formulario para ver la revisión.</p>
+        </div>
+      </div>
+      <ul class="lista-problemas" id="lista-problemas"></ul>
+    </section>
+
+    <!-- Vista previa Google -->
+    <section class="tarjeta" aria-labelledby="titulo-google">
+      <h2 id="titulo-google" class="tarjeta__titulo">3. Así se vería en Google</h2>
+      <div class="previa-google">
+        <div class="previa-google__ruta">
+          <span class="previa-google__favicon" aria-hidden="true"></span>
+          <span>
+            <span class="previa-google__sitio" id="g-sitio">ejemplo.com</span>
+            <span class="previa-google__migas" id="g-migas">ejemplo.com</span>
+          </span>
+        </div>
+        <p class="previa-google__titulo" id="g-titulo">Título sin definir</p>
+        <p class="previa-google__descripcion" id="g-descripcion">Añade una descripción para ver cómo aparecería tu página en Google.</p>
+      </div>
+      <p class="aviso-noindex oculto" id="aviso-noindex">Esta página está marcada como <strong>noindex</strong>: no aparecerá en los resultados.</p>
+    </section>
+
+    <!-- Vista previa social -->
+    <section class="tarjeta" aria-labelledby="titulo-social">
+      <div class="tarjeta__fila">
+        <h2 id="titulo-social" class="tarjeta__titulo">4. Al compartir el enlace</h2>
+        <div class="pestanas pestanas--pequenas" role="tablist" aria-label="Red social">
+          <button type="button" class="pestana activa" data-red="facebook" role="tab" aria-selected="true">Facebook</button>
+          <button type="button" class="pestana" data-red="twitter" role="tab" aria-selected="false">X</button>
+        </div>
+      </div>
+      <div class="previa-social" id="previa-social">
+        <div class="previa-social__imagen" id="s-imagen">
+          <span class="previa-social__vacia">Sin imagen — añade una URL de imagen</span>
+        </div>
+        <div class="previa-social__texto">
+          <span class="previa-social__dominio" id="s-dominio">EJEMPLO.COM</span>
+          <p class="previa-social__titulo" id="s-titulo">Título sin definir</p>
+          <p class="previa-social__descripcion" id="s-descripcion">Sin descripción.</p>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- ============ CÓDIGO GENERADO ============ -->
+  <section class="tarjeta panel-codigo" aria-labelledby="titulo-codigo">
+    <div class="tarjeta__fila">
+      <h2 id="titulo-codigo" class="tarjeta__titulo">5. Copia este código dentro de <code>&lt;head&gt;</code></h2>
+      <div class="pestanas" role="tablist" aria-label="Tipo de código">
+        <button type="button" class="pestana activa" data-codigo="todo" role="tab" aria-selected="true">Todo</button>
+        <button type="button" class="pestana" data-codigo="meta" role="tab" aria-selected="false">Etiquetas meta</button>
+        <button type="button" class="pestana" data-codigo="jsonld" role="tab" aria-selected="false">JSON-LD</button>
+      </div>
+    </div>
+    <pre class="codigo"><code id="salida-codigo"></code></pre>
+    <div class="acciones-codigo">
+      <button type="button" id="btn-copiar" class="boton boton--principal">Copiar código</button>
+      <button type="button" id="btn-descargar" class="boton boton--secundario">Descargar .html</button>
+      <span class="aviso-copia" id="aviso-copia" role="status"></span>
+    </div>
+  </section>
+</main>
+
+<footer class="pie">
+  <div class="contenedor">
+    <p>Todo se procesa en tu navegador: tus textos no salen de tu equipo. Sin registro, sin servidores, sin cookies.</p>
+    <p class="pie__firma">Proyecto del portafolio AGC · HTML, CSS y JavaScript sin dependencias</p>
+  </div>
+</footer>
+
+<script src="src/seo.js"></script>
+<script src="src/app.js"></script>
+</body>
+</html>
