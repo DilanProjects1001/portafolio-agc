@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Comparador de Textos — encuentra las diferencias entre dos versiones</title>
+<meta name="description" content="Pega dos versiones de un texto y ve exactamente qué cambió: línea por línea y palabra por palabra. Funciona sin internet y nada sale de tu computadora.">
+<link rel="stylesheet" href="src/styles.css">
+</head>
+<body>
+
+<header class="cabecera">
+  <div class="contenedor cabecera__interior">
+    <div class="cabecera__marca">
+      <span class="cabecera__logo" aria-hidden="true">±</span>
+      <div>
+        <h1>Comparador de Textos</h1>
+        <p class="cabecera__lema">Pega dos versiones y descubre exactamente qué cambió, palabra por palabra.</p>
+      </div>
+    </div>
+    <div class="cabecera__acciones">
+      <button type="button" id="btn-ejemplo" class="boton boton--claro">Cargar ejemplo</button>
+      <button type="button" id="btn-intercambiar" class="boton boton--fantasma">Intercambiar</button>
+      <button type="button" id="btn-limpiar" class="boton boton--fantasma">Limpiar todo</button>
+    </div>
+  </div>
+</header>
+
+<main class="contenedor principal">
+
+  <section class="panel entradas" aria-label="Textos a comparar">
+    <div class="entrada">
+      <div class="entrada__barra">
+        <label class="entrada__titulo" for="texto-a">Texto original (antes)</label>
+        <label class="archivo">
+          <input type="file" id="archivo-a" accept=".txt,.md,.csv,.json,.js,.css,.html,.xml,.yml,.yaml,.log,text/*">
+          <span class="archivo__falso">Abrir archivo…</span>
+        </label>
+      </div>
+      <textarea id="texto-a" spellcheck="false" placeholder="Pega aquí la versión original…"></textarea>
+      <p class="entrada__pie"><span id="info-a">0 líneas · 0 caracteres</span></p>
+    </div>
+
+    <div class="entrada">
+      <div class="entrada__barra">
+        <label class="entrada__titulo" for="texto-b">Texto nuevo (después)</label>
+        <label class="archivo">
+          <input type="file" id="archivo-b" accept=".txt,.md,.csv,.json,.js,.css,.html,.xml,.yml,.yaml,.log,text/*">
+          <span class="archivo__falso">Abrir archivo…</span>
+        </label>
+      </div>
+      <textarea id="texto-b" spellcheck="false" placeholder="Pega aquí la versión nueva…"></textarea>
+      <p class="entrada__pie"><span id="info-b">0 líneas · 0 caracteres</span></p>
+    </div>
+  </section>
+
+  <section class="panel opciones" aria-label="Opciones de comparación">
+    <fieldset class="opciones__grupo">
+      <legend>Al comparar, ignorar:</legend>
+      <label class="casilla"><input type="checkbox" id="op-mayusculas"> <span>Mayúsculas y minúsculas</span></label>
+      <label class="casilla"><input type="checkbox" id="op-espacios"> <span>Espacios de más</span></label>
+      <label class="casilla"><input type="checkbox" id="op-vacias"> <span>Líneas en blanco</span></label>
+    </fieldset>
+    <fieldset class="opciones__grupo">
+      <legend>Cómo mostrarlo:</legend>
+      <div class="segmentado" role="group" aria-label="Modo de vista">
+        <button type="button" class="segmentado__opcion is-activa" data-vista="lado">Lado a lado</button>
+        <button type="button" class="segmentado__opcion" data-vista="unificada">Una sola columna</button>
+      </div>
+      <label class="casilla"><input type="checkbox" id="op-solo-cambios"> <span>Ver solo lo que cambió</span></label>
+    </fieldset>
+  </section>
+
+  <section class="resumen" id="resumen" aria-live="polite">
+    <p class="resumen__vacio">Escribe o pega texto en los dos lados para ver las diferencias.</p>
+  </section>
+
+  <section class="panel resultado" aria-label="Resultado de la comparación">
+    <div class="resultado__barra">
+      <h2 class="resultado__titulo">Diferencias</h2>
+      <div class="resultado__acciones">
+        <button type="button" id="btn-copiar" class="boton boton--claro">Copiar parche (.diff)</button>
+        <button type="button" id="btn-descargar" class="boton boton--fantasma">Descargar parche</button>
+      </div>
+    </div>
+    <div class="leyenda" aria-hidden="true">
+      <span class="leyenda__item"><i class="muestra muestra--eliminada"></i> Quitado</span>
+      <span class="leyenda__item"><i class="muestra muestra--agregada"></i> Añadido</span>
+      <span class="leyenda__item"><i class="muestra muestra--modificada"></i> Editado</span>
+    </div>
+    <div id="salida" class="salida"></div>
+  </section>
+
+  <section class="panel notas">
+    <h2>Cómo funciona</h2>
+    <ul>
+      <li><strong>Todo pasa en tu navegador.</strong> Los textos no se envían a ningún servidor: puedes usarlo sin internet y con documentos privados.</li>
+      <li><strong>Compara de verdad, no línea contra línea.</strong> Usa el algoritmo de Myers (el mismo tipo de cálculo que usa <code>git diff</code>) para encontrar el conjunto mínimo de cambios.</li>
+      <li><strong>Resalta la palabra exacta.</strong> Cuando una línea fue editada, marca solo el trozo que cambió.</li>
+      <li><strong>El parche que descargas</strong> está en formato unificado estándar, el que entienden <code>git apply</code> y <code>patch</code>.</li>
+    </ul>
+  </section>
+
+</main>
+
+<footer class="pie">
+  <div class="contenedor">
+    <p>Comparador de Textos — funciona sin conexión, sin cuentas y sin enviar nada a internet.</p>
+  </div>
+</footer>
+
+<script src="src/diff.js"></script>
+<script src="src/app.js"></script>
+</body>
+</html>

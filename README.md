@@ -34,6 +34,7 @@ Cada carpeta es un proyecto independiente con su propio README, código y verifi
 | [conversor-imagen-base64](./conversor-imagen-base64) | Conversor de imágenes a Base64 con interfaz web interactiva ([Demo en vivo](https://agc-conversor-imagen-base64.pages.dev)) | HTML / JS | 2026-07-29 |
 | [convertidor-de-divisas](./convertidor-de-divisas) | Conversor de divisas con tasas fijas para USD, EUR, GBP, JPY, MXN ([Demo en vivo](https://agc-convertidor-de-divisas.pages.dev)) | HTML, CSS, JavaScript | 2026-07-30 |
 | [generador-metadatos-seo](./generador-metadatos-seo) | Generador de etiquetas meta, Open Graph y JSON-LD con vista previa en vivo de Google, Facebook y X, medición por píxeles y nota SEO de 0 a 100 ([Demo en vivo](https://agc-generador-metadatos-seo.pages.dev)) | HTML/CSS/JS | 2026-07-31 |
+| [comparador-textos](./comparador-textos) | Comparador de textos con algoritmo de Myers: diferencias línea a línea y palabra por palabra, vista lado a lado o unificada, y exportación de parche `.diff` estándar ([Demo en vivo](https://agc-comparador-textos.pages.dev)) | HTML/CSS/JS | 2026-08-01 |
 
 ### Lote guiado por empleos reales de IA (13/07/2026)
 
