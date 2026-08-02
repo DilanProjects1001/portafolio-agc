@@ -1,0 +1,343 @@
+/* ============================================================
+   Calculadora de tarifas freelance — estilos
+   Sin frameworks ni CDNs. Contraste alto y controles grandes.
+   ============================================================ */
+
+:root {
+  --fondo: #0f172a;
+  --fondo-suave: #1e293b;
+  --tarjeta: #ffffff;
+  --texto: #0f172a;
+  --texto-suave: #475569;
+  --borde: #cbd5e1;
+  --primario: #1d4ed8;
+  --primario-oscuro: #1e40af;
+  --acento: #047857;
+  --acento-claro: #ecfdf5;
+  --aviso: #92400e;
+  --aviso-fondo: #fef3c7;
+  --radio: 14px;
+  --sombra: 0 6px 20px rgba(15, 23, 42, .18);
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  padding: 0 0 32px;
+  font-family: "Segoe UI", system-ui, -apple-system, Roboto, Arial, sans-serif;
+  font-size: 17px;
+  line-height: 1.5;
+  color: var(--texto);
+  background: #eef2f7;
+}
+
+/* ---------- Cabecera ----------
+   Bloque oscuro con esquinas redondeadas; las tarjetas suben sobre él
+   (margin-top negativo) para que el corte de color quede limpio. */
+.cabecera {
+  background: linear-gradient(160deg, #0f172a 0%, #1e3a8a 100%);
+  padding: 30px 20px 68px;
+  color: #f8fafc;
+  text-align: center;
+  border-radius: 0 0 24px 24px;
+}
+.cabecera h1 {
+  margin: 0 0 8px;
+  font-size: 2rem;
+  letter-spacing: -.5px;
+}
+.cabecera p {
+  margin: 0 auto;
+  max-width: 720px;
+  color: #cbd5e1;
+  font-size: 1rem;
+}
+.cabecera strong { color: #fff; }
+
+/* ---------- Rejilla ---------- */
+.contenido {
+  max-width: 1080px;
+  margin: -46px auto 0;
+  padding: 0 20px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  align-items: start;
+}
+.cotizador { grid-column: 1 / -1; }
+
+.tarjeta {
+  background: var(--tarjeta);
+  border-radius: var(--radio);
+  box-shadow: var(--sombra);
+  padding: 22px;
+}
+.tarjeta h2 {
+  margin: 0 0 16px;
+  font-size: 1.25rem;
+  color: var(--primario-oscuro);
+  border-bottom: 3px solid #e2e8f0;
+  padding-bottom: 10px;
+}
+.tarjeta h3 {
+  margin: 22px 0 10px;
+  font-size: .95rem;
+  text-transform: uppercase;
+  letter-spacing: .6px;
+  color: var(--texto-suave);
+}
+
+/* ---------- Formulario ---------- */
+fieldset {
+  border: 1px solid var(--borde);
+  border-radius: 10px;
+  padding: 14px 16px 16px;
+  margin: 0 0 16px;
+}
+legend {
+  font-weight: 700;
+  font-size: .9rem;
+  text-transform: uppercase;
+  letter-spacing: .5px;
+  color: var(--primario);
+  padding: 0 6px;
+}
+.campo { margin-bottom: 12px; }
+.campo:last-child { margin-bottom: 0; }
+label {
+  display: block;
+  font-weight: 600;
+  font-size: .95rem;
+  margin-bottom: 6px;
+  color: #1e293b;
+}
+.fila { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 12px; }
+.fila:last-child { margin-bottom: 0; }
+.fila-3 { grid-template-columns: repeat(3, 1fr); }
+/* Campos de una fila: el input se pega abajo, así los recuadros quedan
+   alineados aunque una etiqueta ocupe dos líneas. El margen lo lleva la
+   fila (si lo llevara el campo, el último quedaría 12px desplazado). */
+.fila .campo { display: flex; flex-direction: column; justify-content: flex-end; margin-bottom: 0; }
+
+input[type="number"], select {
+  width: 100%;
+  padding: 11px 12px;
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: var(--texto);
+  background: #f8fafc;
+  border: 2px solid var(--borde);
+  border-radius: 10px;
+}
+input[type="number"]:focus, select:focus, input[type="range"]:focus {
+  outline: 3px solid #93c5fd;
+  outline-offset: 1px;
+  border-color: var(--primario);
+  background: #fff;
+}
+
+/* Campo con símbolo de moneda pegado a la izquierda */
+.input-money { display: flex; align-items: stretch; }
+.input-money .prefijo {
+  display: flex;
+  align-items: center;
+  padding: 0 12px;
+  font-weight: 700;
+  background: #e2e8f0;
+  border: 2px solid var(--borde);
+  border-right: none;
+  border-radius: 10px 0 0 10px;
+  color: #334155;
+  min-width: 48px;
+  justify-content: center;
+}
+.input-money input { border-radius: 0 10px 10px 0; }
+
+input[type="range"] {
+  width: 100%;
+  height: 30px;
+  accent-color: var(--primario);
+}
+
+.ayuda {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 18px; height: 18px;
+  margin-left: 4px;
+  border-radius: 50%;
+  background: var(--primario);
+  color: #fff;
+  font-size: .72rem;
+  font-weight: 700;
+  cursor: help;
+}
+
+/* ---------- Botones grandes ---------- */
+.acciones { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 16px; }
+.btn {
+  /* nowrap + padding holgado: el texto del botón nunca se parte en dos líneas */
+  white-space: nowrap;
+  padding: 15px 16px;
+  font-size: 1rem;
+  font-weight: 700;
+  font-family: inherit;
+  border: 2px solid transparent;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: transform .06s ease, background .15s ease;
+}
+.btn:active { transform: translateY(1px); }
+/* El principal manda: ocupa el doble que el secundario, pero ambos crecen
+   para llenar la fila sin desbordarla. */
+.btn-primario { flex: 2 1 auto; background: var(--primario); color: #fff; }
+.btn-secundario { flex: 1 1 auto; }
+.cotizador .btn { flex: 1 1 100%; }
+.btn-primario:hover { background: var(--primario-oscuro); }
+.btn-secundario {
+  background: #fff;
+  color: var(--primario-oscuro);
+  border-color: var(--primario);
+}
+.btn-secundario:hover { background: #eff6ff; }
+
+/* ---------- Resultado ---------- */
+.destacado {
+  background: var(--acento-claro);
+  border: 2px solid #10b981;
+  border-radius: 12px;
+  padding: 18px;
+  text-align: center;
+}
+.destacado-etiqueta {
+  display: block;
+  font-size: .85rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: .8px;
+  color: var(--acento);
+}
+.destacado-valor {
+  display: block;
+  font-size: 2.8rem;
+  line-height: 1.1;
+  font-weight: 800;
+  color: #064e3b;
+  margin: 4px 0;
+}
+.destacado-nota { font-size: .85rem; color: #065f46; }
+
+.mini-grid, .cotiza-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-top: 14px;
+}
+.cotiza-grid { grid-template-columns: repeat(4, 1fr); }
+.mini {
+  background: #f1f5f9;
+  border: 1px solid var(--borde);
+  border-radius: 10px;
+  padding: 10px 12px;
+}
+.mini span {
+  display: block;
+  font-size: .8rem;
+  color: var(--texto-suave);
+  font-weight: 600;
+}
+.mini strong { font-size: 1.2rem; color: var(--primario-oscuro); }
+.mini.destacada { background: #dbeafe; border-color: var(--primario); }
+.mini.destacada strong { font-size: 1.35rem; }
+
+.desglose { width: 100%; border-collapse: collapse; font-size: .98rem; }
+.desglose th {
+  text-align: left;
+  font-weight: 600;
+  color: var(--texto-suave);
+  padding: 8px 0;
+  border-bottom: 1px solid #e2e8f0;
+}
+.desglose td {
+  text-align: right;
+  font-weight: 700;
+  padding: 8px 0;
+  border-bottom: 1px solid #e2e8f0;
+  font-variant-numeric: tabular-nums;
+}
+.desglose tr.total th, .desglose tr.total td {
+  border-bottom: none;
+  border-top: 3px solid var(--primario);
+  color: var(--primario-oscuro);
+  font-size: 1.1rem;
+  padding-top: 10px;
+}
+
+.aviso {
+  margin: 14px 0 0;
+  padding: 12px 14px;
+  background: var(--aviso-fondo);
+  border-left: 5px solid #d97706;
+  border-radius: 8px;
+  color: var(--aviso);
+  font-size: .92rem;
+  font-weight: 600;
+}
+
+/* ---------- Comparador "lo que cobras hoy" ---------- */
+.comparador {
+  background: #f8fafc;
+  border: 1px solid var(--borde);
+  border-radius: 12px;
+  padding: 14px 16px 16px;
+}
+.comparador .input-money { max-width: 220px; }
+.veredicto {
+  margin: 14px 0 0;
+  padding: 12px 14px;
+  border-radius: 10px;
+  border-left: 6px solid var(--borde);
+  background: #fff;
+  font-size: .95rem;
+  font-weight: 600;
+  color: var(--texto);
+}
+.veredicto.baja { border-left-color: #dc2626; background: #fef2f2; color: #991b1b; }
+.veredicto.justa { border-left-color: #d97706; background: var(--aviso-fondo); color: var(--aviso); }
+.veredicto.buena { border-left-color: var(--acento); background: var(--acento-claro); color: #065f46; }
+.comparador .mini strong.negativo { color: #b91c1c; }
+.comparador .mini strong.positivo { color: var(--acento); }
+
+.pie-cotiza {
+  margin: 12px 0 0;
+  color: var(--texto-suave);
+  font-size: .95rem;
+}
+.pie-cotiza strong { color: var(--primario-oscuro); }
+
+.mensaje {
+  margin: 12px 0 0;
+  padding: 10px 14px;
+  background: var(--acento-claro);
+  border-left: 5px solid var(--acento);
+  border-radius: 8px;
+  color: #065f46;
+  font-weight: 600;
+}
+
+.pie {
+  max-width: 1080px;
+  margin: 24px auto 0;
+  padding: 0 20px;
+  text-align: center;
+  color: var(--texto-suave);
+  font-size: .9rem;
+}
+
+/* ---------- Pantallas estrechas ---------- */
+@media (max-width: 860px) {
+  .contenido { grid-template-columns: 1fr; }
+  .cotiza-grid { grid-template-columns: 1fr 1fr; }
+  .cabecera h1 { font-size: 1.6rem; }
+}

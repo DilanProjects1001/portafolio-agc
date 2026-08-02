@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Calculadora de tarifas freelance</title>
+<meta name="description" content="Calcula tu tarifa por hora real como freelance: sueldo, gastos, vacaciones, impuestos y margen. 100% offline.">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<header class="cabecera">
+  <h1>Calculadora de tarifas freelance</h1>
+  <p>Descubre cuánto tienes que cobrar <strong>de verdad</strong> por hora para cubrir tu sueldo, tus gastos, tus vacaciones y tus impuestos. Todo se calcula en tu navegador: nada se envía a ningún servidor.</p>
+</header>
+
+<main class="contenido">
+
+  <!-- ================= Panel 1: tu tarifa mínima ================= -->
+  <section class="tarjeta formulario" aria-labelledby="t-datos">
+    <h2 id="t-datos">1. Tus números</h2>
+
+    <fieldset>
+      <legend>Lo que necesitas ganar</legend>
+      <div class="campo">
+        <label for="sueldo">Sueldo neto que quieres al mes</label>
+        <div class="input-money">
+          <span class="prefijo" data-simbolo>€</span>
+          <input type="number" id="sueldo" value="2000" min="0" step="50" inputmode="decimal">
+        </div>
+      </div>
+      <div class="campo">
+        <label for="gastos">Gastos fijos del negocio al mes
+          <span class="ayuda" title="Software, cuota de autónomo, gestoría, internet, equipo, seguros...">?</span>
+        </label>
+        <div class="input-money">
+          <span class="prefijo" data-simbolo>€</span>
+          <input type="number" id="gastos" value="400" min="0" step="25" inputmode="decimal">
+        </div>
+      </div>
+    </fieldset>
+
+    <fieldset>
+      <legend>Tu tiempo (al año)</legend>
+      <div class="fila">
+        <div class="campo">
+          <label for="diasSemana">Días por semana</label>
+          <input type="number" id="diasSemana" value="5" min="1" max="7" step="1">
+        </div>
+        <div class="campo">
+          <label for="horasDia">Horas por día</label>
+          <input type="number" id="horasDia" value="8" min="1" max="16" step="0.5">
+        </div>
+      </div>
+      <div class="fila fila-3">
+        <div class="campo">
+          <label for="vacaciones">Vacaciones</label>
+          <input type="number" id="vacaciones" value="22" min="0" step="1">
+        </div>
+        <div class="campo">
+          <label for="festivos">Festivos</label>
+          <input type="number" id="festivos" value="12" min="0" step="1">
+        </div>
+        <div class="campo">
+          <label for="enfermedad">Días de baja</label>
+          <input type="number" id="enfermedad" value="5" min="0" step="1">
+        </div>
+      </div>
+      <div class="campo">
+        <label for="utilizacion">Tiempo realmente facturable: <output id="utilizacionVal">60</output>%
+          <span class="ayuda" title="El resto se va en buscar clientes, presupuestos, facturas, correos y formación.">?</span>
+        </label>
+        <input type="range" id="utilizacion" value="60" min="10" max="100" step="5">
+      </div>
+    </fieldset>
+
+    <fieldset>
+      <legend>Impuestos y margen</legend>
+      <div class="fila">
+        <div class="campo">
+          <label for="impuestos">Impuestos (% del bruto)</label>
+          <input type="number" id="impuestos" value="25" min="0" max="90" step="1">
+        </div>
+        <div class="campo">
+          <label for="margen">Margen de beneficio (%)</label>
+          <input type="number" id="margen" value="15" min="0" max="200" step="1">
+        </div>
+      </div>
+      <div class="campo">
+        <label for="moneda">Moneda</label>
+        <select id="moneda">
+          <option value="€">Euro (€)</option>
+          <option value="$">Dólar ($)</option>
+          <option value="MXN$">Peso mexicano (MXN$)</option>
+          <option value="COP$">Peso colombiano (COP$)</option>
+          <option value="Bs">Bolívar (Bs)</option>
+        </select>
+      </div>
+    </fieldset>
+
+    <div class="acciones">
+      <button type="button" id="btnCalcular" class="btn btn-primario">Calcular mi tarifa</button>
+      <button type="button" id="btnReset" class="btn btn-secundario">Restablecer</button>
+    </div>
+  </section>
+
+  <!-- ================= Panel 2: resultado ================= -->
+  <section class="tarjeta resultado" aria-labelledby="t-resultado" aria-live="polite">
+    <h2 id="t-resultado">2. Tu tarifa mínima</h2>
+
+    <div class="destacado">
+      <span class="destacado-etiqueta">Precio por hora</span>
+      <strong class="destacado-valor" id="rTarifaHora">—</strong>
+      <span class="destacado-nota">es el mínimo para no perder dinero</span>
+    </div>
+
+    <div class="mini-grid">
+      <div class="mini">
+        <span>Por día</span>
+        <strong id="rTarifaDia">—</strong>
+      </div>
+      <div class="mini">
+        <span>A facturar al mes</span>
+        <strong id="rMensual">—</strong>
+      </div>
+      <div class="mini">
+        <span>Horas facturables/mes</span>
+        <strong id="rHorasMes">—</strong>
+      </div>
+      <div class="mini">
+        <span>Días trabajados/año</span>
+        <strong id="rDias">—</strong>
+      </div>
+    </div>
+
+    <h3>De dónde sale ese número (al año)</h3>
+    <table class="desglose">
+      <tbody>
+        <tr><th>Tu sueldo</th><td id="rSueldo">—</td></tr>
+        <tr><th>Gastos del negocio</th><td id="rGastos">—</td></tr>
+        <tr><th>Margen de beneficio</th><td id="rMargen">—</td></tr>
+        <tr><th>Impuestos</th><td id="rImpuestos">—</td></tr>
+        <tr class="total"><th>Debes facturar</th><td id="rBruto">—</td></tr>
+      </tbody>
+    </table>
+
+    <p class="aviso" id="aviso" hidden></p>
+
+    <h3>¿Y lo que cobras hoy?</h3>
+    <div class="comparador">
+      <div class="campo">
+        <label for="tarifaActual">Tu tarifa actual por hora</label>
+        <div class="input-money">
+          <span class="prefijo" data-simbolo>€</span>
+          <input type="number" id="tarifaActual" value="30" min="0" step="1" inputmode="decimal">
+        </div>
+      </div>
+      <p class="veredicto" id="veredicto">—</p>
+      <div class="mini-grid">
+        <div class="mini">
+          <span>Diferencia por hora</span>
+          <strong id="rDifHora">—</strong>
+        </div>
+        <div class="mini">
+          <span>Al año</span>
+          <strong id="rDifAnual">—</strong>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= Panel 3: cotizador ================= -->
+  <section class="tarjeta cotizador" aria-labelledby="t-cotizar">
+    <h2 id="t-cotizar">3. Cotiza un proyecto con esa tarifa</h2>
+    <div class="fila fila-3">
+      <div class="campo">
+        <label for="pHoras">Horas estimadas</label>
+        <input type="number" id="pHoras" value="40" min="0" step="1">
+      </div>
+      <div class="campo">
+        <label for="pRiesgo">Colchón de riesgo (%)
+          <span class="ayuda" title="Los proyectos siempre se alargan: cambios, revisiones, reuniones extra.">?</span>
+        </label>
+        <input type="number" id="pRiesgo" value="20" min="0" max="100" step="5">
+      </div>
+      <div class="campo">
+        <label for="pDescuento">Descuento (%)</label>
+        <input type="number" id="pDescuento" value="0" min="0" max="90" step="5">
+      </div>
+    </div>
+
+    <div class="cotiza-grid">
+      <div class="mini"><span>Horas con colchón</span><strong id="cHoras">—</strong></div>
+      <div class="mini"><span>Subtotal</span><strong id="cSubtotal">—</strong></div>
+      <div class="mini"><span>Descuento</span><strong id="cDescuento">—</strong></div>
+      <div class="mini destacada"><span>Precio a cobrar</span><strong id="cTotal">—</strong></div>
+    </div>
+    <p class="pie-cotiza">Tarifa efectiva tras el descuento: <strong id="cEfectiva">—</strong> por hora.</p>
+
+    <div class="acciones">
+      <button type="button" id="btnCopiar" class="btn btn-primario">Copiar presupuesto</button>
+    </div>
+    <p class="mensaje" id="mensaje" hidden></p>
+  </section>
+
+</main>
+
+<footer class="pie">
+  <p>Hecho para freelancers que cobran menos de lo que deberían. Funciona sin internet y sin registro.</p>
+</footer>
+
+<script src="src/tarifas.js"></script>
+<script src="app.js"></script>
+</body>
+</html>

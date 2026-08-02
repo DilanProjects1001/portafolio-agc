@@ -1,0 +1,69 @@
+
+== Calculadora de tarifas freelance: verificacion ==
+
+[1] Caso base (sin impuestos, sin margen, 100% facturable)
+  OK   260 dias trabajados (5 x 52)
+  OK   2080 horas facturables
+  OK   coste anual = 24000
+  OK   tarifa/hora = 11.54
+  OK   tarifa/dia = tarifa/hora x 8
+  OK   sin impuestos el bruto = coste
+
+[2] Vacaciones y festivos
+  OK   35 dias libres descontados
+  OK   225 dias trabajados
+  OK   menos dias => tarifa mayor
+  OK   mismo coste anual
+
+[3] Utilizacion al 50%
+  OK   horas facturables = la mitad
+  OK   tarifa = el doble
+
+[4] Impuestos al 20%
+  OK   bruto necesario = 30000
+  OK   impuestos anuales = 6000
+  OK   bruto - impuestos = coste
+
+[5] Gastos fijos y margen
+  OK   gastos anuales = 6000
+  OK   coste anual = 30000
+  OK   margen anual = 3000
+  OK   bruto = 33000
+  OK   facturacion mensual = 2750
+
+[6] Robustez con entradas invalidas
+  OK   sin datos no da NaN
+  OK   sin datos la tarifa es 0
+  OK   valores absurdos siguen dando numero finito
+  OK   dias por semana se limita a 7
+  OK   al menos 1 dia trabajado
+  OK   texto no numerico se ignora (gastos=0)
+
+[7] Cotizacion de proyecto
+  OK   40h + 20% riesgo = 48h
+  OK   48h x 50 = 2400
+  OK   tarifa efectiva sube con riesgo
+  OK   descuento 10% sobre 2000 = 200
+  OK   total con descuento = 1800
+  OK   descuento baja la tarifa efectiva a 45
+  OK   0 horas no divide por cero
+
+[8] Comparacion con lo que cobras hoy
+  OK   diferencia por hora = -10
+  OK   pierde 10000 al ano
+  OK   veredicto: baja
+  OK   gana 15000 extra al ano
+  OK   veredicto: buena
+  OK   veredicto: justa (tolerancia 2%)
+  OK   ingreso anual actual = 40000
+  OK   comparador sin datos no da NaN
+
+[9] Formato de dinero (es-ES)
+  OK   1234.5 -> 1.234,50
+  OK   con simbolo
+  OK   NaN -> 0,00
+
+-----------------------------------------
+Pruebas pasadas: 44 | fallidas: 0
+RESULTADO: TODO OK
+
