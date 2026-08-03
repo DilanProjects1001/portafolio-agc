@@ -36,6 +36,7 @@ Cada carpeta es un proyecto independiente con su propio README, código y verifi
 | [generador-metadatos-seo](./generador-metadatos-seo) | Generador de etiquetas meta, Open Graph y JSON-LD con vista previa en vivo de Google, Facebook y X, medición por píxeles y nota SEO de 0 a 100 ([Demo en vivo](https://agc-generador-metadatos-seo.pages.dev)) | HTML/CSS/JS | 2026-07-31 |
 | [comparador-textos](./comparador-textos) | Comparador de textos con algoritmo de Myers: diferencias línea a línea y palabra por palabra, vista lado a lado o unificada, y exportación de parche `.diff` estándar ([Demo en vivo](https://agc-comparador-textos.pages.dev)) | HTML/CSS/JS | 2026-08-01 |
 | [calculadora-tarifas-freelance](./calculadora-tarifas-freelance) | Calcula la tarifa por hora mínima real de un freelance (gastos, vacaciones, tiempo facturable, impuestos y margen), compara con lo que cobras hoy y genera presupuestos de proyecto ([Demo en vivo](https://agc-calculadora-tarifas-freelance.pages.dev)) | HTML/CSS/JS vanilla, sin dependencias | 2026-08-02 |
+| [generador-politica-privacidad](./generador-politica-privacidad) | Genera la Política de Privacidad, la Política de Cookies y el Aviso Legal de una web adaptados a 8 jurisdicciones (RGPD/LOPDGDD, LFPDPPP, CCPA…), con exportación a Markdown y HTML y 34 pruebas automáticas ([Demo en vivo](https://agc-generador-politica-privacidad.pages.dev)) | HTML/CSS/JS vanilla + módulo UMD para Node | 2026-08-03 |
 
 ### Lote guiado por empleos reales de IA (13/07/2026)
 

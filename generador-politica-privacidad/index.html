@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Generador de Política de Privacidad, Cookies y Aviso Legal</title>
+<meta name="description" content="Genera la Política de Privacidad, la Política de Cookies y el Aviso Legal de tu web en segundos. 100% offline, sin registro y sin enviar datos a ningún servidor.">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<header class="cabecera">
+  <div class="contenedor cabecera-inner">
+    <div>
+      <h1>Generador de documentos legales para tu web</h1>
+      <p class="subtitulo">Política de Privacidad, Política de Cookies y Aviso Legal en segundos.
+        Todo se genera <strong>en tu navegador</strong>: tus datos nunca salen de este equipo.</p>
+    </div>
+    <span class="insignia" title="No hay servidor: puedes desconectar internet y seguir funcionando">100% offline</span>
+  </div>
+</header>
+
+<main class="contenedor principal">
+
+  <!-- ------------------------ FORMULARIO ------------------------ -->
+  <section class="panel" aria-labelledby="tit-datos">
+    <h2 id="tit-datos">1. Tus datos</h2>
+
+    <form id="formulario" novalidate>
+
+      <fieldset>
+        <legend>Responsable</legend>
+
+        <label for="empresa">Nombre de la empresa o responsable <span class="req">*</span></label>
+        <input type="text" id="empresa" name="empresa" placeholder="Estudio Nova S.L." autocomplete="organization">
+        <p class="error" id="err-empresa"></p>
+
+        <label for="identificacion">Identificación fiscal (CIF/NIF/RFC/RUT) <span class="opt">opcional</span></label>
+        <input type="text" id="identificacion" name="identificacion" placeholder="B-12345678">
+
+        <label for="sitio">Dirección del sitio web <span class="req">*</span></label>
+        <input type="url" id="sitio" name="sitio" placeholder="https://tudominio.com" inputmode="url">
+        <p class="error" id="err-sitio"></p>
+
+        <label for="email">Correo de contacto para ejercer derechos <span class="req">*</span></label>
+        <input type="email" id="email" name="email" placeholder="privacidad@tudominio.com" inputmode="email">
+        <p class="error" id="err-email"></p>
+
+        <label for="direccion">Dirección postal <span class="opt">opcional</span></label>
+        <input type="text" id="direccion" name="direccion" placeholder="Calle Mayor 10, 28013 Madrid">
+
+        <label for="jurisdiccion">País / normativa aplicable</label>
+        <select id="jurisdiccion" name="jurisdiccion"></select>
+      </fieldset>
+
+      <fieldset>
+        <legend>Datos que recoge tu web <span class="req">*</span></legend>
+        <div class="rejilla-casillas" id="grupo-datos"></div>
+        <p class="error" id="err-datos"></p>
+      </fieldset>
+
+      <fieldset>
+        <legend>Servicios de terceros que utilizas</legend>
+        <div class="rejilla-casillas" id="grupo-terceros"></div>
+      </fieldset>
+
+      <fieldset>
+        <legend>Cookies y ajustes</legend>
+
+        <div class="rejilla-casillas">
+          <label class="casilla"><input type="checkbox" id="cookiesAnaliticas"> <span>Uso cookies analíticas</span></label>
+          <label class="casilla"><input type="checkbox" id="cookiesMarketing"> <span>Uso cookies publicitarias</span></label>
+          <label class="casilla"><input type="checkbox" id="transferencias"> <span>Proveedores fuera de mi país</span></label>
+          <label class="casilla"><input type="checkbox" id="newsletter"> <span>Envío boletín / newsletter</span></label>
+        </div>
+
+        <div class="fila">
+          <div>
+            <label for="retencion">Conservación de datos (meses)</label>
+            <input type="number" id="retencion" min="1" max="240" step="1" value="24">
+            <p class="error" id="err-retencion"></p>
+          </div>
+          <div>
+            <label for="edadMinima">Edad mínima de uso (años)</label>
+            <input type="number" id="edadMinima" min="13" max="21" step="1" value="14">
+            <p class="error" id="err-edadMinima"></p>
+          </div>
+          <div>
+            <label for="fecha">Fecha del documento</label>
+            <input type="date" id="fecha">
+          </div>
+        </div>
+      </fieldset>
+
+      <div class="acciones">
+        <button type="button" id="btn-generar" class="btn btn-primario">Generar documentos</button>
+        <button type="button" id="btn-ejemplo" class="btn btn-secundario">Cargar ejemplo</button>
+        <button type="button" id="btn-limpiar" class="btn btn-fantasma">Limpiar</button>
+      </div>
+      <p class="nota-guardado" id="nota-guardado">Tus datos se guardan solo en este navegador (localStorage).</p>
+    </form>
+  </section>
+
+  <!-- ------------------------ RESULTADO ------------------------ -->
+  <section class="panel" aria-labelledby="tit-resultado">
+    <h2 id="tit-resultado">2. Tus documentos</h2>
+
+    <div class="pestanas" role="tablist" aria-label="Documentos generados">
+      <button class="pestana activa" role="tab" data-doc="privacidad" aria-selected="true">Privacidad</button>
+      <button class="pestana" role="tab" data-doc="cookies" aria-selected="false">Cookies</button>
+      <button class="pestana" role="tab" data-doc="terminos" aria-selected="false">Aviso legal</button>
+    </div>
+
+    <div class="barra-salida">
+      <div class="grupo-vista" role="group" aria-label="Modo de vista">
+        <button class="mini activa" id="vista-formato">Vista previa</button>
+        <button class="mini" id="vista-markdown">Markdown</button>
+      </div>
+      <div class="grupo-descarga">
+        <button class="mini" id="btn-copiar">Copiar</button>
+        <button class="mini" id="btn-md">Descargar .md</button>
+        <button class="mini" id="btn-html">Descargar .html</button>
+      </div>
+    </div>
+
+    <div id="salida" class="salida" aria-live="polite">
+      <p class="vacio">Rellena el formulario y pulsa <strong>Generar documentos</strong>.
+        Si quieres verlo funcionando ya, pulsa <strong>Cargar ejemplo</strong>.</p>
+    </div>
+    <pre id="salida-md" class="salida-md" hidden></pre>
+
+    <p class="aviso">
+      ⚠️ <strong>Aviso:</strong> esta herramienta genera una plantilla profesional a partir de tus respuestas,
+      pero no sustituye el asesoramiento de un abogado. Revisa el texto antes de publicarlo.
+    </p>
+  </section>
+
+</main>
+
+<footer class="pie">
+  <div class="contenedor">
+    <p>Hecho con HTML, CSS y JavaScript puro — sin dependencias, sin servidores, sin rastreo.</p>
+  </div>
+</footer>
+
+<div id="aviso-copia" class="toast" hidden>Copiado al portapapeles</div>
+
+<script src="src/generator.js"></script>
+<script src="src/app.js"></script>
+</body>
+</html>
