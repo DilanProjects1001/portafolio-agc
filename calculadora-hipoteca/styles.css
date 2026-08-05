@@ -1,0 +1,394 @@
+/* ============================================================
+   Calculadora de hipoteca — estilos
+   Sin frameworks ni CDNs. Contraste alto y controles grandes.
+   ============================================================ */
+
+:root {
+  --texto: #0f172a;
+  --texto-suave: #475569;
+  --borde: #cbd5e1;
+  --tarjeta: #ffffff;
+  --primario: #1d4ed8;
+  --primario-oscuro: #1e3a8a;
+  --capital: #1d4ed8;
+  --interes: #c2410c;
+  --interes-fondo: #fff7ed;
+  --exito: #047857;
+  --error: #b91c1c;
+  --error-fondo: #fef2f2;
+  --radio: 14px;
+  --sombra: 0 6px 20px rgba(15, 23, 42, .16);
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  padding: 0 0 8px;
+  font-family: "Segoe UI", system-ui, -apple-system, Roboto, Arial, sans-serif;
+  font-size: 17px;
+  line-height: 1.5;
+  color: var(--texto);
+  background: #eef2f7;
+}
+
+/* ---------- Cabecera ----------
+   Bloque oscuro; las tarjetas suben sobre él con margin-top negativo
+   para que el corte de color quede limpio. */
+.cabecera {
+  background: linear-gradient(160deg, #0f172a 0%, #1e3a8a 100%);
+  padding: 32px 20px 70px;
+  color: #fff;
+  text-align: center;
+}
+.cabecera h1 {
+  margin: 0 0 10px;
+  font-size: 2.1rem;
+  letter-spacing: -.5px;
+}
+.cabecera p {
+  margin: 0 auto;
+  max-width: 680px;
+  color: #dbeafe;
+  font-size: 1.02rem;
+}
+.cabecera strong { color: #fff; }
+
+/* ---------- Estructura ---------- */
+.contenido {
+  max-width: 980px;
+  margin: -52px auto 0;
+  padding: 0 16px;
+  display: grid;
+  gap: 20px;
+}
+
+.tarjeta {
+  background: var(--tarjeta);
+  border-radius: var(--radio);
+  box-shadow: var(--sombra);
+  padding: 24px;
+}
+.tarjeta + .tarjeta,
+#resultados > .tarjeta + .tarjeta { margin-top: 20px; }
+
+.tarjeta h2 {
+  margin: 0 0 16px;
+  font-size: 1.25rem;
+  color: var(--primario-oscuro);
+}
+
+/* ---------- Formulario ---------- */
+.campo { margin-bottom: 16px; }
+.campo label {
+  display: block;
+  margin-bottom: 6px;
+  font-weight: 600;
+  font-size: .97rem;
+}
+
+.fila {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.input-money {
+  display: flex;
+  align-items: stretch;
+  border: 2px solid var(--borde);
+  border-radius: 10px;
+  overflow: hidden;
+  background: #fff;
+  transition: border-color .15s;
+}
+.input-money:focus-within { border-color: var(--primario); }
+
+.input-money .prefijo {
+  display: flex;
+  align-items: center;
+  padding: 0 14px;
+  background: #f1f5f9;
+  color: var(--texto-suave);
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.input-money input {
+  flex: 1;
+  min-width: 0;
+  border: 0;
+  outline: 0;
+  padding: 13px 14px;
+  font-size: 1.15rem;
+  font-weight: 600;
+  font-family: inherit;
+  color: var(--texto);
+  background: transparent;
+}
+
+select#moneda {
+  width: 100%;
+  padding: 12px 14px;
+  font-size: 1rem;
+  font-family: inherit;
+  border: 2px solid var(--borde);
+  border-radius: 10px;
+  background: #fff;
+  color: var(--texto);
+}
+select#moneda:focus { outline: 0; border-color: var(--primario); }
+
+.pista {
+  margin: 6px 0 0;
+  font-size: .87rem;
+  color: var(--texto-suave);
+}
+.pista.centrado { text-align: center; }
+
+.boton-principal {
+  width: 100%;
+  margin-top: 8px;
+  padding: 15px 20px;
+  font-size: 1.1rem;
+  font-weight: 700;
+  font-family: inherit;
+  color: #fff;
+  background: var(--primario);
+  border: 0;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background .15s;
+}
+.boton-principal:hover { background: var(--primario-oscuro); }
+.boton-principal:active { transform: translateY(1px); }
+
+.error {
+  margin: 0 0 12px;
+  padding: 12px 14px;
+  border-radius: 10px;
+  border-left: 5px solid var(--error);
+  background: var(--error-fondo);
+  color: var(--error);
+  font-weight: 600;
+  font-size: .94rem;
+}
+
+/* ---------- Resumen ---------- */
+.destacado {
+  text-align: center;
+  padding: 20px;
+  border-radius: 12px;
+  background: linear-gradient(160deg, #eff6ff 0%, #dbeafe 100%);
+  border: 2px solid #bfdbfe;
+}
+.destacado .etiqueta {
+  display: block;
+  font-size: .92rem;
+  font-weight: 600;
+  color: var(--primario-oscuro);
+  text-transform: uppercase;
+  letter-spacing: .6px;
+}
+.cifra-grande {
+  display: block;
+  margin: 4px 0 2px;
+  font-size: 3rem;
+  font-weight: 800;
+  line-height: 1.1;
+  color: var(--primario-oscuro);
+  letter-spacing: -1px;
+}
+.destacado .sub {
+  font-size: .92rem;
+  color: var(--texto-suave);
+}
+
+.rejilla-cifras {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  margin-top: 16px;
+}
+.cifra {
+  padding: 14px;
+  border-radius: 10px;
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  text-align: center;
+}
+.cifra .etiqueta {
+  display: block;
+  font-size: .82rem;
+  font-weight: 600;
+  color: var(--texto-suave);
+  margin-bottom: 4px;
+}
+.cifra strong {
+  font-size: 1.32rem;
+  font-weight: 800;
+  letter-spacing: -.3px;
+}
+.cifra-interes { background: var(--interes-fondo); border-color: #fed7aa; }
+.cifra-interes strong { color: var(--interes); }
+.cifra-total { background: #f0fdf4; border-color: #bbf7d0; }
+.cifra-total strong { color: var(--exito); }
+
+/* Barra capital vs intereses sobre el total pagado. */
+.barra-proporcion {
+  display: flex;
+  height: 34px;
+  margin-top: 18px;
+  border-radius: 8px;
+  overflow: hidden;
+  font-size: .82rem;
+  font-weight: 700;
+  color: #fff;
+}
+.barra-capital,
+.barra-interes {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  white-space: nowrap;
+  overflow: hidden;
+}
+.barra-capital { background: var(--capital); }
+.barra-interes { background: var(--interes); flex: 1; }
+
+.nota {
+  margin: 10px 0 0;
+  font-size: .9rem;
+  color: var(--texto-suave);
+  text-align: center;
+}
+
+/* ---------- Gráfico ---------- */
+.leyenda {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 18px;
+  margin: 12px 0 8px;
+  font-size: .88rem;
+  color: var(--texto-suave);
+}
+.clave { display: flex; align-items: center; gap: 7px; }
+.muestra {
+  width: 22px;
+  height: 4px;
+  border-radius: 2px;
+  display: inline-block;
+}
+.muestra-saldo { background: var(--capital); }
+.muestra-interes { background: var(--interes); }
+
+.lienzo-caja {
+  border: 1px solid #e2e8f0;
+  border-radius: 10px;
+  padding: 8px;
+  background: #fff;
+}
+#grafico {
+  display: block;
+  width: 100%;
+  height: 320px;
+}
+
+/* ---------- Tabla de amortización ---------- */
+.cabecera-tabla {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+.cabecera-tabla h2 { margin: 0; }
+.chip {
+  padding: 5px 12px;
+  border-radius: 999px;
+  background: #e0e7ff;
+  color: var(--primario-oscuro);
+  font-size: .85rem;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.scroll-tabla {
+  margin-top: 12px;
+  max-height: 420px;
+  overflow: auto;
+  border: 1px solid #e2e8f0;
+  border-radius: 10px;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: .93rem;
+  font-variant-numeric: tabular-nums;
+}
+thead th {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  background: #1e3a8a;
+  color: #fff;
+  text-align: right;
+  padding: 11px 12px;
+  font-size: .85rem;
+  letter-spacing: .3px;
+  white-space: nowrap;
+}
+thead th:first-child { text-align: left; }
+
+tbody td {
+  padding: 9px 12px;
+  text-align: right;
+  border-bottom: 1px solid #eef2f7;
+  white-space: nowrap;
+}
+tbody tr:nth-child(even) { background: #f8fafc; }
+/* Marca visual al empezar cada año: la tabla larga se lee mucho mejor. */
+tbody tr.inicio-anio td { border-top: 2px solid #cbd5e1; }
+
+.col-mes {
+  text-align: left !important;
+  line-height: 1.25;
+}
+.col-mes strong {
+  display: inline-block;
+  min-width: 34px;
+  color: var(--primario-oscuro);
+}
+.col-mes span {
+  display: block;
+  font-size: .76rem;
+  color: var(--texto-suave);
+}
+.col-capital { color: var(--capital); font-weight: 700; }
+.col-interes { color: var(--interes); }
+.col-saldo { font-weight: 700; }
+
+/* ---------- Pie ---------- */
+.pie {
+  max-width: 980px;
+  margin: 24px auto 0;
+  padding: 0 16px 28px;
+  text-align: center;
+}
+.pie p {
+  margin: 0;
+  font-size: .85rem;
+  color: var(--texto-suave);
+}
+
+/* ---------- Móvil ---------- */
+@media (max-width: 700px) {
+  body { font-size: 16px; }
+  .cabecera h1 { font-size: 1.6rem; }
+  .fila { grid-template-columns: 1fr; }
+  .rejilla-cifras { grid-template-columns: 1fr; }
+  .cifra-grande { font-size: 2.3rem; }
+  .tarjeta { padding: 18px; }
+  table { font-size: .86rem; }
+  tbody td, thead th { padding: 8px; }
+}

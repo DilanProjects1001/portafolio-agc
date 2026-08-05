@@ -1,0 +1,70 @@
+
+== Calculadora de hipoteca: verificacion del motor ==
+
+[1] Caso conocido: 200000, 6% anual, 30 anios
+      cuota calculada = 1199.101050
+  OK    pago mensual = 1199.10
+  OK    360 pagos en la tabla
+  OK    primer mes: interes = 1000.00
+  OK    primer mes: capital = 199.10
+  OK    saldo final = 0
+  OK    intereses totales ~ 231676
+  OK    total pagado ~ 431676
+      intereses totales = 231676.38 | total pagado = 431676.38
+
+[2] Caso conocido: 150000, 4.5% anual, 15 anios
+      cuota calculada = 1147.489933
+  OK    pago mensual = 1147.49
+  OK    180 pagos en la tabla
+  OK    primer mes: interes = 562.50
+  OK    saldo final = 0
+      intereses totales = 56548.19
+
+[3] Coherencia de la tabla de amortizacion
+  OK    suma de capital = monto prestado
+  OK    suma de intereses = interesTotal
+  OK    capital + intereses = total pagado
+  OK    en cada fila capital + interes = cuota
+  OK    el saldo baja todos los meses
+  OK    interes del mes = saldo previo x tasa mensual
+  OK    mes 1: se paga mas interes que capital
+  OK    mes 360: se paga mas capital que interes
+  OK    acumulados coherentes al final
+
+[4] Prestamo sin intereses (0%)
+  OK    cuota = monto / meses = 1000
+  OK    sin intereses el interes total es 0
+  OK    total pagado = monto prestado
+  OK    saldo final = 0
+
+[5] Relaciones logicas
+  OK    menos plazo => cuota mas alta
+  OK    menos plazo => menos intereses
+  OK    mas tasa => cuota mas alta
+  OK    doble monto => doble cuota (es lineal)
+  OK    total pagado > monto prestado
+  OK    coste por euro prestado ~ 1.158
+
+[6] Robustez con entradas invalidas
+  OK    monto 0 => cuota 0
+  OK    plazo 0 => cuota 0
+  OK    monto negativo => cuota 0
+  OK    texto no numerico => cuota 0
+  OK    tabla vacia si el monto es 0
+  OK    sin datos no da NaN
+  OK    sin datos la tabla esta vacia
+  OK    sin datos no divide por cero en costePorEuro
+  OK    acepta numeros como texto y coma decimal
+  OK    coma decimal se lee como 5.5%
+
+[7] Formato de dinero (es-ES)
+  OK    1199.1 -> 1.199,10
+  OK    con simbolo
+  OK    millones con separadores
+  OK    NaN -> 0,00
+  OK    negativo conserva el signo
+
+-----------------------------------------
+Pruebas pasadas: 45 | fallidas: 0
+RESULTADO: TODO OK
+

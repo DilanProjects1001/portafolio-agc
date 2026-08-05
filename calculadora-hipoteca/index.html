@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Calculadora de hipoteca — cuota y tabla de amortización</title>
+<meta name="description" content="Calcula la cuota mensual de tu hipoteca, los intereses totales y la tabla de amortización mes a mes. Funciona sin internet y nada sale de tu navegador.">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<header class="cabecera">
+  <h1>Calculadora de hipoteca</h1>
+  <p>Descubre <strong>cuánto pagarás cada mes</strong>, cuántos intereses te costará el préstamo y cómo baja tu deuda mes a mes. Todo se calcula en tu navegador: no se envía nada a ningún servidor.</p>
+</header>
+
+<main class="contenido">
+
+  <!-- ===================== Formulario ===================== -->
+  <section class="tarjeta formulario" aria-labelledby="t-datos">
+    <h2 id="t-datos">Datos del préstamo</h2>
+
+    <form id="formulario" novalidate>
+      <div class="campo">
+        <label for="monto">Monto del préstamo</label>
+        <div class="input-money">
+          <span class="prefijo" id="simbolo-monto">€</span>
+          <input type="number" id="monto" value="200000" min="0" step="1000" inputmode="decimal">
+        </div>
+        <p class="pista">Lo que pides al banco, no el precio de la vivienda (resta la entrada).</p>
+      </div>
+
+      <div class="fila">
+        <div class="campo">
+          <label for="tasa">Tasa de interés anual</label>
+          <div class="input-money sufijo">
+            <input type="number" id="tasa" value="6" min="0" max="100" step="0.05" inputmode="decimal">
+            <span class="prefijo">%</span>
+          </div>
+        </div>
+        <div class="campo">
+          <label for="anios">Plazo</label>
+          <div class="input-money sufijo">
+            <input type="number" id="anios" value="30" min="1" max="50" step="1" inputmode="numeric">
+            <span class="prefijo">años</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="campo campo-moneda">
+        <label for="moneda">Moneda</label>
+        <select id="moneda">
+          <option value="€">€ Euro</option>
+          <option value="$">$ Dólar</option>
+          <option value="£">£ Libra</option>
+          <option value="S/">S/ Sol</option>
+          <option value="MX$">MX$ Peso mexicano</option>
+        </select>
+      </div>
+
+      <p class="error" id="error" hidden role="alert"></p>
+
+      <button type="submit" class="boton-principal">Calcular hipoteca</button>
+      <p class="pista centrado">El resultado se actualiza solo mientras escribes.</p>
+    </form>
+  </section>
+
+  <!-- ===================== Resultados ===================== -->
+  <div id="resultados" hidden>
+
+    <section class="tarjeta resumen" aria-labelledby="t-resumen">
+      <h2 id="t-resumen">Tu resumen</h2>
+
+      <div class="destacado">
+        <span class="etiqueta">Pago mensual</span>
+        <strong class="cifra-grande" id="res-cuota">—</strong>
+        <span class="sub" id="res-pagos">—</span>
+      </div>
+
+      <div class="rejilla-cifras">
+        <div class="cifra">
+          <span class="etiqueta">Capital prestado</span>
+          <strong id="res-capital">—</strong>
+        </div>
+        <div class="cifra cifra-interes">
+          <span class="etiqueta">Intereses totales</span>
+          <strong id="res-interes">—</strong>
+        </div>
+        <div class="cifra cifra-total">
+          <span class="etiqueta">Total que devolverás</span>
+          <strong id="res-total">—</strong>
+        </div>
+      </div>
+
+      <div class="barra-proporcion" aria-hidden="true">
+        <div class="barra-capital" id="barra-capital"></div>
+        <div class="barra-interes" id="barra-interes"></div>
+      </div>
+      <p class="nota" id="res-coste">—</p>
+    </section>
+
+    <section class="tarjeta grafico-caja" aria-labelledby="t-grafico">
+      <h2 id="t-grafico">Cómo baja tu deuda</h2>
+      <p class="pista">La zona azul es lo que aún debes. La línea naranja son los intereses que llevas pagados acumulados.</p>
+      <div class="leyenda">
+        <span class="clave"><i class="muestra muestra-saldo"></i> Saldo pendiente</span>
+        <span class="clave"><i class="muestra muestra-interes"></i> Intereses acumulados</span>
+      </div>
+      <div class="lienzo-caja">
+        <canvas id="grafico" width="820" height="320" role="img"
+                aria-label="Gráfico de evolución del saldo pendiente y de los intereses acumulados a lo largo del préstamo"></canvas>
+      </div>
+    </section>
+
+    <section class="tarjeta tabla-caja" aria-labelledby="t-tabla">
+      <div class="cabecera-tabla">
+        <h2 id="t-tabla">Tabla de amortización</h2>
+        <span class="chip" id="tabla-conteo">—</span>
+      </div>
+      <p class="pista">Cada fila es un mes. Al principio casi todo el pago se va en intereses; con el tiempo la balanza se invierte.</p>
+      <div class="scroll-tabla">
+        <table>
+          <thead>
+            <tr>
+              <th scope="col">Mes</th>
+              <th scope="col">Cuota</th>
+              <th scope="col">A capital</th>
+              <th scope="col">A intereses</th>
+              <th scope="col">Saldo restante</th>
+            </tr>
+          </thead>
+          <tbody id="tabla-cuerpo"></tbody>
+        </table>
+      </div>
+    </section>
+
+  </div>
+</main>
+
+<footer class="pie">
+  <p>Calculadora orientativa (sistema francés de cuota fija). No incluye seguros, comisiones ni gastos de notaría. Consulta siempre las condiciones reales de tu banco.</p>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>
